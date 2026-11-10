@@ -2278,7 +2278,7 @@ html&gt;body{padding:0}&lt;/style&gt;
         if (path === &quot;realm_signing_keys.sequence&quot;) return &quot;域名公钥集合的版本；独立于每个 Realm Profile 的 sequence。&quot;;
         if (path === &quot;realm_signing_keys.keys&quot;) return &quot;归属此域名持钥方的 public keys；对应私钥签本域 Realm Profile。&quot;;
         if (path === &quot;realm_signing_keys.signature&quot;) return &quot;域名公钥集合的签名；只保护此集合，不覆盖顶层 services。&quot;;
-        if (path === &quot;realm_signing_keys.signature.key_id&quot;) return &quot;签公钥集合的域名 key id；结合域名信任与历史版本校验。&quot;;
+        if (path === &quot;realm_signing_keys.signature.key_id&quot;) return &quot;按此 id 从同一 realm_signing_keys.keys[] 选择 active public_key；首次信任依赖 HTTPS / 企业 pin，之后校验历史与轮换链。&quot;;
         const publisherComments = {
           publisher:&quot;签名的 Publisher Profile；AFP 登记 Publisher、Host 验证程序来源时读取。&quot;,
           &quot;publisher.schema&quot;:&quot;Publisher Profile 的格式标识。&quot;,
@@ -2386,6 +2386,28 @@ html&gt;body{padding:0}&lt;/style&gt;
         return copied;
       }
       async function copyText(text) {
+        if (window.parent &amp;&amp; window.parent !== window) {
+          try {
+            await new Promise(function (resolve,reject) {
+              const id = Date.now().toString(36) + Math.random().toString(36).slice(2);
+              const timer = window.setTimeout(function () {
+                window.removeEventListener(&quot;message&quot;,receive);
+                reject(new Error(&quot;Clipboard bridge unavailable&quot;));
+              },1000);
+              function receive(event) {
+                const data = event.data;
+                if (event.source !== window.parent || !data || data.type !== &quot;actrium:clipboard-result&quot; || data.id !== id) return;
+                window.clearTimeout(timer);
+                window.removeEventListener(&quot;message&quot;,receive);
+                if (data.ok) resolve();
+                else reject(new Error(&quot;Clipboard bridge rejected&quot;));
+              }
+              window.addEventListener(&quot;message&quot;,receive);
+              window.parent.postMessage({type:&quot;actrium:clipboard-copy&quot;,id:id,text:text},&quot;*&quot;);
+            });
+            return;
+          } catch (error) {}
+        }
         const clipboard = window.navigator &amp;&amp; window.navigator.clipboard;
         if (window.origin !== &quot;null&quot; &amp;&amp; clipboard &amp;&amp; typeof clipboard.writeText === &quot;function&quot;) {
           try {
@@ -3424,6 +3446,40 @@ html&gt;body{padding:0}&lt;/style&gt;
   frame.srcdoc = frameHtml;
   delete frame.dataset.srcdoc;
 })();
+</script>
+<script id="actrium-clipboard-bridge">
+(function () {
+  const frame = document.getElementById("codex-visualization");
+  window.addEventListener("message",async function (event) {
+    const data = event.data;
+    if (!frame || event.source !== frame.contentWindow || !data || data.type !== "actrium:clipboard-copy") return;
+    if (typeof data.id !== "string" || typeof data.text !== "string" || data.text.length > 262144) return;
+    let ok = false;
+    try {
+      await navigator.clipboard.writeText(data.text);
+      ok = true;
+    } catch (error) {
+      const previous = document.activeElement;
+      const buffer = document.createElement("textarea");
+      buffer.value = data.text;
+      buffer.readOnly = true;
+      buffer.style.cssText = "position:absolute;opacity:0;width:1px;height:1px";
+      document.body.append(buffer);
+      try {
+        buffer.focus({preventScroll:true});
+        buffer.select();
+        buffer.setSelectionRange(0,data.text.length);
+        ok = document.execCommand("copy");
+      } catch (copyError) {
+        ok = false;
+      } finally {
+        buffer.remove();
+        if (previous && typeof previous.focus === "function") previous.focus({preventScroll:true});
+      }
+    }
+    event.source.postMessage({type:"actrium:clipboard-result",id:data.id,ok:ok},"*");
+  });
+}());
 </script>
 </body>
 </html>
