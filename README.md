@@ -8,6 +8,8 @@
 
 「发现入口说明」集中介绍 Realm、AFP、Publisher 三份 well-known 的职责、主要字段与使用时机。AFP 入口采用 `/.well-known/actr_facility_provider`。
 
+「Realm Profile 说明」按 Echo Realm 的公开 Profile 说明完整字段、使用环节和六类 key 的归属。AFP 的说明统一为「基础设施提供者」，保留 Realm、Publisher、Issuer、Host、Actor、Service 等英文名称。
+
 公开配置快照日期：2026-11-10。
 
 GitHub Pages 从 `main` 分支根目录发布。
