@@ -6,6 +6,8 @@
 
 选择流程步骤时只显示该环节涉及的文档卡片；完整字段默认折叠。
 
+「发现入口说明」集中介绍 Realm、AFP、Publisher 三份 well-known 的职责、主要字段与使用时机。AFP 入口采用 `/.well-known/actr_facility_provider`。
+
 公开配置快照日期：2026-11-10。
 
 GitHub Pages 从 `main` 分支根目录发布。

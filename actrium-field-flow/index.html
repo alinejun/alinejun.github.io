@@ -10,7 +10,7 @@
 
 </head>
 <body>
-<iframe id="codex-visualization" sandbox="allow-scripts" referrerpolicy="no-referrer" title="Develenv：发布、Realm 与设施字段流程" data-srcdoc="&lt;!doctype html&gt;
+<iframe id="codex-visualization" sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox" referrerpolicy="no-referrer" title="Develenv：发布、Realm 与设施字段流程" data-srcdoc="&lt;!doctype html&gt;
 &lt;html lang=&quot;en&quot; data-visualize-standalone&gt;
 &lt;head&gt;
 &lt;meta charset=&quot;utf-8&quot;&gt;
@@ -1857,6 +1857,8 @@ html&gt;body{padding:0}&lt;/style&gt;
     #domain-field-flow .flow-field { display:grid; gap:calc(var(--font-size-base) * .2); }
     #domain-field-flow .flow-code, #domain-field-flow .flow-url { overflow-wrap:anywhere; white-space:normal; }
     #domain-field-flow .flow-current { display:grid; gap:calc(var(--font-size-base) * .3); }
+    #domain-field-flow.is-overview .flow-layout { grid-template-columns:minmax(0,1fr); }
+    #domain-field-flow.is-overview .flow-stages, #domain-field-flow.is-overview .flow-current { display:none; }
     #domain-field-flow details { display:grid; gap:calc(var(--font-size-base) * .4); }
     #domain-field-flow summary { color:var(--foreground); }
     #domain-field-flow .flow-inventory { display:grid; gap:calc(var(--font-size-base) * .6); padding-top:calc(var(--font-size-base) * .5); }
@@ -1870,9 +1872,10 @@ html&gt;body{padding:0}&lt;/style&gt;
     &lt;h3&gt;发布、建域与运行：字段流向&lt;/h3&gt;
     &lt;span class=&quot;text-small&quot;&gt;线上配置 · 2026-11-10 · 三份发现文档 + Echo Realm Profile&lt;/span&gt;
   &lt;/div&gt;
-  &lt;div class=&quot;viz-controls&quot; aria-label=&quot;选择使用流程&quot;&gt;
+  &lt;div class=&quot;viz-controls&quot; aria-label=&quot;选择流程或发现入口说明&quot;&gt;
     &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-flow=&quot;release&quot; aria-pressed=&quot;true&quot;&gt;发布与创建 Realm&lt;/button&gt;
     &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-flow=&quot;runtime&quot; aria-pressed=&quot;false&quot;&gt;加入与运行实例&lt;/button&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-flow=&quot;discovery&quot; aria-pressed=&quot;false&quot;&gt;发现入口说明&lt;/button&gt;
   &lt;/div&gt;
   &lt;div class=&quot;flow-current&quot; aria-live=&quot;polite&quot;&gt;
     &lt;span id=&quot;dff-current&quot;&gt;&lt;/span&gt;
@@ -1927,7 +1930,7 @@ html&gt;body{padding:0}&lt;/style&gt;
           roots:&quot;version · authority · services · publisher&quot;,
           groups:[
             group(&quot;base&quot;,&quot;域名与格式&quot;,[&quot;version&quot;,&quot;authority&quot;],&quot;验证 Publisher 发现文档属于请求域。&quot;,&quot;1 · actr://publisher.develenv.com&quot;),
-            group(&quot;contracts&quot;,&quot;公开契约&quot;,[&quot;services[].rel&quot;,&quot;services[].href&quot;],&quot;contracts 提供 Echo proto；编译、生成代码或理解接口时使用，不能代替包验签。&quot;,&quot;contracts · https://publisher.develenv.com/contracts/echo.proto&quot;),
+            group(&quot;services&quot;,&quot;纯发布身份文档&quot;,[&quot;services&quot;],&quot;当前为空数组，只公布 Publisher 身份与验签材料。程序包下载地址来自 Realm Profile 的 package.href。&quot;,&quot;[]&quot;),
             group(&quot;identity&quot;,&quot;Publisher 身份&quot;,[&quot;publisher.schema&quot;,&quot;publisher.domain&quot;],&quot;Publisher Profile 格式与发布者域名，domain 必须匹配 authority。&quot;,&quot;actr.publisher/v1 · publisher.develenv.com&quot;),
             group(&quot;validity&quot;,&quot;版本与有效期&quot;,[&quot;publisher.sequence&quot;,&quot;publisher.profile_issued_at&quot;,&quot;publisher.profile_expires_at&quot;],&quot;检查元数据连续性、签发时间和到期时间。&quot;,&quot;sequence 1 · 2026-12-10T03:46:45Z 到期&quot;),
             group(&quot;profile-keys&quot;,&quot;Publisher 的 Profile 验签公钥&quot;,[&quot;publisher.profile_signing_keys[].&quot;+keyShape],&quot;归属：publisher.develenv.com 的发布者。对应的 Publisher Profile 签名私钥签 Publisher Profile，也签 register_publisher 管理请求；此处公开公钥供验签，不是 Realm Profile key。&quot;,&quot;Publisher Profile key：publisher-profile-2026-1 · Ed25519 / active&quot;),
@@ -1938,7 +1941,7 @@ html&gt;body{padding:0}&lt;/style&gt;
         },
         {
           id:&quot;afp&quot;,title:&quot;④ AFP 域发现文档&quot;,role:&quot;设施能力与管理服务目录&quot;,
-          url:&quot;https://afp.develenv.com/.well-known/actr_facility_provide&quot;,
+          url:&quot;https://afp.develenv.com/.well-known/actr_facility_provider&quot;,
           roots:&quot;version · authority · services · realm_signing_keys&quot;,
           groups:[
             group(&quot;base&quot;,&quot;设施域身份&quot;,[&quot;version&quot;,&quot;authority&quot;],&quot;校验请求域与设施目录的身份绑定。&quot;,&quot;1 · actr://afp.develenv.com&quot;),
@@ -1949,6 +1952,39 @@ html&gt;body{padding:0}&lt;/style&gt;
             group(&quot;ice&quot;,&quot;通用 ICE 配置&quot;,[&quot;services[rel=ice-config].{rel, href, protocol}&quot;],&quot;查询公开 STUN/TURN 地址；匿名查询不返回 TURN 密码，Realm 选用 Profile 授权的设施。&quot;,&quot;https://afp.develenv.com/actr/ice-config · actr-ice-config/1&quot;),
             group(&quot;own-realm&quot;,&quot;AFP 自有域的 Realm Profile 目录&quot;,[&quot;services[rel=realm].{rel, href, protocol}&quot;],&quot;只定位 *@afp.develenv.com 的 Realm Profile；当前 echo@realm.develenv.com 不使用。&quot;,&quot;https://afp.develenv.com/actr/realm/afp.develenv.com&quot;),
             group(&quot;own-keys&quot;,&quot;AFP 自有域的 Realm Profile 验签公钥&quot;,[&quot;realm_signing_keys.sequence&quot;,&quot;realm_signing_keys.keys[].&quot;+keyShape,&quot;realm_signing_keys.signature.&quot;+sigShape],&quot;归属：afp.develenv.com 的域名持钥方，仅验证该域名下的 Realm Profile。它与 realm.develenv.com 的 Realm Profile key、AFP 为 Echo 提供的 Issuer key 都不同。&quot;,&quot;AFP 自有域 Realm Profile key：realm-signing:afp.develenv.com · sequence 1&quot;)
+          ]
+        }
+      ];
+      const discoveryOverview = [
+        {
+          id:&quot;realm&quot;,title:&quot;Realm · 命名与信任&quot;,
+          when:&quot;打开或加入 echo@realm.develenv.com 时，先定位 Realm Profile，再验证实例授权。&quot;,
+          fields:[
+            [&quot;version · authority&quot;,&quot;标识发现文档格式，以及 realm.develenv.com 的域名身份。&quot;],
+            [&quot;services[rel=realm].{href, protocol}&quot;,&quot;给出 Realm Profile 的目录与协议；在 https://realm.develenv.com/realm 后追加 /echo。&quot;],
+            [&quot;realm_signing_keys&quot;,&quot;公布 realm.develenv.com 的 Realm Profile 验签公钥、版本与签名。对应私钥属于 Realm 域名持钥方。&quot;]
+          ]
+        },
+        {
+          id:&quot;afp&quot;,title:&quot;AFP · 设施与管理&quot;,
+          when:&quot;登记 Publisher、创建 Realm、提交签名委派时查找管理入口；运行端点仍以已验签的 Realm Profile 为准。&quot;,
+          fields:[
+            [&quot;version · authority&quot;,&quot;标识格式，以及 afp.develenv.com 的设施域身份。&quot;],
+            [&quot;services[rel=realm-management]&quot;,&quot;发现登记 Publisher、创建 Realm 与发布签名 Realm Profile 的管理接口。&quot;],
+            [&quot;services[rel=identity] · services[rel=signaling]&quot;,&quot;公布 Issuer 与信令能力；具体 Realm 选用 Realm Profile 中的 issuer.url 和 provider.signaling。&quot;],
+            [&quot;services[rel=discovery] · services[rel=ice-config]&quot;,&quot;discovery 查找在线 Actor；ice-config 查询公开 STUN/TURN 地址，不返回 TURN 密码。&quot;],
+            [&quot;services[rel=realm] · realm_signing_keys&quot;,&quot;仅服务 AFP 自有域下的 Realm Profile；不能替代 realm.develenv.com 的信任根或 Echo Issuer 公钥。&quot;]
+          ]
+        },
+        {
+          id:&quot;publisher&quot;,title:&quot;Publisher · 发布身份与包验签&quot;,
+          when:&quot;向 AFP 登记发布者，以及 Host 验证程序包来源时读取。&quot;,
+          fields:[
+            [&quot;version · authority · publisher.domain&quot;,&quot;标识格式与发布者域名；publisher.domain 必须匹配发现文档的 authority。&quot;],
+            [&quot;publisher.profile_signing_keys · publisher.signature&quot;,&quot;Publisher 自己的 Profile 验签公钥与签名；对应私钥签 Publisher Profile 和 register_publisher 请求。&quot;],
+            [&quot;publisher.keys&quot;,&quot;Publisher 自己的程序包验签公钥；对应私钥签包 manifest，与 Publisher Profile key 分开。&quot;],
+            [&quot;publisher.sequence · publisher.profile_issued_at · publisher.profile_expires_at&quot;,&quot;用于核对 Publisher Profile 的版本、签发时间与有效期。&quot;],
+            [&quot;services&quot;,&quot;当前为 []，这是纯发布身份文档；包文件的位置由 Realm Profile 的 package.href 声明。&quot;]
           ]
         }
       ];
@@ -1966,7 +2002,7 @@ html&gt;body{padding:0}&lt;/style&gt;
         release:[
           {id:&quot;publish-profile&quot;,name:&quot;公布发布者身份&quot;,action:&quot;用 Publisher 的 Profile 签名私钥签署 Publisher Profile，公布 Publisher Profile 验签公钥与 Publisher 程序包验签公钥。&quot;,note:&quot;这两类 key 都属于 publisher.develenv.com 的发布者；Realm Profile key 属于 realm.develenv.com 的域名持钥方。&quot;,used:{publisher:[&quot;base&quot;,&quot;identity&quot;,&quot;validity&quot;,&quot;profile-keys&quot;,&quot;package-keys&quot;,&quot;signature&quot;,&quot;contact&quot;]}},
           {id:&quot;register-publisher&quot;,name:&quot;登记发布者&quot;,action:&quot;发现 AFP 的 realm-management，发送由 Publisher 的 Profile 签名私钥签署的 register_publisher 请求。&quot;,note:&quot;使用 publisher-profile-2026-1 对应私钥；不使用 Realm Profile key 或 AFP 的 Issuer key。&quot;,used:{afp:[&quot;base&quot;,&quot;management&quot;],publisher:[&quot;identity&quot;,&quot;profile-keys&quot;,&quot;signature&quot;]}},
-          {id:&quot;build&quot;,name:&quot;构建与发布包&quot;,action:&quot;用 Publisher 的 Package 签名私钥签 manifest，托管完整包，形成 href、sha256、type。&quot;,note:&quot;包签名 key 是发布者的 actr-pub-8c62d54ebb436de9；与 Publisher Profile key 分开。contracts 提供 proto。&quot;,used:{publisher:[&quot;package-keys&quot;,&quot;contracts&quot;],profile:[&quot;package&quot;]}},
+          {id:&quot;build&quot;,name:&quot;构建与发布包&quot;,action:&quot;用 Publisher 的 Package 签名私钥签 manifest，托管完整包，形成 href、sha256、type。&quot;,note:&quot;包签名 key 是发布者的 actr-pub-8c62d54ebb436de9；Publisher 当前仅公布身份，包下载地址由 Realm Profile 声明。&quot;,used:{publisher:[&quot;package-keys&quot;],profile:[&quot;package&quot;]}},
           {id:&quot;create&quot;,name:&quot;建域并取得草稿&quot;,action:&quot;realm.develenv.com 持钥方签创建请求；AFP 为 Echo Realm 准备 Issuer key、设施端点和 Realm Profile 草稿。&quot;,note:&quot;创建请求用 Realm 域持钥方的签名私钥；AFP 的 Echo Issuer key 用于随后签 Actor credential。&quot;,used:{afp:[&quot;management&quot;],realm:[&quot;keys&quot;],profile:[&quot;base&quot;,&quot;realm&quot;,&quot;package&quot;,&quot;issuer&quot;,&quot;issuer-keys&quot;,&quot;provider&quot;,&quot;signaling&quot;,&quot;ice&quot;,&quot;policy&quot;]}},
           {id:&quot;activate&quot;,name:&quot;签署委派并激活&quot;,action:&quot;Realm 域持钥方用 Realm Profile 签名私钥签署 Echo Realm Profile，再提交 publish_profile，由 AFP 激活 Realm。&quot;,note:&quot;使用 realm-domain-2026-1 对应私钥；签署 issuer、provider 等字段即委派 AFP，无额外委派 API。&quot;,used:{realm:[&quot;keys&quot;],afp:[&quot;management&quot;],profile:[&quot;base&quot;,&quot;realm&quot;,&quot;package&quot;,&quot;issuer&quot;,&quot;issuer-keys&quot;,&quot;provider&quot;,&quot;signaling&quot;,&quot;ice&quot;,&quot;policy&quot;,&quot;signature&quot;]}},
           {id:&quot;publish-realm&quot;,name:&quot;公布 Realm Profile&quot;,action:&quot;Realm 的服务链接指向 Echo Realm Profile；AFP 保存已由 Realm 域持钥方签名的正文并交付 owner 邀请。&quot;,note:&quot;托管地址不决定签名 key 归属；Echo Realm Profile 始终用 realm.develenv.com 的 Realm Profile 公钥验签。&quot;,used:{realm:[&quot;pointer&quot;],profile:[&quot;realm&quot;,&quot;signature&quot;],afp:[&quot;management&quot;]}}
@@ -1996,25 +2032,41 @@ html&gt;body{padding:0}&lt;/style&gt;
         return container;
       }
       function renderDocuments() {
-        const stage = stages[flow][selected];
-        current.textContent = (selected + 1) + &quot;．&quot; + stage.name + &quot; — &quot; + stage.action;
-        note.textContent = stage.note;
+        const isOverview = flow === &quot;discovery&quot;;
+        const stage = isOverview ? null : stages[flow][selected];
+        current.textContent = isOverview ? &quot;发现入口说明&quot; : (selected + 1) + &quot;．&quot; + stage.name + &quot; — &quot; + stage.action;
+        note.textContent = isOverview ? &quot;&quot; : stage.note;
         docBox.replaceChildren();
-        docs.forEach(function (doc) {
-          const used = stage.used[doc.id] || [];
-          if (!used.length) return;
+        const visibleDocs = isOverview ? discoveryOverview.map(function (item) { return docs.find(function (doc) { return doc.id === item.id; }); }) : docs;
+        visibleDocs.forEach(function (doc) {
+          const overview = isOverview ? discoveryOverview.find(function (item) { return item.id === doc.id; }) : null;
+          const used = stage ? stage.used[doc.id] || [] : [];
+          if (!isOverview &amp;&amp; !used.length) return;
           const card = element(&quot;section&quot;,&quot;card&quot;);
           const inner = element(&quot;div&quot;,&quot;flow-doc-inner&quot;);
           const head = element(&quot;div&quot;,&quot;flow-doc-head&quot;);
-          head.append(element(&quot;span&quot;,&quot;&quot;,doc.title));
-          head.append(element(&quot;span&quot;,&quot;viz-badge&quot;,&quot;本步使用&quot;));
+          head.append(element(&quot;span&quot;,&quot;&quot;,overview ? overview.title : doc.title));
+          head.append(element(&quot;span&quot;,&quot;viz-badge&quot;,isOverview ? &quot;公开发现入口&quot; : &quot;本步使用&quot;));
           inner.append(head,element(&quot;span&quot;,&quot;&quot;,doc.role));
           const link = element(&quot;a&quot;,&quot;flow-url text-small&quot;,doc.url);
           link.href = doc.url;
           link.target = &quot;_blank&quot;;
           link.rel = &quot;noopener noreferrer&quot;;
           inner.append(link,element(&quot;code&quot;,&quot;flow-code text-small&quot;,doc.roots));
-          inner.append(fields(doc.groups.filter(function (g) { return used.includes(g.id); }),true));
+          if (overview) {
+            const when = element(&quot;div&quot;,&quot;flow-field&quot;);
+            when.append(element(&quot;span&quot;,&quot;&quot;,&quot;何时使用&quot;),element(&quot;span&quot;,&quot;&quot;,overview.when));
+            inner.append(when);
+            const mainFields = element(&quot;div&quot;,&quot;flow-fields&quot;);
+            overview.fields.forEach(function (item) {
+              const row = element(&quot;div&quot;,&quot;flow-field&quot;);
+              row.append(element(&quot;code&quot;,&quot;flow-code&quot;,item[0]),element(&quot;span&quot;,&quot;&quot;,item[1]));
+              mainFields.append(row);
+            });
+            inner.append(mainFields);
+          } else {
+            inner.append(fields(doc.groups.filter(function (g) { return used.includes(g.id); }),true));
+          }
           const details = element(&quot;details&quot;);
           details.append(element(&quot;summary&quot;,&quot;&quot;, &quot;完整字段：&quot; + doc.groups.length + &quot; 组&quot;));
           const inventory = element(&quot;div&quot;,&quot;flow-inventory&quot;);
@@ -2031,14 +2083,16 @@ html&gt;body{padding:0}&lt;/style&gt;
       function saveState() {
         if (window.openai &amp;&amp; typeof window.openai.setWidgetState === &quot;function&quot;) {
           window.openai.setWidgetState({
-            modelContent:{flow:flow,stage:stages[flow][selected].id},
+            modelContent:{flow:flow,stage:flow === &quot;discovery&quot; ? null : stages[flow][selected].id},
             privateContent:null
           }).catch(function () {});
         }
       }
       function renderStages() {
+        const isOverview = flow === &quot;discovery&quot;;
+        root.classList.toggle(&quot;is-overview&quot;,isOverview);
         stageBox.replaceChildren();
-        stages[flow].forEach(function (stage,index) {
+        (isOverview ? [] : stages[flow]).forEach(function (stage,index) {
           const button = element(&quot;button&quot;,&quot;btn btn-block&quot;,(index + 1) + &quot;  &quot; + stage.name);
           button.type = &quot;button&quot;;
           button.dataset.stage = String(index);
@@ -2058,8 +2112,12 @@ html&gt;body{padding:0}&lt;/style&gt;
       }
       function restore(snapshot) {
         const content = snapshot &amp;&amp; (snapshot.modelContent || snapshot);
-        if (!content || !stages[content.flow]) return;
+        if (!content || (content.flow !== &quot;discovery&quot; &amp;&amp; !stages[content.flow])) return;
         flow = content.flow;
+        if (flow === &quot;discovery&quot;) {
+          selected = 0;
+          return;
+        }
         const index = stages[flow].findIndex(function (stage) { return stage.id === content.stage; });
         selected = index &lt; 0 ? 0 : index;
       }
