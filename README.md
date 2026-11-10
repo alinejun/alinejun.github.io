@@ -10,6 +10,8 @@
 
 「Realm Profile 说明」按 Echo Realm 的公开 Profile 说明完整字段、使用环节和六类 key 的归属。AFP 的说明统一为「基础设施提供者」，保留 Realm、Publisher、Issuer、Host、Actor、Service 等英文名称。
 
+三份 well-known 与 Realm Profile 的完整 JSON 使用 JSONC 代码块，逐字段添加用途注释，默认折叠；移除注释后的内容与线上 JSON 一致。
+
 公开配置快照日期：2026-11-10。
 
 GitHub Pages 从 `main` 分支根目录发布。
