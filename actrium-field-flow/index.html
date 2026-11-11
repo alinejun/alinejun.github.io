@@ -1855,6 +1855,13 @@ html&gt;body{padding:0}&lt;/style&gt;
       --atlas-purple:light-dark(#7050b9,#c6b0ff);
       --atlas-green:light-dark(#1d8066,#8ad9bd);
       --atlas-amber:light-dark(#925b10,#f1c383);
+      --atlas-code-surface:light-dark(#14243b,#0b1829);
+      --atlas-code-text:#edf4ff;
+      --atlas-code-key:#9dcaff;
+      --atlas-code-string:#9ce4be;
+      --atlas-code-number:#ffd28e;
+      --atlas-code-literal:#d8beff;
+      --atlas-code-comment:#afc1d7;
       --foreground:var(--atlas-ink);
       --muted-foreground:var(--atlas-muted);
       --card:var(--atlas-surface);
@@ -1893,7 +1900,12 @@ html&gt;body{padding:0}&lt;/style&gt;
     #domain-field-flow .flow-doc-head &gt; :first-child { font-weight:500; }
     #domain-field-flow .flow-current { padding:calc(var(--font-size-base) * .8); background:var(--atlas-soft); border-left:3px solid var(--atlas-blue); }
     #domain-field-flow .flow-url { color:var(--atlas-blue); }
-    #domain-field-flow .flow-json { padding:calc(var(--font-size-base) * .8); background:var(--atlas-soft); border-radius:10px; color:var(--atlas-ink); }
+    #domain-field-flow pre { min-width:0; margin:0; padding:calc(var(--font-size-base) * .85); white-space:pre-wrap; overflow-wrap:anywhere; border-radius:10px; background:var(--atlas-code-surface); color:var(--atlas-code-text); }
+    #domain-field-flow code:not(pre code), #domain-field-flow span.flow-code { max-width:100%; justify-self:start; padding:2px 6px; border-radius:5px; background:var(--atlas-code-surface); color:var(--atlas-code-text); font-family:var(--font-mono); overflow-wrap:anywhere; }
+    #domain-field-flow pre code { display:block; padding:0; background:transparent; color:inherit; white-space:inherit; overflow-wrap:anywhere; }
+    #domain-field-flow .command-examples, #domain-field-flow .command-example { min-width:0; display:grid; gap:calc(var(--font-size-base) * .55); }
+    #domain-field-flow .command-examples { gap:var(--font-size-base); margin-top:calc(var(--font-size-base) * .65); }
+    #domain-field-flow .command-heading { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; }
     #domain-field-flow .atlas-footer { color:var(--atlas-muted); border-top:1px solid var(--atlas-line); padding-top:calc(var(--font-size-base) * .7); }
     #domain-field-flow .flow-heading { display:grid; gap:calc(var(--font-size-base) * .35); }
     #domain-field-flow .flow-layout { display:grid; grid-template-columns:minmax(165px,.7fr) minmax(0,2fr); gap:calc(var(--font-size-base) * 1); align-items:start; }
@@ -1908,11 +1920,11 @@ html&gt;body{padding:0}&lt;/style&gt;
     #domain-field-flow .flow-json, #domain-field-flow .flow-json code { white-space:pre-wrap; overflow-wrap:anywhere; }
     #domain-field-flow .flow-json { margin:0; }
     #domain-field-flow .flow-stage-label { min-width:0; white-space:normal; overflow-wrap:anywhere; }
-    #domain-field-flow .json-key { color:var(--blue); color:color-mix(in srgb,var(--blue) 70%,var(--foreground) 30%); }
-    #domain-field-flow .json-string { color:var(--green); color:color-mix(in srgb,var(--green) 70%,var(--foreground) 30%); }
-    #domain-field-flow .json-number { color:var(--orange); color:color-mix(in srgb,var(--orange) 70%,var(--foreground) 30%); }
-    #domain-field-flow .json-literal { color:var(--purple); color:color-mix(in srgb,var(--purple) 70%,var(--foreground) 30%); }
-    #domain-field-flow .json-comment { color:var(--muted-foreground); color:color-mix(in srgb,var(--muted-foreground) 70%,var(--foreground) 30%); }
+    #domain-field-flow .json-key { color:var(--atlas-code-key); }
+    #domain-field-flow .json-string { color:var(--atlas-code-string); }
+    #domain-field-flow .json-number { color:var(--atlas-code-number); }
+    #domain-field-flow .json-literal { color:var(--atlas-code-literal); }
+    #domain-field-flow .json-comment { color:var(--atlas-code-comment); }
     #domain-field-flow .flow-current { display:grid; gap:calc(var(--font-size-base) * .3); }
     #domain-field-flow.is-overview .flow-layout { grid-template-columns:minmax(0,1fr); }
     #domain-field-flow.is-overview .flow-stages, #domain-field-flow.is-overview .flow-current { display:none; }
@@ -1921,6 +1933,9 @@ html&gt;body{padding:0}&lt;/style&gt;
     #domain-field-flow .flow-inventory { display:grid; gap:calc(var(--font-size-base) * .6); padding-top:calc(var(--font-size-base) * .5); }
     #domain-field-flow .invite-view { display:grid; gap:calc(var(--font-size-base) * 1); min-width:0; }
     #domain-field-flow .invite-intro { display:grid; gap:calc(var(--font-size-base) * .5); }
+    #domain-field-flow .owner-examples { margin:0; display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr)); }
+    #domain-field-flow .owner-examples dt { color:var(--atlas-blue); font-weight:500; }
+    #domain-field-flow .owner-examples dd { margin:4px 0 0; }
     #domain-field-flow .invite-workspace { display:grid; grid-template-columns:minmax(0,2.3fr) minmax(260px,1fr); gap:calc(var(--font-size-base) * 1); align-items:start; }
     #domain-field-flow .invite-sequence { display:grid; gap:6px; }
     #domain-field-flow .invite-lanes { display:grid; grid-template-columns:repeat(var(--lane-count),minmax(0,1fr)); margin:0 10px 12px 48px; }
@@ -2297,23 +2312,27 @@ html&gt;body{padding:0}&lt;/style&gt;
       };
       const joinCases = {
         member:{
-          title:&quot;新 member&quot;,
-          intro:&quot;接收方使用收到的 ri_ 邀请登记新的 member 和第一个 client。&quot;,
+          title:&quot;新 member 邀请&quot;,
+          intro:&quot;例如你用手机接受 editor 邀请。AFP 为你分配 member_id，记录 editor 角色，并把手机的 Realm client 公钥关联到这个编号。&quot;,
           result:&quot;AFP 创建 member_id，记录邀请指定的 editor 或 viewer 角色，并登记新 public_key。&quot;
         },
         client:{
-          title:&quot;已有 member 添加 client&quot;,
-          intro:&quot;接收方 Host 使用自己的 key，把新 client 登记到邀请指定的 member_id。&quot;,
+          title:&quot;添加 client 邀请&quot;,
+          intro:&quot;例如你已经在电脑 A 上加入 Echo，现在还想用手机。用指向已有 member_id 的邀请在手机上加入后，电脑 A 和手机的公钥都在同一份成员记录下，两台设备都可以继续使用。&quot;,
           result:&quot;AFP 定位目标 active member，登记新的 client key，并返回其现有 member_id 与当前 role。&quot;
         },
         owner:{
-          title:&quot;Owner 初始化 / 恢复&quot;,
-          intro:&quot;首次兑换为唯一 owner 登记第一个 client。恢复场景将新 client 登记到原 owner 的 member_id。&quot;,
-          result:&quot;首次兑换时建立唯一 owner。恢复时沿用原 owner 的 member_id，登记新 key，并撤销该 owner 原有的全部 client keys。&quot;
+          title:&quot;Owner Invite&quot;,
+          intro:&quot;Owner Invite 也通过 join 使用。一个 Realm 最多有一位 owner（管理员），这位成员可以使用多台设备。AFP 根据当前是否已有 owner 处理这次加入。&quot;,
+          examples:[
+            [&quot;首次成为 owner&quot;,&quot;Echo 还没有 owner。你在电脑 A 上用 Owner Invite 加入，AFP 为你创建 owner 成员记录，并把 A 的公钥关联到新分配的 member_id。电脑 A 上的 Host 就是第一个 client。&quot;],
+            [&quot;找回 owner 权限&quot;,&quot;假设电脑 A 是你唯一的管理设备，后来丢了。你在电脑 B 上用补发的 Owner Invite 加入。AFP 沿用你原来的 member_id，登记 B 的公钥，并在这次 join 成功时撤销该 owner 原有的全部 client keys。&quot;]
+          ],
+          result:&quot;首次加入会创建 owner 成员并登记本机公钥。恢复时沿用原 owner 的 member_id，登记新设备公钥，并在本次事务中撤销该 owner 原有的全部 client keys。&quot;
         }
       };
       const membershipUrl = publicDocuments.profile.issuer.url.replace(/\/+$/,&quot;&quot;) + &quot;/membership&quot;;
-      const invitePhases = {generate:&quot;生成邀请&quot;,deliver:&quot;带外交付&quot;,verify:&quot;导入与验证&quot;,redeem:&quot;兑换与登记&quot;};
+      const invitePhases = {generate:&quot;生成邀请&quot;,deliver:&quot;带外交付&quot;,verify:&quot;导入与验证&quot;,redeem:&quot;加入 Realm&quot;};
 
       function issuingRows() {
         return [
@@ -2341,8 +2360,8 @@ html&gt;body{padding:0}&lt;/style&gt;
             facts:[[&quot;key 归属&quot;,&quot;接收方 Host 为此 Realm 生成独立 Ed25519 key 并在本地保管 private key。&quot;],[&quot;key_id&quot;,&quot;对原始 32 字节 public key 计算 SHA-256，取前 16 个小写十六进制字符。&quot;],[&quot;发送前&quot;,&quot;Host 先保存 key 文件，以便在响应丢失时复用同一把 C_new。&quot;]]},
           {id:&quot;join&quot;,phase:&quot;redeem&quot;,from:0,to:2,title:&quot;向 Membership 服务提交 join&quot;,label:&quot;POST /issuer/membership · join&quot;,
             facts:[[&quot;实际请求&quot;,&quot;POST &quot; + membershipUrl],[&quot;操作字段&quot;,&quot;op=join，invite 取解码后的 secret，public_key 取 C_new 的 Base64 公钥。label 可选。&quot;],[&quot;签名&quot;,&quot;接收方用 C_new 的 private key 签管理信封。AFP 用请求中的 public_key 验签，并匹配 signature.key_id。&quot;],[&quot;时效与绑定&quot;,&quot;信封包含 realm、provider_id、nonce、issued_at 和 expires_at，有效窗口最长 5 分钟。&quot;]]},
-          {id:&quot;redeem&quot;,phase:&quot;redeem&quot;,from:2,to:2,title:&quot;AFP 原子兑换并登记&quot;,label:&quot;消费 Invite，登记 member 与 client&quot;,
-            facts:[[&quot;检查&quot;,&quot;AFP 核对签名、Realm 和 Provider 绑定、nonce、时效、邀请状态及配额。&quot;],[&quot;本次登记&quot;,config.result],[&quot;并发与配额&quot;,&quot;消费邀请与登记 key 在同一事务中提交。并发最多一次成功，达到 quota 时保留邀请供后续重试。&quot;],[&quot;失败状态&quot;,&quot;AFP 区分 invite_unknown、invite_expired、invite_used、invite_revoked 与 invite_realm_mismatch。&quot;]]},
+          {id:&quot;redeem&quot;,phase:&quot;redeem&quot;,from:2,to:2,title:&quot;AFP 把本机公钥关联到成员记录&quot;,label:&quot;邀请标为已用，保存本机公钥&quot;,
+            facts:[[&quot;检查&quot;,&quot;AFP 核对签名、Realm 和 Provider 绑定、nonce、时效、邀请状态及配额。&quot;],[&quot;成员与设备&quot;,config.result],[&quot;同一事务&quot;,&quot;邀请标为已用与保存公钥一起提交，并发只会消费一次邀请。超出配额时，邀请仍可用于重试。&quot;],[&quot;失败状态&quot;,&quot;AFP 区分 invite_unknown、invite_expired、invite_used、invite_revoked 与 invite_realm_mismatch。&quot;]]},
           {id:&quot;result&quot;,phase:&quot;redeem&quot;,from:2,to:0,title:&quot;Host 收到 Membership 结果&quot;,label:&quot;返回 realm、member_id、role、key_id&quot;,
             facts:[[&quot;响应&quot;,&quot;{realm, member_id, role, key_id}&quot;],[&quot;完成条件&quot;,&quot;member 为 active，C_new 已在本 Realm 登记并可用于成员请求。Host 保管这把 key 与登记结果。&quot;],[&quot;响应丢失时&quot;,&quot;Host 用同一份邀请和同一把 C_new 生成新的 nonce 和签名重试。只要该 key 有效且 member 为 active，AFP 返回首次兑换结果。&quot;]]}
         ];
@@ -2354,7 +2373,7 @@ html&gt;body{padding:0}&lt;/style&gt;
           actors:[[&quot;签发方 Host&quot;,&quot;已登记的 Realm client key&quot;],[&quot;AFP · Membership&quot;,&quot;afp.develenv.com&quot;],[&quot;接收方&quot;,&quot;接收 ri_ 文本&quot;]]
         },
         join:{
-          title:&quot;Realm Join · 兑换与登记&quot;, sequenceTitle:&quot;加入时序&quot;, rows:joiningRows,
+          title:&quot;Realm Join · 使用邀请加入 Realm&quot;, sequenceTitle:&quot;加入时序&quot;, rows:joiningRows,
           actors:[[&quot;接收方 Host&quot;,&quot;本地 Realm client key&quot;],[&quot;Realm domain&quot;,&quot;realm.develenv.com&quot;],[&quot;AFP · Membership&quot;,&quot;afp.develenv.com&quot;]]
         }
       };
@@ -2362,21 +2381,98 @@ html&gt;body{padding:0}&lt;/style&gt;
         invite:{step:&quot;request&quot;},
         join:{mode:&quot;member&quot;,step:&quot;import&quot;}
       };
+      const deployedCli = &quot;/opt/loran-develenv/bin/actr&quot;;
+      const submitOwnerRequest = [
+        &quot;  curl -fsS -H &#x27;Content-Type: application/json&#x27; --data-binary @- \\&quot;,
+        &quot;    https://afp.develenv.com/actr/realm-management |&quot;,
+        &quot;  jq -er &#x27;.owner_invite&#x27;&quot;
+      ].join(&quot;\n&quot;);
+      const inviteCommands = {
+        member:[{
+          title:&quot;签发新 member 邀请&quot;,
+          note:&quot;owner 使用 join 时保存的 Realm client key 文件。CLI 从中读取 Realm 与 Issuer 地址。这个示例邀请 editor，--role 也可填 viewer。将响应的 invite 字段交给接收方。&quot;,
+          command:deployedCli + &quot; realm invite --key ./owner-client.json --role editor --days 7&quot;
+        }],
+        client:[{
+          title:&quot;给已有 member 签发添加 client 的邀请&quot;,
+          note:&quot;把 &lt;member_id&gt; 换成目标成员的编号。签发方使用自己的 Realm client key。普通 member 可以为自己签发，owner 可以为任一 active member 签发。&quot;,
+          lookup:deployedCli + &quot; realm members --key ./member-client.json&quot;,
+          command:deployedCli + &quot; realm invite --key ./member-client.json --member &#x27;&lt;member_id&gt;&#x27; --days 7&quot;
+        }],
+        owner:[
+          {
+            title:&quot;首次激活并取得 Owner Invite&quot;,
+            note:&quot;由 Realm signing key holder 执行。realm-domain-key.json 是 Realm signing key 文件，create-reply.json 是 create_realm 为 pending Realm 返回的草稿。首次激活成功后，从响应的 owner_invite 字段取得邀请。&quot;,
+            command:deployedCli + &quot; realm sign-profile --key ./realm-domain-key.json ./create-reply.json |\n&quot; + submitOwnerRequest
+          },
+          {
+            title:&quot;找回 owner 权限时补发 Owner Invite&quot;,
+            note:&quot;由 Realm signing key holder 签署 reissue_owner_invite。AFP 签发新邀请后，此前未使用的 Owner Invite 失效。新设备用补发的邀请成功加入时，AFP 撤销原 owner 的旧 client keys。&quot;,
+            command:[
+              deployedCli + &quot; realm reissue-request --key ./realm-domain-key.json \\&quot;,
+              &quot;  --realm echo@realm.develenv.com --provider afp.develenv.com |&quot;,
+              submitOwnerRequest
+            ].join(&quot;\n&quot;)
+          }
+        ]
+      };
+      function plainCodeBlock(text,language) {
+        const pre = element(&quot;pre&quot;);
+        pre.append(element(&quot;code&quot;,&quot;language-&quot; + language,text));
+        return pre;
+      }
+      function signingCommands(mode) {
+        const panel = element(mode ? &quot;details&quot; : &quot;section&quot;,&quot;card command-reference&quot;);
+        if (mode) {
+          panel.append(element(&quot;summary&quot;,&quot;&quot;,&quot;查看签发命令 · &quot; + joinCases[mode].title));
+        } else {
+          panel.append(element(&quot;h2&quot;,&quot;&quot;,&quot;签发 Realm Invite 的命令&quot;));
+        }
+        const body = element(&quot;div&quot;,&quot;command-examples&quot;);
+        body.append(element(&quot;p&quot;,&quot;&quot;,&quot;示例采用 develenv 部署机的 CLI 路径。请在持有相应 key 的 Host 上运行，将 CLI 和文件路径换为该 Host 上的实际位置。&quot;));
+        const examples = mode ? inviteCommands[mode] : [...inviteCommands.member,...inviteCommands.client];
+        for (const example of examples) {
+          const item = element(&quot;div&quot;,&quot;command-example&quot;);
+          const heading = element(&quot;div&quot;,&quot;command-heading&quot;);
+          heading.append(element(&quot;h3&quot;,&quot;&quot;,example.title),copyControls(example.title,[
+            {id:&quot;command&quot;,label:&quot;复制命令&quot;,name:&quot;命令&quot;,text:example.command}
+          ]));
+          item.append(heading,element(&quot;p&quot;,&quot;&quot;,example.note));
+          if (example.lookup) {
+            const hint = element(&quot;p&quot;);
+            hint.append(&quot;member_id 可从 join 回执取得，也可运行 &quot;,element(&quot;code&quot;,&quot;flow-code&quot;,example.lookup),&quot; 查询。&quot;);
+            item.append(hint);
+          }
+          item.append(plainCodeBlock(example.command,&quot;shell&quot;));
+          body.append(item);
+        }
+        panel.append(body);
+        return panel;
+      }
       function renderInviteDetails(detail,row,index,actors) {
         detail.replaceChildren();
         detail.append(element(&quot;span&quot;,&quot;invite-phase phase-&quot; + row.phase,invitePhases[row.phase]));
         detail.append(element(&quot;h2&quot;,&quot;&quot;,(index + 1) + &quot;. &quot; + row.title));
         detail.append(element(&quot;span&quot;,&quot;text-small&quot;,actors[row.from][0] + &quot; → &quot; + actors[row.to][0]));
         const facts = element(&quot;dl&quot;);
-        row.facts.forEach(function (fact) {
+        row.facts.forEach(function ([label, explanation]) {
           const pair = element(&quot;div&quot;);
-          pair.append(element(&quot;dt&quot;,&quot;&quot;,fact[0]),element(&quot;dd&quot;,&quot;&quot;,fact[1]));
+          const value = element(&quot;dd&quot;);
+          if (/^(GET|POST) https:\/\//.test(explanation)) {
+            value.append(plainCodeBlock(explanation,&quot;http&quot;));
+          } else {
+            value.textContent = explanation;
+          }
+          pair.append(element(&quot;dt&quot;,&quot;&quot;,label),value);
           facts.append(pair);
         });
         detail.append(facts);
       }
       function joinOptions(selection) {
         const controls = element(&quot;div&quot;,&quot;viz-controls&quot;);
+        controls.setAttribute(&quot;role&quot;,&quot;group&quot;);
+        controls.setAttribute(&quot;aria-label&quot;,&quot;按邀请用途查看示例&quot;);
+        controls.append(element(&quot;span&quot;,&quot;text-small&quot;,&quot;按邀请用途查看示例&quot;));
         for (const [mode, config] of Object.entries(joinCases)) {
           const button = element(&quot;button&quot;,&quot;btn&quot;,config.title);
           button.type = &quot;button&quot;;
@@ -2406,7 +2502,18 @@ html&gt;body{padding:0}&lt;/style&gt;
         const intro = element(&quot;section&quot;,&quot;card invite-intro&quot;);
         intro.append(element(&quot;h2&quot;,&quot;&quot;,chart.title));
         if (flow === &quot;join&quot;) {
-          intro.append(joinOptions(selection),element(&quot;span&quot;,&quot;&quot;,joinCases[selection.mode].intro));
+          const example = joinCases[selection.mode];
+          intro.append(element(&quot;p&quot;,&quot;&quot;,&quot;一次 join 成功时，AFP 在同一事务中把邀请标为已用（兑换），并把本机的 Realm client 公钥记在你的成员编号 member_id 下（登记）。以后本机再发成员请求，AFP 用这把公钥验签。&quot;));
+          intro.append(joinOptions(selection),element(&quot;p&quot;,&quot;&quot;,example.intro));
+          if (example.examples) {
+            const descriptions = element(&quot;dl&quot;,&quot;owner-examples&quot;);
+            for (const [label, explanation] of example.examples) {
+              const item = element(&quot;div&quot;);
+              item.append(element(&quot;dt&quot;,&quot;&quot;,label),element(&quot;dd&quot;,&quot;&quot;,explanation));
+              descriptions.append(item);
+            }
+            intro.append(descriptions);
+          }
         } else {
           intro.append(element(&quot;span&quot;,&quot;&quot;,&quot;签发方向 AFP Membership 申请 echo@realm.develenv.com 的邀请，并把返回的 ri_ 文本交给接收方。&quot;));
         }
@@ -2483,7 +2590,7 @@ html&gt;body{padding:0}&lt;/style&gt;
         detail.setAttribute(&quot;aria-live&quot;,&quot;polite&quot;);
         renderInviteDetails(detail,selectedRow,rows.indexOf(selectedRow),actors);
         workspace.append(diagram,detail);
-        view.append(workspace);
+        view.append(workspace,signingCommands(selection.mode));
         docBox.append(view);
       }
       function isOverviewFlow(value) {
@@ -2708,39 +2815,45 @@ html&gt;body{padding:0}&lt;/style&gt;
         }
         throw new Error(&quot;Clipboard unavailable&quot;);
       }
+      function copyControls(title,formats) {
+        const controls = element(&quot;div&quot;,&quot;viz-controls&quot;);
+        const status = element(&quot;span&quot;,&quot;text-small&quot;);
+        status.setAttribute(&quot;role&quot;,&quot;status&quot;);
+        status.setAttribute(&quot;aria-live&quot;,&quot;polite&quot;);
+        const buttons = [];
+        for (const format of formats) {
+          const button = element(&quot;button&quot;,&quot;btn&quot;,format.label);
+          const annotation = format.description ? &quot;（&quot; + format.description + &quot;）&quot; : &quot;&quot;;
+          button.type = &quot;button&quot;;
+          button.dataset.copyFormat = format.id;
+          button.setAttribute(&quot;aria-label&quot;,&quot;复制&quot; + title + &quot;：&quot; + format.name + annotation);
+          button.addEventListener(&quot;click&quot;,async function () {
+            buttons.forEach(target =&gt; { target.disabled = true; });
+            status.textContent = &quot;正在&quot; + format.label + &quot;…&quot;;
+            try {
+              await copyText(format.text);
+              status.textContent = &quot;已&quot; + format.label + annotation;
+            } catch (_) {
+              status.textContent = &quot;复制失败，请重试或手动选择代码。&quot;;
+            } finally {
+              buttons.forEach(target =&gt; { target.disabled = false; });
+            }
+          });
+          buttons.push(button);
+          controls.append(button);
+        }
+        controls.append(status);
+        return controls;
+      }
       function jsonDisclosure(doc) {
         const details = element(&quot;details&quot;,&quot;flow-json-details&quot;);
         details.dataset.document = doc.id;
         const jsonc = annotatedJson(doc.id);
         const json = JSON.stringify(publicDocuments[doc.id],null,2) + &quot;\n&quot;;
-        const controls = element(&quot;div&quot;,&quot;viz-controls&quot;);
-        const copyJsonc = element(&quot;button&quot;,&quot;btn&quot;,&quot;复制 JSONC&quot;);
-        const copyJson = element(&quot;button&quot;,&quot;btn&quot;,&quot;复制 JSON&quot;);
-        const status = element(&quot;span&quot;,&quot;text-small&quot;);
-        status.setAttribute(&quot;role&quot;,&quot;status&quot;);
-        status.setAttribute(&quot;aria-live&quot;,&quot;polite&quot;);
-        const formats = [
-          {button:copyJsonc,text:jsonc + &quot;\n&quot;,name:&quot;JSONC&quot;,description:&quot;含字段注释&quot;},
-          {button:copyJson,text:json,name:&quot;JSON&quot;,description:&quot;不含注释&quot;}
-        ];
-        formats.forEach(function (format) {
-          format.button.type = &quot;button&quot;;
-          format.button.dataset.copyFormat = format.name.toLowerCase();
-          format.button.setAttribute(&quot;aria-label&quot;,&quot;复制&quot; + doc.title + &quot;：&quot; + format.name + &quot;（&quot; + format.description + &quot;）&quot;);
-          format.button.addEventListener(&quot;click&quot;,async function () {
-            formats.forEach(function (entry) { entry.button.disabled = true; });
-            status.textContent = &quot;正在复制 &quot; + format.name + &quot;…&quot;;
-            try {
-              await copyText(format.text);
-              status.textContent = &quot;已复制 &quot; + format.name + &quot;（&quot; + format.description + &quot;）&quot;;
-            } catch (_) {
-              status.textContent = &quot;复制失败，请重试或手动选择代码。&quot;;
-            } finally {
-              formats.forEach(function (entry) { entry.button.disabled = false; });
-            }
-          });
-        });
-        controls.append(copyJsonc,copyJson,status);
+        const controls = copyControls(doc.title,[
+          {id:&quot;jsonc&quot;,label:&quot;复制 JSONC&quot;,name:&quot;JSONC&quot;,description:&quot;含字段注释&quot;,text:jsonc + &quot;\n&quot;},
+          {id:&quot;json&quot;,label:&quot;复制 JSON&quot;,name:&quot;JSON&quot;,description:&quot;不含注释&quot;,text:json}
+        ]);
         const pre = element(&quot;pre&quot;,&quot;flow-json&quot;);
         pre.append(highlightedJson(jsonc));
         details.append(element(&quot;summary&quot;,&quot;&quot;,&quot;完整 JSONC（含字段注释）&quot;),controls,pre);
