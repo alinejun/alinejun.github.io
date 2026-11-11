@@ -1923,7 +1923,7 @@ html&gt;body{padding:0}&lt;/style&gt;
     #domain-field-flow .invite-intro { display:grid; gap:calc(var(--font-size-base) * .5); }
     #domain-field-flow .invite-workspace { display:grid; grid-template-columns:minmax(0,2.3fr) minmax(260px,1fr); gap:calc(var(--font-size-base) * 1); align-items:start; }
     #domain-field-flow .invite-sequence { display:grid; gap:6px; }
-    #domain-field-flow .invite-lanes { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); margin:0 10px 12px 48px; }
+    #domain-field-flow .invite-lanes { display:grid; grid-template-columns:repeat(var(--lane-count),minmax(0,1fr)); margin:0 10px 12px 48px; }
     #domain-field-flow .invite-lane { display:grid; gap:3px; text-align:center; margin:0 3px; padding:10px 5px; border:1px solid var(--atlas-line); border-radius:10px; background:var(--atlas-soft); min-width:0; overflow-wrap:anywhere; }
     #domain-field-flow .invite-lane strong { font-weight:500; }
     #domain-field-flow .invite-event.btn { display:grid; grid-template-columns:28px minmax(0,1fr); gap:10px; width:100%; padding:8px 9px; border:1px solid transparent; border-radius:10px; text-align:left; white-space:normal; background:var(--phase-fill); color:var(--atlas-ink); }
@@ -1934,7 +1934,7 @@ html&gt;body{padding:0}&lt;/style&gt;
     #domain-field-flow .phase-verify { --phase-ink:var(--atlas-blue); --phase-fill:color-mix(in srgb,var(--atlas-blue) 6%,var(--atlas-surface)); }
     #domain-field-flow .phase-redeem { --phase-ink:var(--atlas-green); --phase-fill:color-mix(in srgb,var(--atlas-green) 7%,var(--atlas-surface)); }
     #domain-field-flow .invite-step-number { display:grid; place-items:center; width:28px; height:28px; align-self:center; border-radius:50%; background:var(--phase-ink); color:var(--primary-foreground); }
-    #domain-field-flow .invite-message-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); position:relative; min-height:62px; align-items:center; min-width:0; }
+    #domain-field-flow .invite-message-grid { display:grid; grid-template-columns:repeat(var(--lane-count),minmax(0,1fr)); position:relative; min-height:62px; align-items:center; min-width:0; }
     #domain-field-flow .invite-life { position:absolute; top:-9px; bottom:-9px; border-left:1px dashed var(--atlas-line); pointer-events:none; }
     #domain-field-flow .invite-message { z-index:1; min-width:0; display:grid; gap:5px; padding:4px 0; }
     #domain-field-flow .invite-message-label { text-align:center; overflow-wrap:anywhere; font-weight:500; padding:0 5px; }
@@ -1952,9 +1952,6 @@ html&gt;body{padding:0}&lt;/style&gt;
     #domain-field-flow .invite-phase { display:inline-flex; align-items:center; gap:6px; color:var(--atlas-ink); }
     #domain-field-flow .invite-phase::before { content:&quot;&quot;; width:9px; height:9px; background:var(--phase-ink); border-radius:50%; }
     #domain-field-flow .invite-phase-legend { display:flex; flex-wrap:wrap; gap:16px; margin:10px 0; }
-    #domain-field-flow .invite-rules { display:grid; gap:calc(var(--font-size-base) * .65); }
-    #domain-field-flow .invite-rule { display:grid; grid-template-columns:minmax(130px,.6fr) minmax(0,2fr); gap:12px; padding-top:10px; border-top:1px solid var(--atlas-line); }
-    #domain-field-flow .invite-rule &gt; :first-child { font-weight:500; }
     @media (max-width:1050px) { #domain-field-flow .invite-workspace { grid-template-columns:minmax(0,1fr); } }
     @media (max-width:680px) {
       #domain-field-flow .invite-lanes, #domain-field-flow .invite-life, #domain-field-flow .invite-message-line { display:none; }
@@ -1963,7 +1960,6 @@ html&gt;body{padding:0}&lt;/style&gt;
       #domain-field-flow .invite-mobile-route { display:block; }
       #domain-field-flow .invite-detail { display:none; }
       #domain-field-flow .invite-inline-detail { display:grid; gap:10px; padding:12px; margin-top:5px; background:var(--atlas-soft); border-left:2px solid var(--atlas-blue); }
-      #domain-field-flow .invite-rule { grid-template-columns:minmax(0,1fr); gap:4px; }
     }
     @media (max-width:600px) {
       #domain-field-flow .flow-layout { grid-template-columns:minmax(0,1fr); }
@@ -1983,6 +1979,7 @@ html&gt;body{padding:0}&lt;/style&gt;
     &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-flow=&quot;discovery&quot; aria-pressed=&quot;false&quot;&gt;Actr Authority Discovery&lt;/button&gt;
     &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-flow=&quot;profile&quot; aria-pressed=&quot;false&quot;&gt;Actr Realm Profile&lt;/button&gt;
     &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-flow=&quot;invite&quot; aria-pressed=&quot;false&quot;&gt;Realm Invite&lt;/button&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-flow=&quot;join&quot; aria-pressed=&quot;false&quot;&gt;Realm Join&lt;/button&gt;
   &lt;/div&gt;
   &lt;div class=&quot;flow-current&quot; aria-live=&quot;polite&quot;&gt;
     &lt;span id=&quot;dff-current&quot;&gt;&lt;/span&gt;
@@ -2198,7 +2195,7 @@ html&gt;body{padding:0}&lt;/style&gt;
             group(&quot;realm&quot;,&quot;realm&quot;,[&quot;realm.name&quot;,&quot;realm.display_name&quot;,&quot;realm.status&quot;],&quot;name 精确匹配目标 Realm；display_name 用于界面显示；status 表示实例状态，retired 实例不能继续使用。&quot;,&quot;name = echo@realm.develenv.com · display_name = develenv Echo · status = active&quot;,&quot;打开实例、Realm join、Actor register，以及后续核对 credential 中的 Realm 身份。&quot;),
             group(&quot;signature&quot;,&quot;signature · Realm signing key&quot;,[&quot;signature.&quot;+sigShape],&quot;归属：realm.develenv.com 的域名持钥方。key_id 选择该域 realm_signing_keys 中的公钥，algorithm 选择算法，value 是 Base64 签名；验签覆盖除 signature 外的整个 Realm Profile。AFP 托管正文不改变 key 的归属。&quot;,&quot;key_id = realm-domain-2026-1 · algorithm = Ed25519 · value = Base64 signature&quot;,&quot;Realm signing key holder 签署并提交 publish_profile；CLI / Host 在信任 package、Issuer 与 AFP 端点前先验签。&quot;),
             group(&quot;package&quot;,&quot;package&quot;,[&quot;package.href&quot;,&quot;package.sha256&quot;,&quot;package.type&quot;],&quot;href 定位完整 .actr 文件；sha256 校验完整包字节；type 与 manifest 身份对应，并用于查找 Service。Publisher 身份不能由下载域名推断，还要验证 Publisher Profile 与 manifest 签名。&quot;,&quot;href = https://publisher.develenv.com/releases/echo-1.0.0.actr · sha256 = 2271a7915c31def902e33b731c5ea9b5cc285877874b016ae269c71aeecc1197 · type = publisher.develenv.com/echo@1.0.0&quot;,&quot;创建 Realm 时绑定 package；Host 下载、验包和选择 Service；discovery 按 type 查找在线 Service。&quot;),
-            group(&quot;issuer&quot;,&quot;issuer.url&quot;,[&quot;issuer.url&quot;],&quot;指定 Echo Realm 的 Issuer。create_invite 与 join 都 POST 到 issuer.url/membership，管理信封由 Realm client key 签名；Actor register / renew 使用各自对应的 Issuer API。&quot;,&quot;https://afp.develenv.com/issuer&quot;,&quot;owner 签发新成员邀请、member 添加自己的 client、接收者兑换邀请，以及 Actor register / renew。&quot;),
+            group(&quot;issuer&quot;,&quot;issuer.url&quot;,[&quot;issuer.url&quot;],&quot;issuer.url 给出此 Realm 的服务基础地址。Host 将 create_invite 和 join 发给 POST &lt;issuer.url&gt;/membership，并用 Realm client key 签请求。Actor register 和 renew 使用各自的 Issuer API。&quot;,&quot;https://afp.develenv.com/issuer&quot;,&quot;owner 签发新成员邀请、member 添加自己的 client、接收者兑换邀请，以及 Actor register / renew。&quot;),
             group(&quot;issuer-keys&quot;,&quot;issuer.keys · Realm issuer keys&quot;,[&quot;issuer.keys[].&quot;+keyShape],&quot;归属：基础设施提供者 AFP 为 Echo Realm 运行的 Issuer。对应私钥签 Actor credential；这里的 public_key 供客户端验凭据，id 选择 key，algorithm 指定算法，status 表示状态。它不签 Realm Profile、Publisher Profile 或 package。&quot;,&quot;id = 2 · algorithm = Ed25519 · status = active · public_key = tFZm2X9YlAbbBGKv9+s8ZUgIOeFyJlW5JEoRydeCdV4=&quot;,&quot;取得或续期 Actor credential 后验签；建立连接与处理 RPC 时验证对端身份。&quot;),
             group(&quot;provider&quot;,&quot;provider.id · Actr Facility Provider&quot;,[&quot;provider.id&quot;],&quot;指定本 Realm 获准使用的基础设施提供者 AFP。接受该 Realm 的 Provider 身份后，不应静默切换成另一家。&quot;,&quot;afp.develenv.com&quot;,&quot;确认 Realm 委派，核对 credential 与连接所处的 Provider 身份。&quot;),
             group(&quot;signaling&quot;,&quot;provider.signaling&quot;,[&quot;provider.signaling[].url&quot;,&quot;provider.signaling[].priority&quot;,&quot;provider.signaling[].control_plane_id&quot;,&quot;provider.signaling[].ticket_audience&quot;],&quot;url 是获准的 signaling 端点；priority 表示端点优先级；control_plane_id 标识控制面；ticket_audience 声明 signaling credential 的预期用途。&quot;,&quot;url = wss://afp.develenv.com/signaling/ws · priority = 0 · control_plane_id = afp.develenv.com/v1 · ticket_audience = actr.signaling&quot;,&quot;Host / Actor 接入 signaling、discovery 查找 Service，以及协商 WebRTC 连接。&quot;),
@@ -2249,7 +2246,7 @@ html&gt;body{padding:0}&lt;/style&gt;
         },
         {
           id:&quot;afp&quot;,title:&quot;Actr Facility Provider · Authority Descriptor&quot;,
-          when:&quot;realm-management 用于登记 Publisher、创建 Realm 与发布委派。member 邀请和 join 使用已验签 Realm Profile 的 issuer.url/membership，而不是 realm-management。&quot;,
+          when:&quot;realm-management 用于登记 Publisher、创建 Realm 与发布委派。签发普通邀请和提交 join 时，Host 调用 AFP Membership 的 POST &lt;issuer.url&gt;/membership。&quot;,
           fields:[
             [&quot;version · authority&quot;,&quot;标识格式，以及 afp.develenv.com 作为基础设施提供者的域名身份。&quot;],
             [&quot;services[rel=realm-management]&quot;,&quot;发现登记 Publisher、创建 Realm 与发布签名 Realm Profile 的管理接口。&quot;],
@@ -2280,12 +2277,11 @@ html&gt;body{padding:0}&lt;/style&gt;
       ];
       const stages = {
         runtime:[
-          {id:&quot;invite&quot;,name:&quot;签发 Realm Invite&quot;,action:&quot;owner 用已登记的 Realm client key 签 create_invite，指定 role=editor 或 viewer；AFP 生成一次性 secret 并返回 ri_ 邀请，owner 经消息、二维码或文件交付。&quot;,note:&quot;给已有 member 添加 client 时，改用 member_id：owner 可指定任何 active member，普通成员只能给自己添加 client。普通 create_invite 不接受 owner；member 是成员统称，不是 role 值。&quot;,used:{profile:[&quot;realm&quot;,&quot;policy&quot;,&quot;issuer&quot;]}},
           {id:&quot;locate&quot;,name:&quot;定位 Realm Profile&quot;,action:&quot;Host 从导入的 ri_ 邀请读取 realm，再按 Realm domain 发现 Realm signing keys 与 Profile 入口，追加 /echo 定位。&quot;,note:&quot;邀请本身包含 Realm 名，额外 Realm 链接可选。ri_ 文本通过带外渠道交付，不嵌入 actr:// 或 HTTPS 链接的 query / fragment；信任域名与加入 Realm 是两个步骤。&quot;,used:{realm:[&quot;base&quot;,&quot;pointer&quot;,&quot;keys&quot;]}},
           {id:&quot;verify-profile&quot;,name:&quot;验证 Realm Profile&quot;,action:&quot;用 realm.develenv.com 的 Realm signing public key，验证 Realm Profile 签名、实例名、active 状态与 sequence。&quot;,note:&quot;Realm Profile 没有过期时间；issued_at 不能当作撤销新鲜度证明。&quot;,used:{realm:[&quot;keys&quot;],profile:[&quot;base&quot;,&quot;realm&quot;,&quot;signature&quot;]}},
           {id:&quot;verify-publisher&quot;,name:&quot;验证 Publisher Profile&quot;,action:&quot;按包声明的 Publisher 域取得并验证 Publisher Profile。&quot;,note:&quot;首次域名信任依赖 HTTPS 或预置 pin；自签名不能独自证明域名归属。&quot;,used:{publisher:[&quot;base&quot;,&quot;identity&quot;,&quot;validity&quot;,&quot;profile-keys&quot;,&quot;signature&quot;],profile:[&quot;package&quot;]}},
           {id:&quot;verify-package&quot;,name:&quot;下载与验证 Actor Package&quot;,action:&quot;比对完整包 SHA-256、manifest 签名、文件 hash 和 Actor 类型。&quot;,note:&quot;包可以位于 CDN；不能拿下载域名替代 Publisher 身份。&quot;,used:{profile:[&quot;package&quot;],publisher:[&quot;package-keys&quot;]}},
-          {id:&quot;join&quot;,name:&quot;兑换 Realm Invite · join&quot;,action:&quot;Host 为此 Realm 生成并保管新的 client key，用该 key 签 join，携 invite secret 与 public_key，POST 到已验签 Profile 的 issuer.url/membership。&quot;,note:&quot;普通 role=editor/viewer 邀请创建新 member；member_id 邀请给同一 active member 添加 client。响应是 realm、member_id、role、key_id，没有独立 membership credential。响应丢失时保留同一 client key 重试；加入成功不等于 Actor 已注册或 Service 已启动。&quot;,used:{profile:[&quot;realm&quot;,&quot;policy&quot;,&quot;issuer&quot;]}},
+          {id:&quot;join&quot;,name:&quot;兑换 Realm Invite · join&quot;,action:&quot;Host 用新的 Realm client key 签署 join，把 invite secret 与 public_key 通过 POST https://afp.develenv.com/issuer/membership 发给 AFP Membership。&quot;,note:&quot;普通 role=editor/viewer 邀请创建新 member；member_id 邀请给同一 active member 添加 client。响应是 realm、member_id、role、key_id，没有独立 membership credential。响应丢失时保留同一 client key 重试；加入成功不等于 Actor 已注册或 Service 已启动。&quot;,used:{profile:[&quot;realm&quot;,&quot;policy&quot;,&quot;issuer&quot;]}},
           {id:&quot;register&quot;,name:&quot;Actor Registration&quot;,action:&quot;Host 用已登记的 Realm client key 提供 x-actr-client-proof，向 Echo Issuer 申请 ActorId / credential；package 来源另由 manifest 签名证明。&quot;,note:&quot;注册 Realm Profile package.type 对应的 Service（同 publisher 与程序名，含其他版本）要求 owner。普通 editor / viewer 的加入不授予此权限；AFP 的 Realm issuer key 签 Actor credential。&quot;,used:{profile:[&quot;realm&quot;,&quot;issuer&quot;,&quot;issuer-keys&quot;,&quot;provider&quot;,&quot;package&quot;],publisher:[&quot;package-keys&quot;]}},
           {id:&quot;connect&quot;,name:&quot;Actor Discovery、Signaling 与 ICE&quot;,action:&quot;按 package.type 查找 Service，通过获准的信令和 ICE 建立连接。&quot;,note:&quot;AFP 目录用于了解能力；普通加入不必再读此目录，实际端点与授权取自签名 Profile。&quot;,used:{profile:[&quot;package&quot;,&quot;signaling&quot;,&quot;ice&quot;,&quot;provider&quot;],afp:[&quot;discovery&quot;,&quot;signaling&quot;,&quot;ice&quot;]}},
           {id:&quot;rpc&quot;,name:&quot;RPC 与 Actor Credential Renewal&quot;,action:&quot;验证对端 Actor credential，并由 Service 按成员 role 与应用 contract 执行业务授权；Host 用 client proof 申请 renew。&quot;,note:&quot;AFP 记录 owner / editor / viewer 并写入 credential；应用权限由 Service 执行。已登记且未撤销的 client 使用保存的 key，正常打开不需要重复兑换邀请。&quot;,used:{profile:[&quot;realm&quot;,&quot;issuer&quot;,&quot;issuer-keys&quot;,&quot;provider&quot;]}}
@@ -2296,73 +2292,76 @@ html&gt;body{padding:0}&lt;/style&gt;
           {id:&quot;build&quot;,name:&quot;构建与分发 Actor Package&quot;,action:&quot;用 Package signing private key 签 manifest，托管完整包，形成 href、sha256、type。&quot;,note:&quot;包签名 key 是 Publisher 的 actr-pub-8c62d54ebb436de9；Publisher 当前仅公布身份，包下载地址由 Realm Profile 声明。&quot;,used:{publisher:[&quot;package-keys&quot;],profile:[&quot;package&quot;]}},
           {id:&quot;create&quot;,name:&quot;创建 Realm · create_realm&quot;,action:&quot;realm.develenv.com 持钥方签创建请求；AFP 为 Echo Realm 准备 Realm issuer key、设施端点和 Realm Profile 草稿。&quot;,note:&quot;创建请求由 Realm signing key holder 授权；激活后须兑换 Owner Invite 才取得 owner membership，Domain signing key 不替代 owner 的 Realm client key。&quot;,used:{afp:[&quot;management&quot;],realm:[&quot;keys&quot;],profile:[&quot;base&quot;,&quot;realm&quot;,&quot;package&quot;,&quot;issuer&quot;,&quot;issuer-keys&quot;,&quot;provider&quot;,&quot;signaling&quot;,&quot;ice&quot;,&quot;policy&quot;]}},
           {id:&quot;activate&quot;,name:&quot;签署并发布 Realm Profile · publish_profile&quot;,action:&quot;Realm signing key holder 用 Realm signing private key 签署 Echo Realm Profile，再提交 publish_profile，由 AFP 激活 Realm。&quot;,note:&quot;使用 realm-domain-2026-1 对应私钥；签署 issuer、provider 等字段即委派 AFP，无额外委派 API。&quot;,used:{realm:[&quot;keys&quot;],afp:[&quot;management&quot;],profile:[&quot;base&quot;,&quot;realm&quot;,&quot;package&quot;,&quot;issuer&quot;,&quot;issuer-keys&quot;,&quot;provider&quot;,&quot;signaling&quot;,&quot;ice&quot;,&quot;policy&quot;,&quot;signature&quot;]}},
-          {id:&quot;publish-realm&quot;,name:&quot;托管 Profile 与交付 Owner Invite&quot;,action:&quot;首次 publish_profile 激活成功时，响应一次性返回有效期 7 天的 owner_invite；经带外渠道交给创建者。公开 Profile 由 AFP 托管。&quot;,note:&quot;更高 sequence 的 Profile 更新不重复返回 Owner Invite。此时只是交付邀请，创建者须兑换后才取得 owner membership；丢失或过期时由 Realm signing key holder 经 reissue_owner_invite 重签。&quot;,used:{realm:[&quot;pointer&quot;],profile:[&quot;realm&quot;,&quot;signature&quot;],afp:[&quot;management&quot;]}},
-          {id:&quot;owner-join&quot;,name:&quot;Owner Invite · join&quot;,action:&quot;创建者 Host 用自己的新 Realm client key 兑换 Owner Invite，登记第一个 client，取得唯一 owner 的 member_id 与 key_id。&quot;,note:&quot;给 owner 添加 Service Host 时应创建指向该 owner.member_id 的 client 邀请，并由 Service Host 用独立 key 加入。Owner Invite 恢复用于替换 owner 的旧 clients，不能用它给 owner 日常加设备。&quot;,used:{realm:[&quot;pointer&quot;,&quot;keys&quot;],profile:[&quot;realm&quot;,&quot;signature&quot;,&quot;issuer&quot;,&quot;policy&quot;]}}
+          {id:&quot;publish-realm&quot;,name:&quot;托管 Profile 与交付 Owner Invite&quot;,action:&quot;首次 publish_profile 激活成功后，AFP 托管公开 Profile，并在响应中一次性返回有效期 7 天的 owner_invite。Realm signing key holder 经带外渠道把它交给创建者。&quot;,note:&quot;丢失或过期时由 Realm signing key holder 通过 reissue_owner_invite 补发。接收方的操作见「Realm Join」。&quot;,used:{realm:[&quot;pointer&quot;],profile:[&quot;realm&quot;,&quot;signature&quot;],afp:[&quot;management&quot;]}}
         ]
       };
-      const inviteCases = {
+      const joinCases = {
         member:{
-          title:&quot;邀请新 member&quot;,actor:&quot;Owner Host&quot;,key:&quot;C_owner&quot;,
-          intro:&quot;owner 选择 editor / viewer，AFP 生成 Realm Invite；接收者兑换后建立新的 member 与第一个 client。&quot;,
-          request:&quot;create_invite · role=editor/viewer&quot;,
-          fields:&quot;op=create_invite；role=editor 或 viewer；invite_expires_at；Actr management envelope 公共字段。&quot;,
-          authorize:&quot;Client key 已登记、未撤销，member 为 active 且 role=owner；普通 create_invite 不接受 owner。&quot;,
-          target:&quot;新 member 的 role 与邀请状态保存在 AFP，不要求写进 ri_ JSON。&quot;,
-          result:&quot;创建新的 member_id，记录 editor / viewer，并把 C_new 登记为该 member 的 client。&quot;,
-          ttl:&quot;invite_expires_at 不超过未来 30 天；CLI --days 默认 7，范围 1–30。&quot;
+          title:&quot;新 member&quot;,
+          intro:&quot;接收方使用收到的 ri_ 邀请登记新的 member 和第一个 client。&quot;,
+          result:&quot;AFP 创建 member_id，记录邀请指定的 editor 或 viewer 角色，并登记新 public_key。&quot;
         },
         client:{
-          title:&quot;给已有 member 添加 client&quot;,actor:&quot;Member / Owner Host&quot;,key:&quot;C_member / C_owner&quot;,
-          intro:&quot;以 member_id 指向现有成员，登记另一把独立的 Realm client key；member_id 与 role 不变，旧 clients 保留。&quot;,
-          request:&quot;create_invite · member_id&quot;,
-          fields:&quot;op=create_invite；member_id；invite_expires_at；不同时传 role。&quot;,
-          authorize:&quot;owner 可指定任意 active member；普通 member 只能给自己的 member_id 添加 client。&quot;,
-          target:&quot;目标 member_id 与邀请状态保存在 AFP；Service Host 加入同一 owner 时使用这条路径。&quot;,
-          result:&quot;定位原 active member，继承其现有 role，增加 C_new；不创建新 member，不撤销原 clients。&quot;,
-          ttl:&quot;invite_expires_at 不超过未来 30 天；新 client 使用独立 key，不复制已有 client 的 private key。&quot;
+          title:&quot;已有 member 添加 client&quot;,
+          intro:&quot;接收方 Host 使用自己的 key，把新 client 登记到邀请指定的 member_id。&quot;,
+          result:&quot;AFP 定位目标 active member，登记新的 client key，并返回其现有 member_id 与当前 role。&quot;
         },
         owner:{
-          title:&quot;Owner 初始化 / 恢复&quot;,actor:&quot;Realm signing holder&quot;,key:&quot;Realm signing key R&quot;,
-          intro:&quot;本例 echo@realm.develenv.com 属于 AFP 以外的域名：由 Realm signing key holder 经 realm-management 申请 Owner Invite。&quot;,
-          request:&quot;publish_profile / reissue_owner_invite&quot;,
-          fields:&quot;首次 publish_profile 提交已签 Realm Profile；恢复使用 reissue_owner_invite；不是 create_invite(role=owner)。&quot;,
-          authorize:&quot;AFP 依据 realm.develenv.com 已接受的 Realm signing keys 验证 R 签名、授权、provider_id、nonce 与信封时效。&quot;,
-          target:&quot;Owner Invite 是特殊 role=owner 邀请；重新签发使此前未兑换的 Owner Invites 失效，既有 clients 此时仍保留。&quot;,
-          result:&quot;尚无 owner 时建立唯一 owner；恢复时保留 owner member_id，登记 C_new，并撤销 owner 原有全部 client keys。&quot;,
-          ttl:&quot;Owner Invite 固定有效期 7 天；正常新增设备或 Service Host 应使用 member_id client 邀请。&quot;
+          title:&quot;Owner 初始化 / 恢复&quot;,
+          intro:&quot;首次兑换为唯一 owner 登记第一个 client。恢复场景将新 client 登记到原 owner 的 member_id。&quot;,
+          result:&quot;首次兑换时建立唯一 owner。恢复时沿用原 owner 的 member_id，登记新 key，并撤销该 owner 原有的全部 client keys。&quot;
         }
       };
-      const invitePhases = {generate:&quot;生成邀请&quot;,deliver:&quot;带外交付&quot;,verify:&quot;发现与验证&quot;,redeem:&quot;兑换与登记&quot;};
-      let inviteMode = &quot;member&quot;;
-      let inviteStep = &quot;request&quot;;
-      function invitationRows(mode) {
-        const config = inviteCases[mode];
-        const ownerMode = mode === &quot;owner&quot;;
-        const membershipUrl = &quot;https://afp.develenv.com/issuer/membership&quot;;
-        const generationUrl = ownerMode ? &quot;https://afp.develenv.com/actr/realm-management&quot; : membershipUrl;
+      const membershipUrl = publicDocuments.profile.issuer.url.replace(/\/+$/,&quot;&quot;) + &quot;/membership&quot;;
+      const invitePhases = {generate:&quot;生成邀请&quot;,deliver:&quot;带外交付&quot;,verify:&quot;导入与验证&quot;,redeem:&quot;兑换与登记&quot;};
+
+      function issuingRows() {
         return [
-          {id:&quot;request&quot;,phase:&quot;generate&quot;,from:0,to:1,title:&quot;申请签发邀请&quot;,label:config.request,
-            facts:[[&quot;调用方与签名 key&quot;,config.actor + &quot; · &quot; + config.key],[&quot;HTTPS POST&quot;,generationUrl],[&quot;请求内容&quot;,config.fields],[&quot;信封时效&quot;,&quot;realm=echo@realm.develenv.com；provider_id=afp.develenv.com；每次新 nonce，issued_at / expires_at 有效窗口不超过 5 分钟。&quot;]]},
-          {id:&quot;authorize&quot;,phase:&quot;generate&quot;,from:1,to:1,title:&quot;AFP 校验签发权限&quot;,label:&quot;校验 key、权限与有效期&quot;,
-            facts:[[&quot;校验规则&quot;,config.authorize],[&quot;请求签名&quot;,&quot;普通 Membership 请求由已登记的 Realm client key 签；Owner 初始化 / 恢复的管理请求由 R 签。&quot;],[&quot;结果&quot;,&quot;校验通过才生成邀请；无权签发不会建立新 member。&quot;]]},
-          {id:&quot;issue&quot;,phase:&quot;generate&quot;,from:1,to:0,title:&quot;生成并返回一次性 Invite&quot;,label:ownerMode ? &quot;返回 owner_invite（7 天）&quot; : &quot;返回 invite_id、ri_、expires_at&quot;,
-            facts:[[&quot;secret&quot;,&quot;AFP 生成 32 字节随机数，以无填充 base64url 表示；服务端只保存 secret 的 SHA-256。&quot;],[&quot;目标与状态&quot;,config.target],[&quot;交付内容&quot;,ownerMode ? &quot;Owner Invite 在首次激活或重新签发响应中一次性返回；后续 Profile 更新不会重复返回。&quot; : &quot;create_invite 响应含 invite_id、invite、expires_at，完整邀请文本只返回这一次。&quot;],[&quot;有效期&quot;,config.ttl]]},
-          {id:&quot;deliver&quot;,phase:&quot;deliver&quot;,from:0,to:2,title:&quot;把 ri_ 交给接收者&quot;,label:&quot;消息 / 二维码 / 文件：ri_&quot;,
-            facts:[[&quot;文本格式&quot;,&quot;ri_ + base64url(邀请 JSON 的 UTF-8 字节)，无填充。&quot;],[&quot;邀请 JSON&quot;,&quot;schema=actr.realm-invite/v1；realm；secret；可选的已签 Realm Profile。&quot;],[&quot;交付规则&quot;,&quot;通过消息、邮件、二维码或文件等带外渠道传递；可与 Realm 链接出现在同一消息中，但不把 secret 嵌入 actr:// 或 HTTPS URI、query、fragment。&quot;],[&quot;Realm 链接&quot;,&quot;ri_ 已包含 Realm 名，额外链接可选；链接只回答打开哪个实例，不授予 membership。&quot;]]},
-          {id:&quot;discover&quot;,phase:&quot;verify&quot;,from:2,to:3,title:&quot;建立 Realm domain 信任&quot;,label:&quot;GET /.well-known/realm&quot;,
-            facts:[[&quot;公开入口&quot;,&quot;https://realm.develenv.com/.well-known/realm&quot;],[&quot;信任来源&quot;,&quot;首次依据 HTTPS / Web PKI 或企业 pin 接受 Realm signing keys；之后校验保存的 key history、sequence 与 rotations。&quot;],[&quot;字段&quot;,&quot;authority 绑定请求域名；realm_signing_keys 公布 R 的 public key；services[rel=realm].href 定位 Profile。&quot;],[&quot;边界&quot;,&quot;信任域名只建立签名信任，不表示已加入该 Realm。&quot;]]},
-          {id:&quot;profile&quot;,phase:&quot;verify&quot;,from:2,to:3,title:&quot;取得并验证 Realm Profile&quot;,label:&quot;GET /realm/echo · 验证 R&quot;,
-            facts:[[&quot;公开地址&quot;,&quot;https://realm.develenv.com/realm/echo&quot;],[&quot;检查&quot;,&quot;schema、realm.name、R 签名、status、sequence 与 provider.id 连续性。&quot;],[&quot;Issuer 选择&quot;,&quot;仅使用已接受 Profile 的 issuer.url；本例为 https://afp.develenv.com/issuer。&quot;],[&quot;内嵌 Profile&quot;,&quot;邀请中的 Profile 同样要用域名的 R 验签；Host 仍应刷新公开位置，选择可接受的版本。&quot;]]},
-          {id:&quot;client-key&quot;,phase:&quot;redeem&quot;,from:2,to:2,title:&quot;Host 创建接收方 client key&quot;,label:&quot;生成 C_new，先安全保存&quot;,
-            facts:[[&quot;key 归属&quot;,&quot;由接收方 Host 为此 Realm 生成 Ed25519 key，不跨 Realm 复用；private key 留在 Host，不交给 Guest。&quot;],[&quot;key_id&quot;,&quot;公钥原始 32 字节 SHA-256 的前 16 个小写十六进制字符。&quot;],[&quot;持有证明&quot;,&quot;接下来的 join 用 C_new 签名，并携带对应 public_key；此时该 key 还没有 membership。&quot;],[&quot;重试前提&quot;,&quot;发送请求前保存 key 文件；响应丢失后继续使用同一把 C_new。&quot;]]},
-          {id:&quot;join&quot;,phase:&quot;redeem&quot;,from:2,to:1,title:&quot;接收方提交 join&quot;,label:&quot;join(secret, public_key) · C_new&quot;,
-            facts:[[&quot;HTTPS POST&quot;,membershipUrl],[&quot;操作字段&quot;,&quot;op=join；invite 是从 ri_ 解出的 secret；public_key 是 Base64 Ed25519 公钥；label 可选。&quot;],[&quot;签名 key&quot;,&quot;C_new；signature.key_id 必须与 public_key 推导出的 key_id 一致。&quot;],[&quot;公共字段&quot;,&quot;realm、provider_id、nonce、issued_at、expires_at、signature；信封有效窗口不超过 5 分钟，Membership 请求不带 requester。&quot;]]},
-          {id:&quot;redeem&quot;,phase:&quot;redeem&quot;,from:1,to:1,title:&quot;AFP 单事务兑换与登记&quot;,label:&quot;消费 Invite → member / client&quot;,
-            facts:[[&quot;校验&quot;,&quot;验证 C_new 持有证明、Realm / Provider 绑定、nonce、信封时效，以及邀请的存在、过期、撤销、使用状态与配额。&quot;],[&quot;原子结果&quot;,config.result],[&quot;并发与配额&quot;,&quot;并发兑换最多一个成功；超过 quota 时邀请不被消耗。&quot;],[&quot;失败区分&quot;,&quot;invite_unknown、invite_expired、invite_used、invite_revoked、invite_realm_mismatch 分别处理。&quot;]]},
-          {id:&quot;result&quot;,phase:&quot;redeem&quot;,from:1,to:2,title:&quot;返回 Membership 结果&quot;,label:&quot;realm、member_id、role、key_id&quot;,
-            facts:[[&quot;返回结果&quot;,&quot;只返回成员与 client 登记信息，没有独立 membership credential，也没有在此步骤签发 Actor credential。&quot;],[&quot;Host 保存&quot;,&quot;保留该 Realm 的 client key 与加入结果；日常打开使用已登记且未撤销的 key。&quot;],[&quot;幂等重试&quot;,&quot;响应丢失后以同一 Invite、同一 C_new 重试；每个请求使用新 nonce / 签名，active 且未撤销时返回首次结果。&quot;],[&quot;后续步骤&quot;,&quot;Actor register / reissue / renew 另用 x-actr-client-proof；注册本 Realm 的 Service 要求 owner，业务权限由 Service 按 contract 执行。&quot;]]}
+          {id:&quot;request&quot;,phase:&quot;generate&quot;,from:0,to:1,title:&quot;签发方申请邀请&quot;,label:&quot;create_invite&quot;,
+            facts:[[&quot;Membership 请求 · op=create_invite&quot;,&quot;POST &quot; + membershipUrl],[&quot;邀请目标&quot;,&quot;邀请新 member 时传 role，取 editor 或 viewer。给已有 member 添加 client 时传 member_id。两项择一。&quot;],[&quot;签名&quot;,&quot;签发方用自己已登记的 Realm client key 签请求。信封绑定 realm 与 provider_id，并携带新 nonce、issued_at 和 expires_at。&quot;],[&quot;邀请期限&quot;,&quot;签发方设置 invite_expires_at，最长 30 天。CLI 的 --days 默认 7。&quot;]]},
+          {id:&quot;authorize&quot;,phase:&quot;generate&quot;,from:1,to:1,title:&quot;AFP 校验签发权限&quot;,label:&quot;检查签名与邀请目标&quot;,
+            facts:[[&quot;请求校验&quot;,&quot;AFP 校验签名、nonce 与最长 5 分钟的请求有效期，确认 client key 有效且签发方为 active member。&quot;],[&quot;role 目标&quot;,&quot;只有 owner 可以邀请新的 editor 或 viewer。&quot;],[&quot;member_id 目标&quot;,&quot;owner 可指定任意 active member。普通 member 可以为自己添加 client。&quot;]]},
+          {id:&quot;issue&quot;,phase:&quot;generate&quot;,from:1,to:0,title:&quot;AFP 生成并返回邀请&quot;,label:&quot;返回 invite_id、invite、expires_at&quot;,
+            facts:[[&quot;生成 secret&quot;,&quot;AFP 生成 32 字节随机数，编码为无填充 base64url。&quot;],[&quot;服务端记录&quot;,&quot;AFP 保存 secret 的 SHA-256、邀请目标、签发方、过期时间与使用状态。&quot;],[&quot;返回值&quot;,&quot;签发方收到 invite_id、一次性返回的完整 ri_ 邀请文本及 expires_at。&quot;]]},
+          {id:&quot;deliver&quot;,phase:&quot;deliver&quot;,from:0,to:2,title:&quot;把 ri_ 文本交给接收方&quot;,label:&quot;带外交付 ri_&quot;,
+            facts:[[&quot;交付物&quot;,&quot;ri_ 后接邀请 JSON 的 UTF-8 字节经无填充 base64url 编码的结果。JSON 包含 schema、realm、secret，可选 profile。&quot;],[&quot;交付方式&quot;,&quot;签发方通过消息、邮件、二维码或文件交付完整邀请。若一起分享 Realm 链接，ri_ 作为独立文本交付。&quot;]]}
         ];
       }
+
+      function joiningRows(mode) {
+        const config = joinCases[mode];
+        return [
+          {id:&quot;import&quot;,phase:&quot;verify&quot;,from:0,to:0,title:&quot;导入收到的 Realm Invite&quot;,label:&quot;解码 ri_，读取 realm 和 secret&quot;,
+            facts:[[&quot;输入&quot;,&quot;接收方把收到的 ri_ 文本交给 Host。&quot;],[&quot;本地解析&quot;,&quot;Host 解码邀请 JSON，核对 schema 与 realm，并保留 secret 供兑换时使用。&quot;],[&quot;本例的 Realm&quot;,publicDocuments.profile.realm.name]]},
+          {id:&quot;discover&quot;,phase:&quot;verify&quot;,from:0,to:1,title:&quot;取得 Realm domain 的签名公钥&quot;,label:&quot;GET /.well-known/realm&quot;,
+            facts:[[&quot;公开入口&quot;,&quot;https://realm.develenv.com/.well-known/realm&quot;],[&quot;首次信任&quot;,&quot;Host 通过 HTTPS / Web PKI 或企业预置 pin 绑定域名与 Realm signing keys，后续检查 key history、sequence 与 rotations。&quot;],[&quot;Profile 入口&quot;,&quot;Host 从 services[rel=realm].href 取得目录，追加 /echo。&quot;]]},
+          {id:&quot;profile&quot;,phase:&quot;verify&quot;,from:0,to:1,title:&quot;验证 Realm Profile 并确定兑换地址&quot;,label:&quot;GET /realm/echo · 验证 Realm 签名&quot;,
+            facts:[[&quot;本步请求&quot;,&quot;GET https://realm.develenv.com/realm/echo&quot;],[&quot;验证&quot;,&quot;Host 用该 Realm domain 已接受的 Realm signing public key 验签，并核对 schema、realm.name、status、sequence 与 provider.id。&quot;],[&quot;确定邀请兑换地址&quot;,&quot;Echo 的已签 Realm Profile 把服务基础地址指定为 &quot; + publicDocuments.profile.issuer.url + &quot;。Host 在该地址后追加 /membership，得到 AFP Membership 的端点。&quot;],[&quot;兑换请求 · op=join&quot;,&quot;POST &quot; + membershipUrl],[&quot;内嵌 Profile&quot;,&quot;邀请内嵌的 Profile 也按同一规则验签。Host 仍应刷新公开位置并使用可接受的版本。&quot;]]},
+          {id:&quot;client-key&quot;,phase:&quot;redeem&quot;,from:0,to:0,title:&quot;创建并保存 Realm client key&quot;,label:&quot;生成 C_new 与 key_id&quot;,
+            facts:[[&quot;key 归属&quot;,&quot;接收方 Host 为此 Realm 生成独立 Ed25519 key 并在本地保管 private key。&quot;],[&quot;key_id&quot;,&quot;对原始 32 字节 public key 计算 SHA-256，取前 16 个小写十六进制字符。&quot;],[&quot;发送前&quot;,&quot;Host 先保存 key 文件，以便在响应丢失时复用同一把 C_new。&quot;]]},
+          {id:&quot;join&quot;,phase:&quot;redeem&quot;,from:0,to:2,title:&quot;向 Membership 服务提交 join&quot;,label:&quot;POST /issuer/membership · join&quot;,
+            facts:[[&quot;实际请求&quot;,&quot;POST &quot; + membershipUrl],[&quot;操作字段&quot;,&quot;op=join，invite 取解码后的 secret，public_key 取 C_new 的 Base64 公钥。label 可选。&quot;],[&quot;签名&quot;,&quot;接收方用 C_new 的 private key 签管理信封。AFP 用请求中的 public_key 验签，并匹配 signature.key_id。&quot;],[&quot;时效与绑定&quot;,&quot;信封包含 realm、provider_id、nonce、issued_at 和 expires_at，有效窗口最长 5 分钟。&quot;]]},
+          {id:&quot;redeem&quot;,phase:&quot;redeem&quot;,from:2,to:2,title:&quot;AFP 原子兑换并登记&quot;,label:&quot;消费 Invite，登记 member 与 client&quot;,
+            facts:[[&quot;检查&quot;,&quot;AFP 核对签名、Realm 和 Provider 绑定、nonce、时效、邀请状态及配额。&quot;],[&quot;本次登记&quot;,config.result],[&quot;并发与配额&quot;,&quot;消费邀请与登记 key 在同一事务中提交。并发最多一次成功，达到 quota 时保留邀请供后续重试。&quot;],[&quot;失败状态&quot;,&quot;AFP 区分 invite_unknown、invite_expired、invite_used、invite_revoked 与 invite_realm_mismatch。&quot;]]},
+          {id:&quot;result&quot;,phase:&quot;redeem&quot;,from:2,to:0,title:&quot;Host 收到 Membership 结果&quot;,label:&quot;返回 realm、member_id、role、key_id&quot;,
+            facts:[[&quot;响应&quot;,&quot;{realm, member_id, role, key_id}&quot;],[&quot;完成条件&quot;,&quot;member 为 active，C_new 已在本 Realm 登记并可用于成员请求。Host 保管这把 key 与登记结果。&quot;],[&quot;响应丢失时&quot;,&quot;Host 用同一份邀请和同一把 C_new 生成新的 nonce 和签名重试。只要该 key 有效且 member 为 active，AFP 返回首次兑换结果。&quot;]]}
+        ];
+      }
+
+      const sequenceViews = {
+        invite:{
+          title:&quot;Realm Invite · 生成与交付&quot;, sequenceTitle:&quot;邀请时序&quot;, rows:issuingRows,
+          actors:[[&quot;签发方 Host&quot;,&quot;已登记的 Realm client key&quot;],[&quot;AFP · Membership&quot;,&quot;afp.develenv.com&quot;],[&quot;接收方&quot;,&quot;接收 ri_ 文本&quot;]]
+        },
+        join:{
+          title:&quot;Realm Join · 兑换与登记&quot;, sequenceTitle:&quot;加入时序&quot;, rows:joiningRows,
+          actors:[[&quot;接收方 Host&quot;,&quot;本地 Realm client key&quot;],[&quot;Realm domain&quot;,&quot;realm.develenv.com&quot;],[&quot;AFP · Membership&quot;,&quot;afp.develenv.com&quot;]]
+        }
+      };
+      const diagramSelection = {
+        invite:{step:&quot;request&quot;},
+        join:{mode:&quot;member&quot;,step:&quot;import&quot;}
+      };
       function renderInviteDetails(detail,row,index,actors) {
         detail.replaceChildren();
         detail.append(element(&quot;span&quot;,&quot;invite-phase phase-&quot; + row.phase,invitePhases[row.phase]));
@@ -2376,44 +2375,51 @@ html&gt;body{padding:0}&lt;/style&gt;
         });
         detail.append(facts);
       }
-      function renderInviteView() {
-        docBox.replaceChildren();
-        const config = inviteCases[inviteMode];
-        const rows = invitationRows(inviteMode);
-        const selectedRow = rows.find(function (item) { return item.id === inviteStep; }) || rows[0];
-        inviteStep = selectedRow.id;
-        const view = element(&quot;div&quot;,&quot;invite-view&quot;);
-        const intro = element(&quot;section&quot;,&quot;card invite-intro&quot;);
-        intro.append(element(&quot;h2&quot;,&quot;&quot;,&quot;Realm Invite · 邀请生成与兑换&quot;),element(&quot;span&quot;,&quot;&quot;,&quot;以 echo@realm.develenv.com 为例，选择邀请用途，再点选时序中的步骤查看请求、签名与状态变化。&quot;));
-        const modeButtons = element(&quot;div&quot;,&quot;viz-controls&quot;);
-        Object.entries(inviteCases).forEach(function (entry) {
-          const button = element(&quot;button&quot;,&quot;btn&quot;,entry[1].title);
+      function joinOptions(selection) {
+        const controls = element(&quot;div&quot;,&quot;viz-controls&quot;);
+        for (const [mode, config] of Object.entries(joinCases)) {
+          const button = element(&quot;button&quot;,&quot;btn&quot;,config.title);
           button.type = &quot;button&quot;;
-          button.dataset.inviteMode = entry[0];
-          button.setAttribute(&quot;aria-pressed&quot;,String(inviteMode === entry[0]));
+          button.dataset.joinMode = mode;
+          button.setAttribute(&quot;aria-pressed&quot;,String(selection.mode === mode));
           button.addEventListener(&quot;click&quot;,function () {
-            inviteMode = entry[0];
-            renderInviteView();
-            const active = root.querySelector(&#x27;button[data-invite-mode=&quot;&#x27; + inviteMode + &#x27;&quot;]&#x27;);
-            if (active &amp;&amp; typeof active.focus === &quot;function&quot;) active.focus({preventScroll:true});
+            selection.mode = mode;
+            renderSequenceView();
+            const active = root.querySelector(&#x27;button[data-join-mode=&quot;&#x27; + mode + &#x27;&quot;]&#x27;);
+            if (active) active.focus({preventScroll:true});
             saveState();
           });
-          modeButtons.append(button);
-        });
-        intro.append(modeButtons,element(&quot;span&quot;,&quot;&quot;,config.intro));
+          controls.append(button);
+        }
+        return controls;
+      }
+      function renderSequenceView() {
+        docBox.replaceChildren();
+        const chart = sequenceViews[flow];
+        const selection = diagramSelection[flow];
+        const rows = chart.rows(selection.mode);
+        const actors = chart.actors;
+        const selectedRow = rows.find(item =&gt; item.id === selection.step) || rows[0];
+        selection.step = selectedRow.id;
+        const view = element(&quot;div&quot;,&quot;invite-view&quot;);
+        view.dataset.diagram = flow;
+        const intro = element(&quot;section&quot;,&quot;card invite-intro&quot;);
+        intro.append(element(&quot;h2&quot;,&quot;&quot;,chart.title));
+        if (flow === &quot;join&quot;) {
+          intro.append(joinOptions(selection),element(&quot;span&quot;,&quot;&quot;,joinCases[selection.mode].intro));
+        } else {
+          intro.append(element(&quot;span&quot;,&quot;&quot;,&quot;签发方向 AFP Membership 申请 echo@realm.develenv.com 的邀请，并把返回的 ri_ 文本交给接收方。&quot;));
+        }
         view.append(intro);
         const workspace = element(&quot;div&quot;,&quot;invite-workspace&quot;);
+        workspace.style.setProperty(&quot;--lane-count&quot;,String(actors.length));
         const diagram = element(&quot;section&quot;,&quot;card&quot;);
-        diagram.append(element(&quot;h2&quot;,&quot;&quot;,&quot;完整时序 · 10 步&quot;));
+        diagram.append(element(&quot;h2&quot;,&quot;&quot;,chart.sequenceTitle + &quot; · &quot; + rows.length + &quot; 步&quot;));
         const legend = element(&quot;div&quot;,&quot;invite-phase-legend&quot;);
-        Object.entries(invitePhases).forEach(function (entry) { legend.append(element(&quot;span&quot;,&quot;invite-phase phase-&quot; + entry[0],entry[1])); });
+        for (const phase of new Set(rows.map(row =&gt; row.phase))) {
+          legend.append(element(&quot;span&quot;,&quot;invite-phase phase-&quot; + phase,invitePhases[phase]));
+        }
         diagram.append(legend);
-        const actors = [
-          [config.actor,config.key],
-          [&quot;AFP&quot;,&quot;afp.develenv.com&quot;],
-          [&quot;接收方 Host&quot;,&quot;C_new&quot;],
-          [&quot;Realm domain&quot;,&quot;realm.develenv.com&quot;]
-        ];
         const lanes = element(&quot;div&quot;,&quot;invite-lanes&quot;);
         actors.forEach(function (actor) {
           const lane = element(&quot;div&quot;,&quot;invite-lane&quot;);
@@ -2422,20 +2428,20 @@ html&gt;body{padding:0}&lt;/style&gt;
         });
         diagram.append(lanes);
         const sequence = element(&quot;div&quot;,&quot;invite-sequence&quot;);
-        sequence.setAttribute(&quot;aria-label&quot;,&quot;从申请邀请到完成 Membership 的消息时序&quot;);
+        sequence.setAttribute(&quot;aria-label&quot;,chart.sequenceTitle);
         rows.forEach(function (row,index) {
           const wrapper = element(&quot;div&quot;,&quot;invite-event-wrap&quot;);
           const button = element(&quot;button&quot;,&quot;btn invite-event phase-&quot; + row.phase);
           button.type = &quot;button&quot;;
           button.dataset.inviteStep = row.id;
-          button.setAttribute(&quot;aria-controls&quot;,&quot;invite-step-details&quot;);
+          button.setAttribute(&quot;aria-controls&quot;,flow + &quot;-step-details&quot;);
           button.setAttribute(&quot;aria-pressed&quot;,String(row.id === selectedRow.id));
           button.setAttribute(&quot;aria-label&quot;,(index + 1) + &quot;. &quot; + row.title + &quot;，&quot; + actors[row.from][0] + &quot; → &quot; + actors[row.to][0]);
           button.append(element(&quot;span&quot;,&quot;invite-step-number&quot;,String(index + 1)));
           const grid = element(&quot;span&quot;,&quot;invite-message-grid&quot;);
           actors.forEach(function (actor,i) {
             const line = element(&quot;span&quot;,&quot;invite-life&quot;);
-            line.style.left = ((i + .5) * 25) + &quot;%&quot;;
+            line.style.left = ((i + .5) * 100 / actors.length) + &quot;%&quot;;
             line.setAttribute(&quot;aria-hidden&quot;,&quot;true&quot;);
             grid.append(line);
           });
@@ -2452,7 +2458,7 @@ html&gt;body{padding:0}&lt;/style&gt;
           grid.append(message);
           button.append(grid);
           button.addEventListener(&quot;click&quot;,function () {
-            inviteStep = row.id;
+            selection.step = row.id;
             sequence.querySelectorAll(&quot;button[data-invite-step]&quot;).forEach(function (target) { target.setAttribute(&quot;aria-pressed&quot;,String(target.dataset.inviteStep === row.id)); });
             renderInviteDetails(detail,row,index,actors);
             sequence.querySelectorAll(&quot;.invite-inline-detail&quot;).forEach(function (target) { target.remove(); });
@@ -2473,29 +2479,15 @@ html&gt;body{padding:0}&lt;/style&gt;
         });
         diagram.append(sequence);
         const detail = element(&quot;aside&quot;,&quot;card invite-detail&quot;);
-        detail.id = &quot;invite-step-details&quot;;
+        detail.id = flow + &quot;-step-details&quot;;
         detail.setAttribute(&quot;aria-live&quot;,&quot;polite&quot;);
         renderInviteDetails(detail,selectedRow,rows.indexOf(selectedRow),actors);
         workspace.append(diagram,detail);
         view.append(workspace);
-        const rules = element(&quot;section&quot;,&quot;card invite-rules&quot;);
-        rules.append(element(&quot;h2&quot;,&quot;&quot;,&quot;兑换边界与 Key roles&quot;));
-        [
-          [&quot;一次性与幂等&quot;,&quot;新 key 不能再次使用已消费的 Invite；响应丢失使用同一 C_new 重试，仍需新的请求 nonce / 签名。&quot;],
-          [&quot;Member 与 client&quot;,&quot;普通 role=editor/viewer 邀请创建新 member；member_id 邀请给同一 active member 增加 client，继承其 role。v1 每个 Realm 恰有一个 owner。&quot;],
-          [&quot;Owner 恢复&quot;,&quot;重新签发只使旧的未用 Owner Invites 失效；兑换恢复邀请成功时才撤销 owner 旧 client keys，并在 AFP 侧停用其绑定 Actor，ActorId 不因此作废。&quot;],
-          [&quot;签名归属&quot;,&quot;普通 create_invite 用现有 Realm client key；join 用 C_new；Owner 管理请求与 Profile 用 R；Realm issuer key 用于 Actor credential，Publisher keys 用于程序来源。&quot;],
-          [&quot;Membership 之后&quot;,&quot;加入不自动启动 Actor / Service，也不替代应用授权。后续注册与运行流程见「Realm Membership 与 Actor 运行」Tab。&quot;]
-        ].forEach(function (item) {
-          const row = element(&quot;div&quot;,&quot;invite-rule&quot;);
-          row.append(element(&quot;span&quot;,&quot;&quot;,item[0]),element(&quot;span&quot;,&quot;&quot;,item[1]));
-          rules.append(row);
-        });
-        view.append(rules);
         docBox.append(view);
       }
       function isOverviewFlow(value) {
-        return value === &quot;discovery&quot; || value === &quot;profile&quot; || value === &quot;invite&quot;;
+        return value === &quot;discovery&quot; || value === &quot;profile&quot; || Object.prototype.hasOwnProperty.call(sequenceViews,value);
       }
       let flow = &quot;release&quot;;
       let selected = 0;
@@ -2755,8 +2747,8 @@ html&gt;body{padding:0}&lt;/style&gt;
         return details;
       }
       function renderDocuments() {
-        if (flow === &quot;invite&quot;) {
-          renderInviteView();
+        if (Object.prototype.hasOwnProperty.call(sequenceViews,flow)) {
+          renderSequenceView();
           return;
         }
         const isProfile = flow === &quot;profile&quot;;
@@ -2818,7 +2810,12 @@ html&gt;body{padding:0}&lt;/style&gt;
       function saveState() {
         if (window.openai &amp;&amp; typeof window.openai.setWidgetState === &quot;function&quot;) {
           window.openai.setWidgetState({
-            modelContent:{flow:flow,stage:isOverviewFlow(flow) ? null : stages[flow][selected].id,inviteMode:inviteMode,inviteStep:inviteStep},
+            modelContent:{
+              flow:flow,
+              stage:isOverviewFlow(flow) ? null : stages[flow][selected].id,
+              inviteStep:diagramSelection.invite.step,
+              joinMode:diagramSelection.join.mode, joinStep:diagramSelection.join.step
+            },
             privateContent:null
           }).catch(function () {});
         }
@@ -2826,6 +2823,7 @@ html&gt;body{padding:0}&lt;/style&gt;
       function renderStages() {
         const isOverview = isOverviewFlow(flow);
         root.classList.toggle(&quot;is-overview&quot;,isOverview);
+        root.querySelector(&quot;.atlas-footer&quot;).hidden = Object.prototype.hasOwnProperty.call(sequenceViews,flow);
         stageBox.replaceChildren();
         (isOverview ? [] : stages[flow]).forEach(function (stage,index) {
           const button = element(&quot;button&quot;,&quot;btn btn-block&quot;);
@@ -2846,12 +2844,30 @@ html&gt;body{padding:0}&lt;/style&gt;
         });
         renderDocuments();
       }
+      function restoreStep(view,step) {
+        const selection = diagramSelection[view];
+        if (!sequenceViews[view].rows(selection.mode).some(row =&gt; row.id === step)) return false;
+        selection.step = step;
+        return true;
+      }
       function restore(snapshot) {
         const content = snapshot &amp;&amp; (snapshot.modelContent || snapshot);
         if (!content || (!isOverviewFlow(content.flow) &amp;&amp; !Object.prototype.hasOwnProperty.call(stages,content.flow))) return;
         flow = content.flow;
-        if (Object.prototype.hasOwnProperty.call(inviteCases,content.inviteMode)) inviteMode = content.inviteMode;
-        if (typeof content.inviteStep === &quot;string&quot; &amp;&amp; invitationRows(inviteMode).some(function (item) { return item.id === content.inviteStep; })) inviteStep = content.inviteStep;
+        // Older snapshots used inviteMode and inviteStep for the combined diagram.
+        const legacy = !Object.prototype.hasOwnProperty.call(content,&quot;joinStep&quot;);
+        const savedMode = legacy ? content.inviteMode : content.joinMode;
+        if (Object.prototype.hasOwnProperty.call(joinCases,savedMode)) diagramSelection.join.mode = savedMode;
+        restoreStep(&quot;invite&quot;,content.inviteStep);
+        const wasJoinStep = restoreStep(&quot;join&quot;,legacy ? content.inviteStep : content.joinStep);
+        if (legacy &amp;&amp; flow === &quot;invite&quot; &amp;&amp; wasJoinStep) flow = &quot;join&quot;;
+        if (flow === &quot;release&quot; &amp;&amp; content.stage === &quot;owner-join&quot;) {
+          flow = &quot;join&quot;;
+          diagramSelection.join = {mode:&quot;owner&quot;,step:&quot;join&quot;};
+        } else if (flow === &quot;runtime&quot; &amp;&amp; content.stage === &quot;invite&quot;) {
+          flow = &quot;invite&quot;;
+          diagramSelection.invite.step = &quot;request&quot;;
+        }
         if (isOverviewFlow(flow)) {
           selected = 0;
           return;
