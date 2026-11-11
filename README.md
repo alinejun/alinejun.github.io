@@ -16,6 +16,6 @@
 
 Membership 说明核对日期：2026-11-11。页面区分 owner 初始化、`role=editor/viewer` 新 member 邀请和 `member_id` 添加 client 邀请；明确 `create_invite` / `join` 使用 Realm client key、加入结果不是 Actor credential，Service 注册要求 owner。完整公开 JSON 的字段和值保持与端点一致。
 
-「Realm Invite」有四步，从申请、权限校验、生成邀请到带外交付。「Realm Join」有七步，依次为导入邀请、取得 Realm 域公钥、验证 Profile 并确定兑换地址、保存 client key、向 AFP Membership 提交 `join`、原子登记和接收结果。Echo 的兑换端点为 `POST https://afp.develenv.com/issuer/membership`。加入图涵盖新 member、添加 client 和 Owner 初始化或恢复三种场景。
+「Realm Invite」有四步，从申请、权限校验、生成邀请到带外交付。「Realm Join」有七步，依次为导入邀请、取得 Realm 域公钥、验证 Profile 并确定兑换地址、保存 client key、向 AFP Membership 提交 `join`、原子登记和接收结果。Echo 的兑换端点为 `POST https://afp.develenv.com/issuer/membership`。三个示例分别演示受邀成为新 member、已有 member 添加 client，以及使用 Owner Invite 首次成为 Realm 的 owner。
 
 GitHub Pages 从 `main` 分支根目录发布。

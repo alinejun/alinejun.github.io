@@ -1933,9 +1933,6 @@ html&gt;body{padding:0}&lt;/style&gt;
     #domain-field-flow .flow-inventory { display:grid; gap:calc(var(--font-size-base) * .6); padding-top:calc(var(--font-size-base) * .5); }
     #domain-field-flow .invite-view { display:grid; gap:calc(var(--font-size-base) * 1); min-width:0; }
     #domain-field-flow .invite-intro { display:grid; gap:calc(var(--font-size-base) * .5); }
-    #domain-field-flow .owner-examples { margin:0; display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr)); }
-    #domain-field-flow .owner-examples dt { color:var(--atlas-blue); font-weight:500; }
-    #domain-field-flow .owner-examples dd { margin:4px 0 0; }
     #domain-field-flow .invite-workspace { display:grid; grid-template-columns:minmax(0,2.3fr) minmax(260px,1fr); gap:calc(var(--font-size-base) * 1); align-items:start; }
     #domain-field-flow .invite-sequence { display:grid; gap:6px; }
     #domain-field-flow .invite-lanes { display:grid; grid-template-columns:repeat(var(--lane-count),minmax(0,1fr)); margin:0 10px 12px 48px; }
@@ -2324,14 +2321,10 @@ html&gt;body{padding:0}&lt;/style&gt;
           result:&quot;AFP 定位目标 active member，登记新的 client key，并返回其现有 member_id 与当前 role。&quot;
         },
         owner:{
-          title:&quot;使用 Owner Invite 加入&quot;,
+          title:&quot;使用 Owner Invite 首次加入&quot;,
           commandActor:&quot;Realm signing key holder&quot;,
-          intro:&quot;Owner Invite 也通过 join 使用。一个 Realm 最多有一位 owner（管理员），这位成员可以使用多台设备。AFP 根据当前是否已有 owner 处理这次加入。&quot;,
-          examples:[
-            [&quot;首次成为 owner&quot;,&quot;Echo 还没有 owner。你在电脑 A 上用 Owner Invite 加入，AFP 为你创建 owner 成员记录，并把 A 的公钥关联到新分配的 member_id。电脑 A 上的 Host 就是第一个 client。&quot;],
-            [&quot;找回 owner 权限&quot;,&quot;假设电脑 A 是你唯一的管理设备，后来丢了。你在电脑 B 上用补发的 Owner Invite 加入。AFP 沿用你原来的 member_id，登记 B 的公钥，并在这次 join 成功时撤销该 owner 原有的全部 client keys。&quot;]
-          ],
-          result:&quot;首次加入会创建 owner 成员并登记本机公钥。恢复时沿用原 owner 的 member_id，登记新设备公钥，并在本次事务中撤销该 owner 原有的全部 client keys。&quot;
+          intro:&quot;以 Echo 首次激活为例，此时 Realm 尚无 owner。你在电脑上使用激活时签发的 Owner Invite 加入，就成为 Echo 的 owner。电脑上的 Host 是你的第一个 client。&quot;,
+          result:&quot;Realm 尚无 owner 时，AFP 为你分配 member_id，记录 role=owner，并将本机的 Realm client 公钥登记在这个 member_id 下。&quot;
         }
       };
       const membershipUrl = publicDocuments.profile.issuer.url.replace(/\/+$/,&quot;&quot;) + &quot;/membership&quot;;
@@ -2402,22 +2395,11 @@ html&gt;body{padding:0}&lt;/style&gt;
           lookup:deployedCli + &quot; realm members --key ./member-client.json&quot;,
           command:deployedCli + &quot; realm invite --key ./member-client.json --member &#x27;&lt;member_id&gt;&#x27; --days 7&quot;
         }],
-        owner:[
-          {
-            title:&quot;首次激活并取得 Owner Invite&quot;,
-            note:&quot;由 Realm signing key holder 执行。realm-domain-key.json 是 Realm signing key 文件，create-reply.json 是 create_realm 为 pending Realm 返回的草稿。首次激活成功后，从响应的 owner_invite 字段取得邀请。&quot;,
-            command:deployedCli + &quot; realm sign-profile --key ./realm-domain-key.json ./create-reply.json |\n&quot; + submitOwnerRequest
-          },
-          {
-            title:&quot;找回 owner 权限时补发 Owner Invite&quot;,
-            note:&quot;由 Realm signing key holder 签署 reissue_owner_invite。AFP 签发新邀请后，此前未使用的 Owner Invite 失效。新设备用补发的邀请成功加入时，AFP 撤销原 owner 的旧 client keys。&quot;,
-            command:[
-              deployedCli + &quot; realm reissue-request --key ./realm-domain-key.json \\&quot;,
-              &quot;  --realm echo@realm.develenv.com --provider afp.develenv.com |&quot;,
-              submitOwnerRequest
-            ].join(&quot;\n&quot;)
-          }
-        ]
+        owner:[{
+          title:&quot;首次激活并取得 Owner Invite&quot;,
+          note:&quot;由 Realm signing key holder 执行。realm-domain-key.json 是 Realm signing key 文件，create-reply.json 是 create_realm 为 pending Realm 返回的草稿。首次激活成功后，从响应的 owner_invite 字段取得邀请。&quot;,
+          command:deployedCli + &quot; realm sign-profile --key ./realm-domain-key.json ./create-reply.json |\n&quot; + submitOwnerRequest
+        }]
       };
       function plainCodeBlock(text,language) {
         const pre = element(&quot;pre&quot;);
@@ -2508,15 +2490,6 @@ html&gt;body{padding:0}&lt;/style&gt;
           const example = joinCases[selection.mode];
           intro.append(element(&quot;p&quot;,&quot;&quot;,&quot;join 成功时，AFP 在同一事务中把邀请标为已用（兑换），并把本机的 Realm client 公钥关联到相应的成员记录（登记）。本机以后发送成员请求，AFP 先用这把公钥验签，再按该成员当前的角色和请求目标检查权限。&quot;));
           intro.append(joinOptions(selection),element(&quot;p&quot;,&quot;&quot;,example.intro));
-          if (example.examples) {
-            const descriptions = element(&quot;dl&quot;,&quot;owner-examples&quot;);
-            for (const [label, explanation] of example.examples) {
-              const item = element(&quot;div&quot;);
-              item.append(element(&quot;dt&quot;,&quot;&quot;,label),element(&quot;dd&quot;,&quot;&quot;,explanation));
-              descriptions.append(item);
-            }
-            intro.append(descriptions);
-          }
         } else {
           intro.append(element(&quot;span&quot;,&quot;&quot;,&quot;签发方向 AFP Membership 申请 echo@realm.develenv.com 的邀请，并把返回的 ri_ 文本交给接收方。&quot;));
         }
