@@ -2312,17 +2312,20 @@ html&gt;body{padding:0}&lt;/style&gt;
       };
       const joinCases = {
         member:{
-          title:&quot;新 member 邀请&quot;,
-          intro:&quot;例如你用手机接受 editor 邀请。AFP 为你分配 member_id，记录 editor 角色，并把手机的 Realm client 公钥关联到这个编号。&quot;,
+          title:&quot;受邀成为新 member&quot;,
+          commandActor:&quot;owner&quot;,
+          intro:&quot;例如 Echo 的 owner 邀请你以 editor 身份加入。你用手机接受后，AFP 为你分配新的 member_id，并登记手机的公钥。你可以给自己的 member_id 添加 client。邀请其他人成为新 member 需要当前 owner 角色。&quot;,
           result:&quot;AFP 创建 member_id，记录邀请指定的 editor 或 viewer 角色，并登记新 public_key。&quot;
         },
         client:{
-          title:&quot;添加 client 邀请&quot;,
+          title:&quot;已有 member 接入新设备&quot;,
+          commandActor:&quot;目标 member 本人或 owner&quot;,
           intro:&quot;例如你已经在电脑 A 上加入 Echo，现在还想用手机。用指向已有 member_id 的邀请在手机上加入后，电脑 A 和手机的公钥都在同一份成员记录下，两台设备都可以继续使用。&quot;,
           result:&quot;AFP 定位目标 active member，登记新的 client key，并返回其现有 member_id 与当前 role。&quot;
         },
         owner:{
-          title:&quot;Owner Invite&quot;,
+          title:&quot;使用 Owner Invite 加入&quot;,
+          commandActor:&quot;Realm signing key holder&quot;,
           intro:&quot;Owner Invite 也通过 join 使用。一个 Realm 最多有一位 owner（管理员），这位成员可以使用多台设备。AFP 根据当前是否已有 owner 处理这次加入。&quot;,
           examples:[
             [&quot;首次成为 owner&quot;,&quot;Echo 还没有 owner。你在电脑 A 上用 Owner Invite 加入，AFP 为你创建 owner 成员记录，并把 A 的公钥关联到新分配的 member_id。电脑 A 上的 Host 就是第一个 client。&quot;],
@@ -2363,7 +2366,7 @@ html&gt;body{padding:0}&lt;/style&gt;
           {id:&quot;redeem&quot;,phase:&quot;redeem&quot;,from:2,to:2,title:&quot;AFP 把本机公钥关联到成员记录&quot;,label:&quot;邀请标为已用，保存本机公钥&quot;,
             facts:[[&quot;检查&quot;,&quot;AFP 核对签名、Realm 和 Provider 绑定、nonce、时效、邀请状态及配额。&quot;],[&quot;成员与设备&quot;,config.result],[&quot;同一事务&quot;,&quot;邀请标为已用与保存公钥一起提交，并发只会消费一次邀请。超出配额时，邀请仍可用于重试。&quot;],[&quot;失败状态&quot;,&quot;AFP 区分 invite_unknown、invite_expired、invite_used、invite_revoked 与 invite_realm_mismatch。&quot;]]},
           {id:&quot;result&quot;,phase:&quot;redeem&quot;,from:2,to:0,title:&quot;Host 收到 Membership 结果&quot;,label:&quot;返回 realm、member_id、role、key_id&quot;,
-            facts:[[&quot;响应&quot;,&quot;{realm, member_id, role, key_id}&quot;],[&quot;完成条件&quot;,&quot;member 为 active，C_new 已在本 Realm 登记并可用于成员请求。Host 保管这把 key 与登记结果。&quot;],[&quot;响应丢失时&quot;,&quot;Host 用同一份邀请和同一把 C_new 生成新的 nonce 和签名重试。只要该 key 有效且 member 为 active，AFP 返回首次兑换结果。&quot;]]}
+            facts:[[&quot;响应&quot;,&quot;{realm, member_id, role, key_id}&quot;],[&quot;后续成员请求&quot;,&quot;Host 用已登记的 C_new 签名。AFP 验签后按成员当前角色和操作目标授权。只有 owner 可以邀请新 member，editor 和 viewer 可为自己添加 client。&quot;],[&quot;响应丢失时&quot;,&quot;Host 用同一份邀请和同一把 C_new 生成新的 nonce 和签名重试。只要该 key 有效且 member 为 active，AFP 返回首次兑换结果。&quot;]]}
         ];
       }
 
@@ -2390,12 +2393,12 @@ html&gt;body{padding:0}&lt;/style&gt;
       const inviteCommands = {
         member:[{
           title:&quot;签发新 member 邀请&quot;,
-          note:&quot;owner 使用 join 时保存的 Realm client key 文件。CLI 从中读取 Realm 与 Issuer 地址。这个示例邀请 editor，--role 也可填 viewer。将响应的 invite 字段交给接收方。&quot;,
+          note:&quot;这条命令由当前 owner 执行，--key 指向 owner 已登记的 Realm client key 文件。示例邀请对方成为 editor，也可以把 --role 设为 viewer。把响应中的 invite 文本交给受邀者。&quot;,
           command:deployedCli + &quot; realm invite --key ./owner-client.json --role editor --days 7&quot;
         }],
         client:[{
           title:&quot;给已有 member 签发添加 client 的邀请&quot;,
-          note:&quot;把 &lt;member_id&gt; 换成目标成员的编号。签发方使用自己的 Realm client key。普通 member 可以为自己签发，owner 可以为任一 active member 签发。&quot;,
+          note:&quot;把 &lt;member_id&gt; 换成新设备要关联的成员编号。普通 member 可为自己的 member_id 添加 client，owner 可为任一 active member 添加 client。&quot;,
           lookup:deployedCli + &quot; realm members --key ./member-client.json&quot;,
           command:deployedCli + &quot; realm invite --key ./member-client.json --member &#x27;&lt;member_id&gt;&#x27; --days 7&quot;
         }],
@@ -2424,7 +2427,7 @@ html&gt;body{padding:0}&lt;/style&gt;
       function signingCommands(mode) {
         const panel = element(mode ? &quot;details&quot; : &quot;section&quot;,&quot;card command-reference&quot;);
         if (mode) {
-          panel.append(element(&quot;summary&quot;,&quot;&quot;,&quot;查看签发命令 · &quot; + joinCases[mode].title));
+          panel.append(element(&quot;summary&quot;,&quot;&quot;,&quot;查看签发命令（执行方：&quot; + joinCases[mode].commandActor + &quot;）&quot;));
         } else {
           panel.append(element(&quot;h2&quot;,&quot;&quot;,&quot;签发 Realm Invite 的命令&quot;));
         }
@@ -2471,8 +2474,8 @@ html&gt;body{padding:0}&lt;/style&gt;
       function joinOptions(selection) {
         const controls = element(&quot;div&quot;,&quot;viz-controls&quot;);
         controls.setAttribute(&quot;role&quot;,&quot;group&quot;);
-        controls.setAttribute(&quot;aria-label&quot;,&quot;按邀请用途查看示例&quot;);
-        controls.append(element(&quot;span&quot;,&quot;text-small&quot;,&quot;按邀请用途查看示例&quot;));
+        controls.setAttribute(&quot;aria-label&quot;,&quot;从接收方看加入结果&quot;);
+        controls.append(element(&quot;span&quot;,&quot;text-small&quot;,&quot;从接收方看加入结果&quot;));
         for (const [mode, config] of Object.entries(joinCases)) {
           const button = element(&quot;button&quot;,&quot;btn&quot;,config.title);
           button.type = &quot;button&quot;;
@@ -2503,7 +2506,7 @@ html&gt;body{padding:0}&lt;/style&gt;
         intro.append(element(&quot;h2&quot;,&quot;&quot;,chart.title));
         if (flow === &quot;join&quot;) {
           const example = joinCases[selection.mode];
-          intro.append(element(&quot;p&quot;,&quot;&quot;,&quot;一次 join 成功时，AFP 在同一事务中把邀请标为已用（兑换），并把本机的 Realm client 公钥记在你的成员编号 member_id 下（登记）。以后本机再发成员请求，AFP 用这把公钥验签。&quot;));
+          intro.append(element(&quot;p&quot;,&quot;&quot;,&quot;join 成功时，AFP 在同一事务中把邀请标为已用（兑换），并把本机的 Realm client 公钥关联到相应的成员记录（登记）。本机以后发送成员请求，AFP 先用这把公钥验签，再按该成员当前的角色和请求目标检查权限。&quot;));
           intro.append(joinOptions(selection),element(&quot;p&quot;,&quot;&quot;,example.intro));
           if (example.examples) {
             const descriptions = element(&quot;dl&quot;,&quot;owner-examples&quot;);
