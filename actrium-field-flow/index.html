@@ -5,19 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="referrer" content="no-referrer">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com https://persistent.oaistatic.com/plugins/visualize/; style-src 'unsafe-inline' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com https://persistent.oaistatic.com/plugins/visualize/charts/; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
-<title>Actr Authority Discovery 与 Realm Profile</title>
+<title>Actrium v1 · Realm、Membership 与 Invite</title>
 <style>:root{color-scheme:light dark;background:light-dark(rgb(255 255 255), rgb(24 24 24))}html,body{margin:0}body{box-sizing:border-box;padding:1rem;background:inherit}iframe{display:block;width:100%;height:calc(100vh - 2rem);margin:0 auto;border:0}</style>
 
 </head>
 <body>
-<iframe id="codex-visualization" sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox" allow="clipboard-write *" referrerpolicy="no-referrer" title="Actr Authority Discovery 与 Realm Profile" data-srcdoc="&lt;!doctype html&gt;
+<iframe id="codex-visualization" sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox" allow="clipboard-write *" referrerpolicy="no-referrer" title="Actrium v1 · Realm、Membership 与 Invite" data-srcdoc="&lt;!doctype html&gt;
 &lt;html lang=&quot;en&quot; data-visualize-standalone&gt;
 &lt;head&gt;
 &lt;meta charset=&quot;utf-8&quot;&gt;
 &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
 &lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
 &lt;meta http-equiv=&quot;Content-Security-Policy&quot; content=&quot;default-src &#x27;none&#x27;; script-src &#x27;unsafe-inline&#x27; &#x27;unsafe-eval&#x27; &#x27;wasm-unsafe-eval&#x27; blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com https://persistent.oaistatic.com/plugins/visualize/; style-src &#x27;unsafe-inline&#x27; blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com https://persistent.oaistatic.com/plugins/visualize/charts/; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src &#x27;none&#x27;; object-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;none&#x27;&quot;&gt;
-&lt;title&gt;Actr Authority Discovery 与 Realm Profile&lt;/title&gt;
+&lt;title&gt;Actrium v1 · Realm、Membership 与 Invite&lt;/title&gt;
 &lt;style&gt;:root {
   color-scheme: light dark;
   background-color: var(
@@ -1845,8 +1845,57 @@ html&gt;body{padding:0}&lt;/style&gt;
 &lt;/script&gt;
 &lt;div id=&quot;domain-field-flow&quot;&gt;
   &lt;style&gt;
-    #domain-field-flow { display:grid; gap:calc(var(--font-size-base) * 1); color:var(--foreground); }
-    #domain-field-flow .flow-heading { display:grid; gap:calc(var(--font-size-base) * .35); padding-right:calc(var(--font-size-base) * 6); }
+    #domain-field-flow {
+      --atlas-ink:light-dark(#13365e,#dfecff);
+      --atlas-muted:light-dark(#516a85,#b1c5de);
+      --atlas-blue:light-dark(#1266c3,#8dc0ff);
+      --atlas-line:light-dark(#bad9fc,#35577d);
+      --atlas-surface:light-dark(#ffffff,#11263d);
+      --atlas-soft:light-dark(#f2f8ff,#0c1d30);
+      --atlas-purple:light-dark(#7050b9,#c6b0ff);
+      --atlas-green:light-dark(#1d8066,#8ad9bd);
+      --atlas-amber:light-dark(#925b10,#f1c383);
+      --foreground:var(--atlas-ink);
+      --muted-foreground:var(--atlas-muted);
+      --card:var(--atlas-surface);
+      --card-foreground:var(--atlas-ink);
+      --primary:var(--atlas-blue);
+      --primary-foreground:light-dark(#ffffff,#092645);
+      --border:var(--atlas-line);
+      --accent:var(--atlas-soft);
+      --accent-foreground:var(--atlas-ink);
+      --blue:var(--atlas-blue);
+      --green:var(--atlas-green);
+      --purple:var(--atlas-purple);
+      --orange:var(--atlas-amber);
+      display:grid; gap:calc(var(--font-size-base) * 1.15); color:var(--atlas-ink);
+      background:linear-gradient(155deg,var(--atlas-surface),var(--atlas-soft));
+    }
+    #domain-field-flow .atlas-kicker { color:var(--atlas-blue); letter-spacing:.08em; font-weight:500; }
+    #domain-field-flow .flow-heading { padding-top:calc(var(--font-size-base) * .5); }
+    #domain-field-flow .flow-heading h1 { color:var(--atlas-ink); }
+    #domain-field-flow .atlas-subtitle { color:var(--atlas-muted); }
+    #domain-field-flow .view-tabs { padding-bottom:calc(var(--font-size-base) * .75); border-bottom:1px solid var(--atlas-line); }
+    #domain-field-flow .btn { border:1px solid var(--atlas-line); border-radius:12px; background:var(--atlas-surface); color:var(--atlas-ink); }
+    #domain-field-flow .view-tabs .btn { border-radius:999px; }
+    #domain-field-flow .btn[aria-pressed=&quot;true&quot;] { color:var(--primary-foreground); background:var(--atlas-blue); border-color:var(--atlas-blue); }
+    #domain-field-flow .card {
+      --doc-accent:var(--atlas-blue);
+      padding:calc(var(--font-size-base) * 1.15);
+      border:1px solid color-mix(in srgb,var(--doc-accent) 35%,var(--atlas-line));
+      border-radius:16px;
+      background:linear-gradient(180deg,color-mix(in srgb,var(--doc-accent) 4%,var(--atlas-surface)),var(--atlas-surface) 90px);
+      box-shadow:0 2px 10px color-mix(in srgb,var(--atlas-blue) 5%,transparent);
+    }
+    #domain-field-flow .doc-realm, #domain-field-flow .doc-profile { --doc-accent:var(--atlas-green); }
+    #domain-field-flow .doc-publisher { --doc-accent:var(--atlas-purple); }
+    #domain-field-flow .flow-doc-head { padding-bottom:calc(var(--font-size-base) * .4); border-bottom:1px solid var(--atlas-line); }
+    #domain-field-flow .flow-doc-head &gt; :first-child { font-weight:500; }
+    #domain-field-flow .flow-current { padding:calc(var(--font-size-base) * .8); background:var(--atlas-soft); border-left:3px solid var(--atlas-blue); }
+    #domain-field-flow .flow-url { color:var(--atlas-blue); }
+    #domain-field-flow .flow-json { padding:calc(var(--font-size-base) * .8); background:var(--atlas-soft); border-radius:10px; color:var(--atlas-ink); }
+    #domain-field-flow .atlas-footer { color:var(--atlas-muted); border-top:1px solid var(--atlas-line); padding-top:calc(var(--font-size-base) * .7); }
+    #domain-field-flow .flow-heading { display:grid; gap:calc(var(--font-size-base) * .35); }
     #domain-field-flow .flow-layout { display:grid; grid-template-columns:minmax(165px,.7fr) minmax(0,2fr); gap:calc(var(--font-size-base) * 1); align-items:start; }
     #domain-field-flow .flow-stages { display:grid; gap:calc(var(--font-size-base) * .3); }
     #domain-field-flow .flow-arrow { text-align:center; color:var(--muted-foreground); }
@@ -1870,6 +1919,52 @@ html&gt;body{padding:0}&lt;/style&gt;
     #domain-field-flow details { display:grid; gap:calc(var(--font-size-base) * .4); }
     #domain-field-flow summary { color:var(--foreground); }
     #domain-field-flow .flow-inventory { display:grid; gap:calc(var(--font-size-base) * .6); padding-top:calc(var(--font-size-base) * .5); }
+    #domain-field-flow .invite-view { display:grid; gap:calc(var(--font-size-base) * 1); min-width:0; }
+    #domain-field-flow .invite-intro { display:grid; gap:calc(var(--font-size-base) * .5); }
+    #domain-field-flow .invite-workspace { display:grid; grid-template-columns:minmax(0,2.3fr) minmax(260px,1fr); gap:calc(var(--font-size-base) * 1); align-items:start; }
+    #domain-field-flow .invite-sequence { display:grid; gap:6px; }
+    #domain-field-flow .invite-lanes { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); margin:0 10px 12px 48px; }
+    #domain-field-flow .invite-lane { display:grid; gap:3px; text-align:center; margin:0 3px; padding:10px 5px; border:1px solid var(--atlas-line); border-radius:10px; background:var(--atlas-soft); min-width:0; overflow-wrap:anywhere; }
+    #domain-field-flow .invite-lane strong { font-weight:500; }
+    #domain-field-flow .invite-event.btn { display:grid; grid-template-columns:28px minmax(0,1fr); gap:10px; width:100%; padding:8px 9px; border:1px solid transparent; border-radius:10px; text-align:left; white-space:normal; background:var(--phase-fill); color:var(--atlas-ink); }
+    #domain-field-flow .invite-event.btn[aria-pressed=&quot;true&quot;] { border-color:var(--atlas-blue); box-shadow:inset 3px 0 var(--atlas-blue); background:var(--phase-fill); color:var(--atlas-ink); }
+    #domain-field-flow .invite-event.btn:hover { border-color:var(--atlas-line); background:var(--phase-fill); color:var(--atlas-ink); }
+    #domain-field-flow .phase-generate { --phase-ink:var(--atlas-purple); --phase-fill:color-mix(in srgb,var(--atlas-purple) 7%,var(--atlas-surface)); }
+    #domain-field-flow .phase-deliver { --phase-ink:var(--atlas-amber); --phase-fill:color-mix(in srgb,var(--atlas-amber) 7%,var(--atlas-surface)); }
+    #domain-field-flow .phase-verify { --phase-ink:var(--atlas-blue); --phase-fill:color-mix(in srgb,var(--atlas-blue) 6%,var(--atlas-surface)); }
+    #domain-field-flow .phase-redeem { --phase-ink:var(--atlas-green); --phase-fill:color-mix(in srgb,var(--atlas-green) 7%,var(--atlas-surface)); }
+    #domain-field-flow .invite-step-number { display:grid; place-items:center; width:28px; height:28px; align-self:center; border-radius:50%; background:var(--phase-ink); color:var(--primary-foreground); }
+    #domain-field-flow .invite-message-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); position:relative; min-height:62px; align-items:center; min-width:0; }
+    #domain-field-flow .invite-life { position:absolute; top:-9px; bottom:-9px; border-left:1px dashed var(--atlas-line); pointer-events:none; }
+    #domain-field-flow .invite-message { z-index:1; min-width:0; display:grid; gap:5px; padding:4px 0; }
+    #domain-field-flow .invite-message-label { text-align:center; overflow-wrap:anywhere; font-weight:500; padding:0 5px; }
+    #domain-field-flow .invite-mobile-route { display:none; color:var(--atlas-muted); }
+    #domain-field-flow .invite-message-line { display:block; position:relative; height:10px; margin-left:calc(50% / var(--span)); margin-right:calc(50% / var(--span)); border-top:1.5px solid var(--atlas-ink); }
+    #domain-field-flow .invite-message-line::after { content:&quot;&quot;; position:absolute; top:-5px; right:-1px; border-left:7px solid var(--atlas-ink); border-top:4px solid transparent; border-bottom:4px solid transparent; }
+    #domain-field-flow .invite-message-line.reverse::after { left:-1px; right:auto; border-left:0; border-right:7px solid var(--atlas-ink); }
+    #domain-field-flow .invite-message-line.self { width:26px; height:11px; margin:0 auto; border-right:1.5px solid var(--atlas-ink); border-bottom:1.5px solid var(--atlas-ink); border-radius:0 5px 5px 0; }
+    #domain-field-flow .invite-message-line.self::after { top:auto; bottom:-5px; left:0; right:auto; border-left:0; border-right:7px solid var(--atlas-ink); }
+    #domain-field-flow .invite-detail { display:grid; gap:calc(var(--font-size-base) * .75); }
+    #domain-field-flow .invite-inline-detail { display:none; }
+    #domain-field-flow .invite-detail dl, #domain-field-flow .invite-inline-detail dl { margin:0; display:grid; gap:calc(var(--font-size-base) * .6); }
+    #domain-field-flow .invite-detail dt, #domain-field-flow .invite-inline-detail dt { color:var(--atlas-blue); font-weight:500; }
+    #domain-field-flow .invite-detail dd, #domain-field-flow .invite-inline-detail dd { margin:calc(var(--font-size-base) * .2) 0 0; overflow-wrap:anywhere; }
+    #domain-field-flow .invite-phase { display:inline-flex; align-items:center; gap:6px; color:var(--atlas-ink); }
+    #domain-field-flow .invite-phase::before { content:&quot;&quot;; width:9px; height:9px; background:var(--phase-ink); border-radius:50%; }
+    #domain-field-flow .invite-phase-legend { display:flex; flex-wrap:wrap; gap:16px; margin:10px 0; }
+    #domain-field-flow .invite-rules { display:grid; gap:calc(var(--font-size-base) * .65); }
+    #domain-field-flow .invite-rule { display:grid; grid-template-columns:minmax(130px,.6fr) minmax(0,2fr); gap:12px; padding-top:10px; border-top:1px solid var(--atlas-line); }
+    #domain-field-flow .invite-rule &gt; :first-child { font-weight:500; }
+    @media (max-width:1050px) { #domain-field-flow .invite-workspace { grid-template-columns:minmax(0,1fr); } }
+    @media (max-width:680px) {
+      #domain-field-flow .invite-lanes, #domain-field-flow .invite-life, #domain-field-flow .invite-message-line { display:none; }
+      #domain-field-flow .invite-message-grid { display:block; min-height:0; }
+      #domain-field-flow .invite-message-label { text-align:left; padding:0; }
+      #domain-field-flow .invite-mobile-route { display:block; }
+      #domain-field-flow .invite-detail { display:none; }
+      #domain-field-flow .invite-inline-detail { display:grid; gap:10px; padding:12px; margin-top:5px; background:var(--atlas-soft); border-left:2px solid var(--atlas-blue); }
+      #domain-field-flow .invite-rule { grid-template-columns:minmax(0,1fr); gap:4px; }
+    }
     @media (max-width:600px) {
       #domain-field-flow .flow-layout { grid-template-columns:minmax(0,1fr); }
       #domain-field-flow .flow-stages { grid-template-columns:repeat(2,minmax(0,1fr)); }
@@ -1877,14 +1972,17 @@ html&gt;body{padding:0}&lt;/style&gt;
     }
   &lt;/style&gt;
   &lt;div class=&quot;flow-heading&quot;&gt;
-    &lt;h3&gt;Actr Authority Discovery 与 Realm Profile&lt;/h3&gt;
+    &lt;span class=&quot;atlas-kicker text-small&quot;&gt;ACTRIUM V1 · PROTOCOL ATLAS&lt;/span&gt;
+    &lt;h1&gt;Realm、Membership 与 Actor 运行&lt;/h1&gt;
+    &lt;span class=&quot;atlas-subtitle&quot;&gt;从 Program Release 到 Realm Invite，对照三个域名、公开 JSON 与 Key roles。&lt;/span&gt;
     &lt;span class=&quot;text-small&quot;&gt;公开 JSON 与 Membership 说明已核对 · 2026-11-11&lt;/span&gt;
   &lt;/div&gt;
-  &lt;div class=&quot;viz-controls&quot; aria-label=&quot;选择流程或文档说明&quot;&gt;
+  &lt;div class=&quot;viz-controls view-tabs&quot; aria-label=&quot;选择流程或文档说明&quot;&gt;
     &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-flow=&quot;release&quot; aria-pressed=&quot;true&quot;&gt;Program Release 与 Realm Creation&lt;/button&gt;
     &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-flow=&quot;runtime&quot; aria-pressed=&quot;false&quot;&gt;Realm Membership 与 Actor 运行&lt;/button&gt;
     &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-flow=&quot;discovery&quot; aria-pressed=&quot;false&quot;&gt;Actr Authority Discovery&lt;/button&gt;
     &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-flow=&quot;profile&quot; aria-pressed=&quot;false&quot;&gt;Actr Realm Profile&lt;/button&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-flow=&quot;invite&quot; aria-pressed=&quot;false&quot;&gt;Realm Invite&lt;/button&gt;
   &lt;/div&gt;
   &lt;div class=&quot;flow-current&quot; aria-live=&quot;polite&quot;&gt;
     &lt;span id=&quot;dff-current&quot;&gt;&lt;/span&gt;
@@ -1894,7 +1992,7 @@ html&gt;body{padding:0}&lt;/style&gt;
     &lt;div id=&quot;dff-stages&quot; class=&quot;flow-stages&quot; aria-label=&quot;操作流程&quot;&gt;&lt;/div&gt;
     &lt;div id=&quot;dff-docs&quot; class=&quot;flow-docs&quot; aria-label=&quot;文档与字段卡片&quot;&gt;&lt;/div&gt;
   &lt;/div&gt;
-  &lt;span class=&quot;text-small&quot;&gt;新入口使用 rel: realm；原版 CLI 从标准 /.well-known/actr 读取 realms 兼容视图。图中无邀请码、成员私钥或访问令牌。&lt;/span&gt;
+  &lt;span class=&quot;text-small atlas-footer&quot;&gt;新入口使用 rel: realm；原版 CLI 从标准 /.well-known/actr 读取 realms 兼容视图。图中无邀请码、成员私钥或访问令牌。&lt;/span&gt;
   &lt;script type=&quot;application/json&quot; id=&quot;dff-public-json&quot;&gt;
 {
   &quot;realm&quot;: {
@@ -2202,8 +2300,202 @@ html&gt;body{padding:0}&lt;/style&gt;
           {id:&quot;owner-join&quot;,name:&quot;Owner Invite · join&quot;,action:&quot;创建者 Host 用自己的新 Realm client key 兑换 Owner Invite，登记第一个 client，取得唯一 owner 的 member_id 与 key_id。&quot;,note:&quot;给 owner 添加 Service Host 时应创建指向该 owner.member_id 的 client 邀请，并由 Service Host 用独立 key 加入。Owner Invite 恢复用于替换 owner 的旧 clients，不能用它给 owner 日常加设备。&quot;,used:{realm:[&quot;pointer&quot;,&quot;keys&quot;],profile:[&quot;realm&quot;,&quot;signature&quot;,&quot;issuer&quot;,&quot;policy&quot;]}}
         ]
       };
+      const inviteCases = {
+        member:{
+          title:&quot;邀请新 member&quot;,actor:&quot;Owner Host&quot;,key:&quot;C_owner&quot;,
+          intro:&quot;owner 选择 editor / viewer，AFP 生成 Realm Invite；接收者兑换后建立新的 member 与第一个 client。&quot;,
+          request:&quot;create_invite · role=editor/viewer&quot;,
+          fields:&quot;op=create_invite；role=editor 或 viewer；invite_expires_at；Actr management envelope 公共字段。&quot;,
+          authorize:&quot;Client key 已登记、未撤销，member 为 active 且 role=owner；普通 create_invite 不接受 owner。&quot;,
+          target:&quot;新 member 的 role 与邀请状态保存在 AFP，不要求写进 ri_ JSON。&quot;,
+          result:&quot;创建新的 member_id，记录 editor / viewer，并把 C_new 登记为该 member 的 client。&quot;,
+          ttl:&quot;invite_expires_at 不超过未来 30 天；CLI --days 默认 7，范围 1–30。&quot;
+        },
+        client:{
+          title:&quot;给已有 member 添加 client&quot;,actor:&quot;Member / Owner Host&quot;,key:&quot;C_member / C_owner&quot;,
+          intro:&quot;以 member_id 指向现有成员，登记另一把独立的 Realm client key；member_id 与 role 不变，旧 clients 保留。&quot;,
+          request:&quot;create_invite · member_id&quot;,
+          fields:&quot;op=create_invite；member_id；invite_expires_at；不同时传 role。&quot;,
+          authorize:&quot;owner 可指定任意 active member；普通 member 只能给自己的 member_id 添加 client。&quot;,
+          target:&quot;目标 member_id 与邀请状态保存在 AFP；Service Host 加入同一 owner 时使用这条路径。&quot;,
+          result:&quot;定位原 active member，继承其现有 role，增加 C_new；不创建新 member，不撤销原 clients。&quot;,
+          ttl:&quot;invite_expires_at 不超过未来 30 天；新 client 使用独立 key，不复制已有 client 的 private key。&quot;
+        },
+        owner:{
+          title:&quot;Owner 初始化 / 恢复&quot;,actor:&quot;Realm signing holder&quot;,key:&quot;Realm signing key R&quot;,
+          intro:&quot;本例 echo@realm.develenv.com 属于 AFP 以外的域名：由 Realm signing key holder 经 realm-management 申请 Owner Invite。&quot;,
+          request:&quot;publish_profile / reissue_owner_invite&quot;,
+          fields:&quot;首次 publish_profile 提交已签 Realm Profile；恢复使用 reissue_owner_invite；不是 create_invite(role=owner)。&quot;,
+          authorize:&quot;AFP 依据 realm.develenv.com 已接受的 Realm signing keys 验证 R 签名、授权、provider_id、nonce 与信封时效。&quot;,
+          target:&quot;Owner Invite 是特殊 role=owner 邀请；重新签发使此前未兑换的 Owner Invites 失效，既有 clients 此时仍保留。&quot;,
+          result:&quot;尚无 owner 时建立唯一 owner；恢复时保留 owner member_id，登记 C_new，并撤销 owner 原有全部 client keys。&quot;,
+          ttl:&quot;Owner Invite 固定有效期 7 天；正常新增设备或 Service Host 应使用 member_id client 邀请。&quot;
+        }
+      };
+      const invitePhases = {generate:&quot;生成邀请&quot;,deliver:&quot;带外交付&quot;,verify:&quot;发现与验证&quot;,redeem:&quot;兑换与登记&quot;};
+      let inviteMode = &quot;member&quot;;
+      let inviteStep = &quot;request&quot;;
+      function invitationRows(mode) {
+        const config = inviteCases[mode];
+        const ownerMode = mode === &quot;owner&quot;;
+        const membershipUrl = &quot;https://afp.develenv.com/issuer/membership&quot;;
+        const generationUrl = ownerMode ? &quot;https://afp.develenv.com/actr/realm-management&quot; : membershipUrl;
+        return [
+          {id:&quot;request&quot;,phase:&quot;generate&quot;,from:0,to:1,title:&quot;申请签发邀请&quot;,label:config.request,
+            facts:[[&quot;调用方与签名 key&quot;,config.actor + &quot; · &quot; + config.key],[&quot;HTTPS POST&quot;,generationUrl],[&quot;请求内容&quot;,config.fields],[&quot;信封时效&quot;,&quot;realm=echo@realm.develenv.com；provider_id=afp.develenv.com；每次新 nonce，issued_at / expires_at 有效窗口不超过 5 分钟。&quot;]]},
+          {id:&quot;authorize&quot;,phase:&quot;generate&quot;,from:1,to:1,title:&quot;AFP 校验签发权限&quot;,label:&quot;校验 key、权限与有效期&quot;,
+            facts:[[&quot;校验规则&quot;,config.authorize],[&quot;请求签名&quot;,&quot;普通 Membership 请求由已登记的 Realm client key 签；Owner 初始化 / 恢复的管理请求由 R 签。&quot;],[&quot;结果&quot;,&quot;校验通过才生成邀请；无权签发不会建立新 member。&quot;]]},
+          {id:&quot;issue&quot;,phase:&quot;generate&quot;,from:1,to:0,title:&quot;生成并返回一次性 Invite&quot;,label:ownerMode ? &quot;返回 owner_invite（7 天）&quot; : &quot;返回 invite_id、ri_、expires_at&quot;,
+            facts:[[&quot;secret&quot;,&quot;AFP 生成 32 字节随机数，以无填充 base64url 表示；服务端只保存 secret 的 SHA-256。&quot;],[&quot;目标与状态&quot;,config.target],[&quot;交付内容&quot;,ownerMode ? &quot;Owner Invite 在首次激活或重新签发响应中一次性返回；后续 Profile 更新不会重复返回。&quot; : &quot;create_invite 响应含 invite_id、invite、expires_at，完整邀请文本只返回这一次。&quot;],[&quot;有效期&quot;,config.ttl]]},
+          {id:&quot;deliver&quot;,phase:&quot;deliver&quot;,from:0,to:2,title:&quot;把 ri_ 交给接收者&quot;,label:&quot;消息 / 二维码 / 文件：ri_&quot;,
+            facts:[[&quot;文本格式&quot;,&quot;ri_ + base64url(邀请 JSON 的 UTF-8 字节)，无填充。&quot;],[&quot;邀请 JSON&quot;,&quot;schema=actr.realm-invite/v1；realm；secret；可选的已签 Realm Profile。&quot;],[&quot;交付规则&quot;,&quot;通过消息、邮件、二维码或文件等带外渠道传递；可与 Realm 链接出现在同一消息中，但不把 secret 嵌入 actr:// 或 HTTPS URI、query、fragment。&quot;],[&quot;Realm 链接&quot;,&quot;ri_ 已包含 Realm 名，额外链接可选；链接只回答打开哪个实例，不授予 membership。&quot;]]},
+          {id:&quot;discover&quot;,phase:&quot;verify&quot;,from:2,to:3,title:&quot;建立 Realm domain 信任&quot;,label:&quot;GET /.well-known/realm&quot;,
+            facts:[[&quot;公开入口&quot;,&quot;https://realm.develenv.com/.well-known/realm&quot;],[&quot;信任来源&quot;,&quot;首次依据 HTTPS / Web PKI 或企业 pin 接受 Realm signing keys；之后校验保存的 key history、sequence 与 rotations。&quot;],[&quot;字段&quot;,&quot;authority 绑定请求域名；realm_signing_keys 公布 R 的 public key；services[rel=realm].href 定位 Profile。&quot;],[&quot;边界&quot;,&quot;信任域名只建立签名信任，不表示已加入该 Realm。&quot;]]},
+          {id:&quot;profile&quot;,phase:&quot;verify&quot;,from:2,to:3,title:&quot;取得并验证 Realm Profile&quot;,label:&quot;GET /realm/echo · 验证 R&quot;,
+            facts:[[&quot;公开地址&quot;,&quot;https://realm.develenv.com/realm/echo&quot;],[&quot;检查&quot;,&quot;schema、realm.name、R 签名、status、sequence 与 provider.id 连续性。&quot;],[&quot;Issuer 选择&quot;,&quot;仅使用已接受 Profile 的 issuer.url；本例为 https://afp.develenv.com/issuer。&quot;],[&quot;内嵌 Profile&quot;,&quot;邀请中的 Profile 同样要用域名的 R 验签；Host 仍应刷新公开位置，选择可接受的版本。&quot;]]},
+          {id:&quot;client-key&quot;,phase:&quot;redeem&quot;,from:2,to:2,title:&quot;Host 创建接收方 client key&quot;,label:&quot;生成 C_new，先安全保存&quot;,
+            facts:[[&quot;key 归属&quot;,&quot;由接收方 Host 为此 Realm 生成 Ed25519 key，不跨 Realm 复用；private key 留在 Host，不交给 Guest。&quot;],[&quot;key_id&quot;,&quot;公钥原始 32 字节 SHA-256 的前 16 个小写十六进制字符。&quot;],[&quot;持有证明&quot;,&quot;接下来的 join 用 C_new 签名，并携带对应 public_key；此时该 key 还没有 membership。&quot;],[&quot;重试前提&quot;,&quot;发送请求前保存 key 文件；响应丢失后继续使用同一把 C_new。&quot;]]},
+          {id:&quot;join&quot;,phase:&quot;redeem&quot;,from:2,to:1,title:&quot;接收方提交 join&quot;,label:&quot;join(secret, public_key) · C_new&quot;,
+            facts:[[&quot;HTTPS POST&quot;,membershipUrl],[&quot;操作字段&quot;,&quot;op=join；invite 是从 ri_ 解出的 secret；public_key 是 Base64 Ed25519 公钥；label 可选。&quot;],[&quot;签名 key&quot;,&quot;C_new；signature.key_id 必须与 public_key 推导出的 key_id 一致。&quot;],[&quot;公共字段&quot;,&quot;realm、provider_id、nonce、issued_at、expires_at、signature；信封有效窗口不超过 5 分钟，Membership 请求不带 requester。&quot;]]},
+          {id:&quot;redeem&quot;,phase:&quot;redeem&quot;,from:1,to:1,title:&quot;AFP 单事务兑换与登记&quot;,label:&quot;消费 Invite → member / client&quot;,
+            facts:[[&quot;校验&quot;,&quot;验证 C_new 持有证明、Realm / Provider 绑定、nonce、信封时效，以及邀请的存在、过期、撤销、使用状态与配额。&quot;],[&quot;原子结果&quot;,config.result],[&quot;并发与配额&quot;,&quot;并发兑换最多一个成功；超过 quota 时邀请不被消耗。&quot;],[&quot;失败区分&quot;,&quot;invite_unknown、invite_expired、invite_used、invite_revoked、invite_realm_mismatch 分别处理。&quot;]]},
+          {id:&quot;result&quot;,phase:&quot;redeem&quot;,from:1,to:2,title:&quot;返回 Membership 结果&quot;,label:&quot;realm、member_id、role、key_id&quot;,
+            facts:[[&quot;返回结果&quot;,&quot;只返回成员与 client 登记信息，没有独立 membership credential，也没有在此步骤签发 Actor credential。&quot;],[&quot;Host 保存&quot;,&quot;保留该 Realm 的 client key 与加入结果；日常打开使用已登记且未撤销的 key。&quot;],[&quot;幂等重试&quot;,&quot;响应丢失后以同一 Invite、同一 C_new 重试；每个请求使用新 nonce / 签名，active 且未撤销时返回首次结果。&quot;],[&quot;后续步骤&quot;,&quot;Actor register / reissue / renew 另用 x-actr-client-proof；注册本 Realm 的 Service 要求 owner，业务权限由 Service 按 contract 执行。&quot;]]}
+        ];
+      }
+      function renderInviteDetails(detail,row,index,actors) {
+        detail.replaceChildren();
+        detail.append(element(&quot;span&quot;,&quot;invite-phase phase-&quot; + row.phase,invitePhases[row.phase]));
+        detail.append(element(&quot;h2&quot;,&quot;&quot;,(index + 1) + &quot;. &quot; + row.title));
+        detail.append(element(&quot;span&quot;,&quot;text-small&quot;,actors[row.from][0] + &quot; → &quot; + actors[row.to][0]));
+        const facts = element(&quot;dl&quot;);
+        row.facts.forEach(function (fact) {
+          const pair = element(&quot;div&quot;);
+          pair.append(element(&quot;dt&quot;,&quot;&quot;,fact[0]),element(&quot;dd&quot;,&quot;&quot;,fact[1]));
+          facts.append(pair);
+        });
+        detail.append(facts);
+      }
+      function renderInviteView() {
+        docBox.replaceChildren();
+        const config = inviteCases[inviteMode];
+        const rows = invitationRows(inviteMode);
+        const selectedRow = rows.find(function (item) { return item.id === inviteStep; }) || rows[0];
+        inviteStep = selectedRow.id;
+        const view = element(&quot;div&quot;,&quot;invite-view&quot;);
+        const intro = element(&quot;section&quot;,&quot;card invite-intro&quot;);
+        intro.append(element(&quot;h2&quot;,&quot;&quot;,&quot;Realm Invite · 邀请生成与兑换&quot;),element(&quot;span&quot;,&quot;&quot;,&quot;以 echo@realm.develenv.com 为例，选择邀请用途，再点选时序中的步骤查看请求、签名与状态变化。&quot;));
+        const modeButtons = element(&quot;div&quot;,&quot;viz-controls&quot;);
+        Object.entries(inviteCases).forEach(function (entry) {
+          const button = element(&quot;button&quot;,&quot;btn&quot;,entry[1].title);
+          button.type = &quot;button&quot;;
+          button.dataset.inviteMode = entry[0];
+          button.setAttribute(&quot;aria-pressed&quot;,String(inviteMode === entry[0]));
+          button.addEventListener(&quot;click&quot;,function () {
+            inviteMode = entry[0];
+            renderInviteView();
+            const active = root.querySelector(&#x27;button[data-invite-mode=&quot;&#x27; + inviteMode + &#x27;&quot;]&#x27;);
+            if (active &amp;&amp; typeof active.focus === &quot;function&quot;) active.focus({preventScroll:true});
+            saveState();
+          });
+          modeButtons.append(button);
+        });
+        intro.append(modeButtons,element(&quot;span&quot;,&quot;&quot;,config.intro));
+        view.append(intro);
+        const workspace = element(&quot;div&quot;,&quot;invite-workspace&quot;);
+        const diagram = element(&quot;section&quot;,&quot;card&quot;);
+        diagram.append(element(&quot;h2&quot;,&quot;&quot;,&quot;完整时序 · 10 步&quot;));
+        const legend = element(&quot;div&quot;,&quot;invite-phase-legend&quot;);
+        Object.entries(invitePhases).forEach(function (entry) { legend.append(element(&quot;span&quot;,&quot;invite-phase phase-&quot; + entry[0],entry[1])); });
+        diagram.append(legend);
+        const actors = [
+          [config.actor,config.key],
+          [&quot;AFP&quot;,&quot;afp.develenv.com&quot;],
+          [&quot;接收方 Host&quot;,&quot;C_new&quot;],
+          [&quot;Realm domain&quot;,&quot;realm.develenv.com&quot;]
+        ];
+        const lanes = element(&quot;div&quot;,&quot;invite-lanes&quot;);
+        actors.forEach(function (actor) {
+          const lane = element(&quot;div&quot;,&quot;invite-lane&quot;);
+          lane.append(element(&quot;strong&quot;,&quot;&quot;,actor[0]),element(&quot;span&quot;,&quot;text-small&quot;,actor[1]));
+          lanes.append(lane);
+        });
+        diagram.append(lanes);
+        const sequence = element(&quot;div&quot;,&quot;invite-sequence&quot;);
+        sequence.setAttribute(&quot;aria-label&quot;,&quot;从申请邀请到完成 Membership 的消息时序&quot;);
+        rows.forEach(function (row,index) {
+          const wrapper = element(&quot;div&quot;,&quot;invite-event-wrap&quot;);
+          const button = element(&quot;button&quot;,&quot;btn invite-event phase-&quot; + row.phase);
+          button.type = &quot;button&quot;;
+          button.dataset.inviteStep = row.id;
+          button.setAttribute(&quot;aria-controls&quot;,&quot;invite-step-details&quot;);
+          button.setAttribute(&quot;aria-pressed&quot;,String(row.id === selectedRow.id));
+          button.setAttribute(&quot;aria-label&quot;,(index + 1) + &quot;. &quot; + row.title + &quot;，&quot; + actors[row.from][0] + &quot; → &quot; + actors[row.to][0]);
+          button.append(element(&quot;span&quot;,&quot;invite-step-number&quot;,String(index + 1)));
+          const grid = element(&quot;span&quot;,&quot;invite-message-grid&quot;);
+          actors.forEach(function (actor,i) {
+            const line = element(&quot;span&quot;,&quot;invite-life&quot;);
+            line.style.left = ((i + .5) * 25) + &quot;%&quot;;
+            line.setAttribute(&quot;aria-hidden&quot;,&quot;true&quot;);
+            grid.append(line);
+          });
+          const message = element(&quot;span&quot;,&quot;invite-message&quot;);
+          const start = Math.min(row.from,row.to);
+          const end = Math.max(row.from,row.to);
+          message.style.gridColumn = (start + 1) + &quot; / &quot; + (end + 2);
+          message.style.setProperty(&quot;--span&quot;,String(end - start + 1));
+          message.append(element(&quot;span&quot;,&quot;invite-mobile-route text-small&quot;,actors[row.from][0] + &quot; → &quot; + actors[row.to][0]));
+          message.append(element(&quot;span&quot;,&quot;invite-message-label&quot;,row.label));
+          const arrow = element(&quot;span&quot;,&quot;invite-message-line&quot; + (row.from === row.to ? &quot; self&quot; : row.from &gt; row.to ? &quot; reverse&quot; : &quot;&quot;));
+          arrow.setAttribute(&quot;aria-hidden&quot;,&quot;true&quot;);
+          message.append(arrow);
+          grid.append(message);
+          button.append(grid);
+          button.addEventListener(&quot;click&quot;,function () {
+            inviteStep = row.id;
+            sequence.querySelectorAll(&quot;button[data-invite-step]&quot;).forEach(function (target) { target.setAttribute(&quot;aria-pressed&quot;,String(target.dataset.inviteStep === row.id)); });
+            renderInviteDetails(detail,row,index,actors);
+            sequence.querySelectorAll(&quot;.invite-inline-detail&quot;).forEach(function (target) { target.remove(); });
+            const inline = element(&quot;div&quot;,&quot;invite-inline-detail&quot;);
+            inline.setAttribute(&quot;aria-live&quot;,&quot;polite&quot;);
+            renderInviteDetails(inline,row,index,actors);
+            wrapper.append(inline);
+            saveState();
+          });
+          wrapper.append(button);
+          if (row.id === selectedRow.id) {
+            const inline = element(&quot;div&quot;,&quot;invite-inline-detail&quot;);
+            inline.setAttribute(&quot;aria-live&quot;,&quot;polite&quot;);
+            renderInviteDetails(inline,row,index,actors);
+            wrapper.append(inline);
+          }
+          sequence.append(wrapper);
+        });
+        diagram.append(sequence);
+        const detail = element(&quot;aside&quot;,&quot;card invite-detail&quot;);
+        detail.id = &quot;invite-step-details&quot;;
+        detail.setAttribute(&quot;aria-live&quot;,&quot;polite&quot;);
+        renderInviteDetails(detail,selectedRow,rows.indexOf(selectedRow),actors);
+        workspace.append(diagram,detail);
+        view.append(workspace);
+        const rules = element(&quot;section&quot;,&quot;card invite-rules&quot;);
+        rules.append(element(&quot;h2&quot;,&quot;&quot;,&quot;兑换边界与 Key roles&quot;));
+        [
+          [&quot;一次性与幂等&quot;,&quot;新 key 不能再次使用已消费的 Invite；响应丢失使用同一 C_new 重试，仍需新的请求 nonce / 签名。&quot;],
+          [&quot;Member 与 client&quot;,&quot;普通 role=editor/viewer 邀请创建新 member；member_id 邀请给同一 active member 增加 client，继承其 role。v1 每个 Realm 恰有一个 owner。&quot;],
+          [&quot;Owner 恢复&quot;,&quot;重新签发只使旧的未用 Owner Invites 失效；兑换恢复邀请成功时才撤销 owner 旧 client keys，并在 AFP 侧停用其绑定 Actor，ActorId 不因此作废。&quot;],
+          [&quot;签名归属&quot;,&quot;普通 create_invite 用现有 Realm client key；join 用 C_new；Owner 管理请求与 Profile 用 R；Realm issuer key 用于 Actor credential，Publisher keys 用于程序来源。&quot;],
+          [&quot;Membership 之后&quot;,&quot;加入不自动启动 Actor / Service，也不替代应用授权。后续注册与运行流程见「Realm Membership 与 Actor 运行」Tab。&quot;]
+        ].forEach(function (item) {
+          const row = element(&quot;div&quot;,&quot;invite-rule&quot;);
+          row.append(element(&quot;span&quot;,&quot;&quot;,item[0]),element(&quot;span&quot;,&quot;&quot;,item[1]));
+          rules.append(row);
+        });
+        view.append(rules);
+        docBox.append(view);
+      }
       function isOverviewFlow(value) {
-        return value === &quot;discovery&quot; || value === &quot;profile&quot;;
+        return value === &quot;discovery&quot; || value === &quot;profile&quot; || value === &quot;invite&quot;;
       }
       let flow = &quot;release&quot;;
       let selected = 0;
@@ -2463,6 +2755,10 @@ html&gt;body{padding:0}&lt;/style&gt;
         return details;
       }
       function renderDocuments() {
+        if (flow === &quot;invite&quot;) {
+          renderInviteView();
+          return;
+        }
         const isProfile = flow === &quot;profile&quot;;
         const isOverview = isOverviewFlow(flow);
         const stage = isOverview ? null : stages[flow][selected];
@@ -2474,7 +2770,7 @@ html&gt;body{padding:0}&lt;/style&gt;
           const overview = flow === &quot;discovery&quot; ? discoveryOverview.find(function (item) { return item.id === doc.id; }) : null;
           const used = stage ? stage.used[doc.id] || [] : [];
           if (!isOverview &amp;&amp; !used.length) return;
-          const card = element(&quot;section&quot;,&quot;card&quot;);
+          const card = element(&quot;section&quot;,&quot;card doc-&quot; + doc.id);
           const inner = element(&quot;div&quot;,&quot;flow-doc-inner&quot;);
           const head = element(&quot;div&quot;,&quot;flow-doc-head&quot;);
           head.append(element(&quot;span&quot;,&quot;&quot;,isProfile ? &quot;Realm Profile · echo@realm.develenv.com&quot; : overview ? overview.title : doc.title));
@@ -2522,7 +2818,7 @@ html&gt;body{padding:0}&lt;/style&gt;
       function saveState() {
         if (window.openai &amp;&amp; typeof window.openai.setWidgetState === &quot;function&quot;) {
           window.openai.setWidgetState({
-            modelContent:{flow:flow,stage:isOverviewFlow(flow) ? null : stages[flow][selected].id},
+            modelContent:{flow:flow,stage:isOverviewFlow(flow) ? null : stages[flow][selected].id,inviteMode:inviteMode,inviteStep:inviteStep},
             privateContent:null
           }).catch(function () {});
         }
@@ -2554,6 +2850,8 @@ html&gt;body{padding:0}&lt;/style&gt;
         const content = snapshot &amp;&amp; (snapshot.modelContent || snapshot);
         if (!content || (!isOverviewFlow(content.flow) &amp;&amp; !Object.prototype.hasOwnProperty.call(stages,content.flow))) return;
         flow = content.flow;
+        if (Object.prototype.hasOwnProperty.call(inviteCases,content.inviteMode)) inviteMode = content.inviteMode;
+        if (typeof content.inviteStep === &quot;string&quot; &amp;&amp; invitationRows(inviteMode).some(function (item) { return item.id === content.inviteStep; })) inviteStep = content.inviteStep;
         if (isOverviewFlow(flow)) {
           selected = 0;
           return;

@@ -14,6 +14,8 @@
 
 公开配置快照日期：2026-11-10。
 
-Membership 说明核对日期：2026-11-11。四个 Tab 区分 owner 初始化、`role=editor/viewer` 新 member 邀请和 `member_id` 添加 client 邀请；明确 `create_invite` / `join` 使用 Realm client key、加入结果不是 Actor credential，Service 注册要求 owner。完整公开 JSON 的字段和值保持与端点一致。
+Membership 说明核对日期：2026-11-11。页面区分 owner 初始化、`role=editor/viewer` 新 member 邀请和 `member_id` 添加 client 邀请；明确 `create_invite` / `join` 使用 Realm client key、加入结果不是 Actor credential，Service 注册要求 owner。完整公开 JSON 的字段和值保持与端点一致。
+
+「Realm Invite」Tab 以浅蓝、深蓝文字和柔和阶段色展示十步邀请时序，可切换新 member、添加 client、Owner 初始化/恢复三种路径，点选步骤查看端点、签名 key、服务端校验与状态变化。
 
 GitHub Pages 从 `main` 分支根目录发布。
