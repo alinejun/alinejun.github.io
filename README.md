@@ -19,3 +19,17 @@ Membership 说明核对日期：2026-11-11。页面区分 owner 初始化、`rol
 「Realm Invite」有四步，从申请、权限校验、生成邀请到带外交付。「Realm Join」有七步，依次为导入邀请、取得 Realm 域公钥、验证 Profile 并确定兑换地址、保存 client key、向 AFP Membership 提交 `join`、原子登记和接收结果。Echo 的兑换端点为 `POST https://afp.develenv.com/issuer/membership`。三个示例分别演示受邀成为新 member、已有 member 添加 client，以及使用 Owner Invite 首次成为 Realm 的 owner。
 
 GitHub Pages 从 `main` 分支根目录发布。
+
+## PR #428：显式选择 Service 与 Front
+
+2026-11-12 按 `Actrium/actrium#428` 的 `65b01a360b0b60e074769e7a8cffebafbc06f2f6` 更新 Realm Profile 页。
+
+- 主 Service：`primary_package → packages[ref]`。
+- Front：`front_package → packages[ref]`。
+- 包表为 2–32 项，版本必须精确，同一类型不能绑定多个摘要；完整包表与未知字段共同参与 Realm 签名。
+- 页面可切换 PR 的完整签名规范示例、独立线上验收 Realm 的新格式 Profile，以及原 Echo 的旧版单包快照。原快照正文和签名保持不变。
+- 规范示例使用演示域名和示意包摘要，不伪装成线上配置；线上 Front fixture 仅验证归档和控制面，不表示已启动 Front / Service。
+- 当前旧 AFP 通过签名前生成的 `package` 主包投影兼容，完整选择进入签名；不宣称 AFP 已原生实现新管理接口。
+- 选包不授予 membership、Owner 或宿主启动权限。Host 加载前仍须验证 Publisher 签名、Front Service 依赖与 RPC 契约。
+
+页面维护源位于原可视化 `domain-field-flow.html`，本次可重复导出脚本和验签记录位于工作目录 `realm-pr428-update-20261112/`。保留原有六个主导航及 Owner 初始化 / 新 member / 添加 client 的流程。

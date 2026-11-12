@@ -1983,7 +1983,7 @@ html&gt;body{padding:0}&lt;/style&gt;
     &lt;span class=&quot;atlas-kicker text-small&quot;&gt;ACTRIUM V1 · PROTOCOL ATLAS&lt;/span&gt;
     &lt;h1&gt;Realm、Membership 与 Actor 运行&lt;/h1&gt;
     &lt;span class=&quot;atlas-subtitle&quot;&gt;从 Program Release 到 Realm Invite，对照三个域名、公开 JSON 与 Key roles。&lt;/span&gt;
-    &lt;span class=&quot;text-small&quot;&gt;公开 JSON 与 Membership 说明已核对 · 2026-11-11&lt;/span&gt;
+    &lt;span class=&quot;text-small&quot;&gt;Realm Profile 包选择按 PR #428 更新 · 2026-11-12 · 线上旧版快照另行标记&lt;/span&gt;
   &lt;/div&gt;
   &lt;div class=&quot;viz-controls view-tabs&quot; aria-label=&quot;选择流程或文档说明&quot;&gt;
     &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-flow=&quot;release&quot; aria-pressed=&quot;true&quot;&gt;Program Release 与 Realm Creation&lt;/button&gt;
@@ -2173,6 +2173,145 @@ html&gt;body{padding:0}&lt;/style&gt;
       &quot;key_id&quot;: &quot;realm-domain-2026-1&quot;,
       &quot;value&quot;: &quot;9OsZTCFjlylHUGdICC8fsyAp5R31CkdU2WsosYrKtW0gcWz9w1PZwRUQeqArSa2UwYc5NUwu5AP2SWwwWTYMDw==&quot;
     }
+  },
+  &quot;profile_pr428&quot;: {
+    &quot;schema&quot;: &quot;actr.realm/v1&quot;,
+    &quot;sequence&quot;: 1,
+    &quot;realm&quot;: {
+      &quot;name&quot;: &quot;echo@realm.example&quot;,
+      &quot;display_name&quot;: &quot;Echo&quot;,
+      &quot;status&quot;: &quot;active&quot;
+    },
+    &quot;primary_package&quot;: &quot;echo&quot;,
+    &quot;front_package&quot;: &quot;ui&quot;,
+    &quot;packages&quot;: {
+      &quot;echo&quot;: {
+        &quot;href&quot;: &quot;https://publisher.example/releases/echo/0.1.1/echo.actr&quot;,
+        &quot;sha256&quot;: &quot;1111111111111111111111111111111111111111111111111111111111111111&quot;,
+        &quot;type&quot;: &quot;publisher.example/echo@0.1.1&quot;
+      },
+      &quot;ui&quot;: {
+        &quot;href&quot;: &quot;https://publisher.example/releases/echo-ui/0.1.1/echo-ui.actr&quot;,
+        &quot;sha256&quot;: &quot;2222222222222222222222222222222222222222222222222222222222222222&quot;,
+        &quot;type&quot;: &quot;publisher.example/echo-ui@0.1.1&quot;
+      }
+    },
+    &quot;issuer&quot;: {
+      &quot;url&quot;: &quot;https://afp.example/issuer/realm.example/echo&quot;,
+      &quot;keys&quot;: [
+        {
+          &quot;id&quot;: &quot;1&quot;,
+          &quot;algorithm&quot;: &quot;Ed25519&quot;,
+          &quot;public_key&quot;: &quot;7SU9OpD4tH8sgYgF7m2T/Yc6LUvPNYT0waSY4VKDDCY=&quot;,
+          &quot;status&quot;: &quot;active&quot;
+        }
+      ]
+    },
+    &quot;provider&quot;: {
+      &quot;id&quot;: &quot;afp.example&quot;,
+      &quot;signaling&quot;: [
+        {
+          &quot;url&quot;: &quot;wss://afp.example/ws&quot;,
+          &quot;priority&quot;: 10,
+          &quot;control_plane_id&quot;: &quot;afp.example/v1&quot;,
+          &quot;ticket_audience&quot;: &quot;signal-a&quot;
+        }
+      ],
+      &quot;ice&quot;: [
+        {
+          &quot;urls&quot;: [
+            &quot;stun:afp.example:3478&quot;
+          ]
+        },
+        {
+          &quot;urls&quot;: [
+            &quot;turns:afp.example:5349&quot;
+          ],
+          &quot;credential_audience&quot;: &quot;actr.turn&quot;
+        }
+      ]
+    },
+    &quot;policy&quot;: {
+      &quot;membership&quot;: &quot;invite-only&quot;
+    },
+    &quot;issued_at&quot;: &quot;2026-11-12T08:00:00Z&quot;,
+    &quot;signature&quot;: {
+      &quot;key_id&quot;: &quot;rs-demo-minimal-1&quot;,
+      &quot;algorithm&quot;: &quot;Ed25519&quot;,
+      &quot;value&quot;: &quot;FoqYHyzErsRTxTkWwQjQkvoWxtDVNUrC0rNqA5FmrOdltriAoK44nrNxKh8ZteNIImrwB+yB3japM3RLTGmkBA==&quot;
+    }
+  },
+  &quot;profile428_live&quot;: {
+    &quot;front_package&quot;: &quot;front&quot;,
+    &quot;issued_at&quot;: &quot;2026-11-12T09:34:21Z&quot;,
+    &quot;issuer&quot;: {
+      &quot;keys&quot;: [
+        {
+          &quot;algorithm&quot;: &quot;Ed25519&quot;,
+          &quot;id&quot;: &quot;8&quot;,
+          &quot;public_key&quot;: &quot;Xrlim8FI5C/oVHZak2Iq7RcobhwoMs80oCFWPsaoegI=&quot;,
+          &quot;status&quot;: &quot;active&quot;
+        }
+      ],
+      &quot;url&quot;: &quot;https://afp.develenv.com/issuer&quot;
+    },
+    &quot;package&quot;: {
+      &quot;href&quot;: &quot;https://publisher.develenv.com/releases/echo-1.0.0.actr&quot;,
+      &quot;sha256&quot;: &quot;2271a7915c31def902e33b731c5ea9b5cc285877874b016ae269c71aeecc1197&quot;,
+      &quot;type&quot;: &quot;publisher.develenv.com/echo@1.0.0&quot;
+    },
+    &quot;packages&quot;: {
+      &quot;front&quot;: {
+        &quot;href&quot;: &quot;https://publisher.develenv.com/releases/6c9db5c8a242319ff65b3a66bd37d96c28f2cc530c880fdc8487b0b9eaa35436.actr&quot;,
+        &quot;sha256&quot;: &quot;6c9db5c8a242319ff65b3a66bd37d96c28f2cc530c880fdc8487b0b9eaa35436&quot;,
+        &quot;type&quot;: &quot;publisher.develenv.com/pr428-front-fixture@0.0.1&quot;
+      },
+      &quot;service&quot;: {
+        &quot;href&quot;: &quot;https://publisher.develenv.com/releases/echo-1.0.0.actr&quot;,
+        &quot;sha256&quot;: &quot;2271a7915c31def902e33b731c5ea9b5cc285877874b016ae269c71aeecc1197&quot;,
+        &quot;type&quot;: &quot;publisher.develenv.com/echo@1.0.0&quot;
+      }
+    },
+    &quot;policy&quot;: {
+      &quot;membership&quot;: &quot;invite-only&quot;
+    },
+    &quot;primary_package&quot;: &quot;service&quot;,
+    &quot;provider&quot;: {
+      &quot;ice&quot;: [
+        {
+          &quot;urls&quot;: [
+            &quot;stun:afp.develenv.com:3478&quot;
+          ]
+        },
+        {
+          &quot;credential_audience&quot;: &quot;actr.turn&quot;,
+          &quot;urls&quot;: [
+            &quot;turn:afp.develenv.com:3478&quot;
+          ]
+        }
+      ],
+      &quot;id&quot;: &quot;afp.develenv.com&quot;,
+      &quot;signaling&quot;: [
+        {
+          &quot;control_plane_id&quot;: &quot;afp.develenv.com/v1&quot;,
+          &quot;priority&quot;: 0,
+          &quot;ticket_audience&quot;: &quot;actr.signaling&quot;,
+          &quot;url&quot;: &quot;wss://afp.develenv.com/signaling/ws&quot;
+        }
+      ]
+    },
+    &quot;realm&quot;: {
+      &quot;display_name&quot;: &quot;PR428 包选择及保留验证&quot;,
+      &quot;name&quot;: &quot;pr428-selection-20261112@realm.develenv.com&quot;,
+      &quot;status&quot;: &quot;active&quot;
+    },
+    &quot;schema&quot;: &quot;actr.realm/v1&quot;,
+    &quot;sequence&quot;: 2,
+    &quot;signature&quot;: {
+      &quot;algorithm&quot;: &quot;Ed25519&quot;,
+      &quot;key_id&quot;: &quot;realm-domain-2026-1&quot;,
+      &quot;value&quot;: &quot;+Nkny3ZcrdLkr9BFWxjReKvseQ9UtYdUqsN8eENQRF+FZH6fQYifZ83nvAIptYEpY0rWpeJIATWne01X5hmHDg==&quot;
+    }
   }
 }
   &lt;/script&gt;
@@ -2199,14 +2338,14 @@ html&gt;body{padding:0}&lt;/style&gt;
           ]
         },
         {
-          id:&quot;profile&quot;,title:&quot;Realm Profile · echo@realm.develenv.com&quot;,role:&quot;由 Realm signing key holder 签署，绑定 package、Issuer、基础设施提供者与 membership policy。AFP 托管正文，签名权仍属于 realm.develenv.com。&quot;,
+          id:&quot;profile&quot;,title:&quot;旧版线上快照 · echo@realm.develenv.com&quot;,role:&quot;旧版单包格式，仅供核对现有部署；PR #428 新格式见 Realm Profile 页。由 Realm signing key holder 签署，绑定 package、Issuer、基础设施提供者与 membership policy。AFP 托管正文，签名权仍属于 realm.develenv.com。&quot;,
           url:&quot;https://realm.develenv.com/realm/echo&quot;,
           roots:&quot;schema · sequence · realm · package · issuer · provider · policy · issued_at · signature&quot;,
           groups:[
             group(&quot;base&quot;,&quot;schema · sequence · issued_at&quot;,[&quot;schema&quot;,&quot;sequence&quot;,&quot;issued_at&quot;],&quot;schema 标识格式；sequence 是这份 Realm Profile 的版本，用于和已保存的历史比较；issued_at 是签署时间，不是过期时间，也不能单独证明最新撤销状态。&quot;,&quot;schema = actr.realm/v1 · sequence = 2 · issued_at = 2026-11-10T07:42:48Z&quot;,&quot;读取 Realm Profile、校验格式与版本；更新 package 或 AFP 委派时递增 sequence。&quot;),
             group(&quot;realm&quot;,&quot;realm&quot;,[&quot;realm.name&quot;,&quot;realm.display_name&quot;,&quot;realm.status&quot;],&quot;name 精确匹配目标 Realm；display_name 用于界面显示；status 表示实例状态，retired 实例不能继续使用。&quot;,&quot;name = echo@realm.develenv.com · display_name = develenv Echo · status = active&quot;,&quot;打开实例、Realm join、Actor register，以及后续核对 credential 中的 Realm 身份。&quot;),
             group(&quot;signature&quot;,&quot;signature · Realm signing key&quot;,[&quot;signature.&quot;+sigShape],&quot;归属：realm.develenv.com 的域名持钥方。key_id 选择该域 realm_signing_keys 中的公钥，algorithm 选择算法，value 是 Base64 签名；验签覆盖除 signature 外的整个 Realm Profile。AFP 托管正文不改变 key 的归属。&quot;,&quot;key_id = realm-domain-2026-1 · algorithm = Ed25519 · value = Base64 signature&quot;,&quot;Realm signing key holder 签署并提交 publish_profile；CLI / Host 在信任 package、Issuer 与 AFP 端点前先验签。&quot;),
-            group(&quot;package&quot;,&quot;package&quot;,[&quot;package.href&quot;,&quot;package.sha256&quot;,&quot;package.type&quot;],&quot;href 定位完整 .actr 文件；sha256 校验完整包字节；type 与 manifest 身份对应，并用于查找 Service。Publisher 身份不能由下载域名推断，还要验证 Publisher Profile 与 manifest 签名。&quot;,&quot;href = https://publisher.develenv.com/releases/echo-1.0.0.actr · sha256 = 2271a7915c31def902e33b731c5ea9b5cc285877874b016ae269c71aeecc1197 · type = publisher.develenv.com/echo@1.0.0&quot;,&quot;创建 Realm 时绑定 package；Host 下载、验包和选择 Service；discovery 按 type 查找在线 Service。&quot;),
+            group(&quot;package&quot;,&quot;package · 旧版单包&quot;,[&quot;package.href&quot;,&quot;package.sha256&quot;,&quot;package.type&quot;],&quot;href 定位完整 .actr 文件；sha256 校验完整包字节；type 与 manifest 身份对应，并用于查找 Service。Publisher 身份不能由下载域名推断，还要验证 Publisher Profile 与 manifest 签名。&quot;,&quot;href = https://publisher.develenv.com/releases/echo-1.0.0.actr · sha256 = 2271a7915c31def902e33b731c5ea9b5cc285877874b016ae269c71aeecc1197 · type = publisher.develenv.com/echo@1.0.0&quot;,&quot;创建 Realm 时绑定 package；Host 下载、验包和选择 Service；discovery 按 type 查找在线 Service。&quot;),
             group(&quot;issuer&quot;,&quot;issuer.url&quot;,[&quot;issuer.url&quot;],&quot;issuer.url 给出此 Realm 的服务基础地址。Host 将 create_invite 和 join 发给 POST &lt;issuer.url&gt;/membership，并用 Realm client key 签请求。Actor register 和 renew 使用各自的 Issuer API。&quot;,&quot;https://afp.develenv.com/issuer&quot;,&quot;owner 签发新成员邀请、member 添加自己的 client、接收者兑换邀请，以及 Actor register / renew。&quot;),
             group(&quot;issuer-keys&quot;,&quot;issuer.keys · Realm issuer keys&quot;,[&quot;issuer.keys[].&quot;+keyShape],&quot;归属：基础设施提供者 AFP 为 Echo Realm 运行的 Issuer。对应私钥签 Actor credential；这里的 public_key 供客户端验凭据，id 选择 key，algorithm 指定算法，status 表示状态。它不签 Realm Profile、Publisher Profile 或 package。&quot;,&quot;id = 2 · algorithm = Ed25519 · status = active · public_key = tFZm2X9YlAbbBGKv9+s8ZUgIOeFyJlW5JEoRydeCdV4=&quot;,&quot;取得或续期 Actor credential 后验签；建立连接与处理 RPC 时验证对端身份。&quot;),
             group(&quot;provider&quot;,&quot;provider.id · Actr Facility Provider&quot;,[&quot;provider.id&quot;],&quot;指定本 Realm 获准使用的基础设施提供者 AFP。接受该 Realm 的 Provider 身份后，不应静默切换成另一家。&quot;,&quot;afp.develenv.com&quot;,&quot;确认 Realm 委派，核对 credential 与连接所处的 Provider 身份。&quot;),
@@ -2597,6 +2736,25 @@ html&gt;body{padding:0}&lt;/style&gt;
         return container;
       }
       function fieldComment(docId, path, value, parent) {
+        if(docId===&quot;profile_pr428&quot; || docId===&quot;profile428_live&quot;){
+          const descriptions={
+            schema:&quot;Realm Profile 格式，仍为 actr.realm/v1。&quot;,sequence:&quot;每次发布递增；与已接受的完整 payload 比较以防回滚。&quot;,
+            primary_package:&quot;主 Service 的包引用，必须精确指向 packages 中的键。&quot;,front_package:&quot;独立 Front 的包引用，不能与主引用或主 Actor 精确类型相同。&quot;,
+            packages:&quot;本实例选择的完整归档表（2–32 项）；选入包不授予启动权限。&quot;,
+            package:&quot;仅线上兼容模式使用：签名前生成的主 Service 投影，必须等于 packages[primary_package]。&quot;,
+            realm:&quot;实例身份与状态。&quot;,&quot;realm.name&quot;:&quot;本示例精确 Realm 名；读取时必须匹配目标。&quot;,&quot;realm.display_name&quot;:&quot;展示名称。&quot;,&quot;realm.status&quot;:&quot;active 或 retired；active 必须有完整包选择。&quot;,
+            issuer:&quot;本 Realm 的 Issuer。&quot;,&quot;issuer.url&quot;:&quot;本 Realm 的 Issuer 基础地址。&quot;,&quot;issuer.keys&quot;:&quot;本 Realm Actor credential 的验签公钥。&quot;,
+            provider:&quot;由 Realm 持钥方授权的 AFP 端点。&quot;,&quot;provider.id&quot;:&quot;Realm 生命周期内固定不变的 AFP 身份。&quot;,
+            policy:&quot;Realm 加入策略；不包含成员列表或秘密。&quot;,issued_at:&quot;签署时间，仅供参考；Realm Profile 不过期。&quot;,
+            signature:&quot;Realm key 对除 signature 外整个 Profile 的 detached Ed25519 签名；包含两个引用、所有条目与未知字段。&quot;
+          };
+          if(descriptions[path])return descriptions[path];
+          if(/^packages\.[^.]+$/.test(path))return &quot;独立包归档，不是另一个 Realm，也不是启动指令。&quot;;
+          if(/^packages\.[^.]+\.href$/.test(path))return &quot;该 .actr 的 HTTPS 下载地址，Host 用无凭据 GET 获取。&quot;;
+          if(/^packages\.[^.]+\.sha256$/.test(path))return &quot;该归档全部字节的 SHA-256，不是 Manifest 或某个载荷文件的 hash。&quot;;
+          if(/^packages\.[^.]+\.type$/.test(path))return &quot;与归档 Manifest 一致的精确 Actor 类型，拒绝版本范围和 latest。&quot;;
+        }
+
         const profileComments = {
           schema:&quot;Realm Profile 格式；Host / CLI 读取时核对 actr.realm/v1。&quot;,
           sequence:&quot;Realm Profile 版本；更新 package 或 AFP 委派时递增，读取时和已保存的历史比较。&quot;,
@@ -2605,7 +2763,7 @@ html&gt;body{padding:0}&lt;/style&gt;
           &quot;realm.name&quot;:&quot;目标 Realm 的完整名称；必须匹配请求的 echo@realm.develenv.com。&quot;,
           &quot;realm.display_name&quot;:&quot;界面展示名称；不替代 realm.name 作为身份标识。&quot;,
           &quot;realm.status&quot;:&quot;实例状态；当前 active，retired 实例不能继续使用。&quot;,
-          package:&quot;绑定程序包；Host 下载与验包时同时核对这三个字段，并从 Publisher well-known 取得验签材料。&quot;,
+          package:&quot;旧版单包字段（PR #428 改为 primary_package / front_package / packages）；Host 下载与验包时同时核对这三个字段，并从 Publisher well-known 取得验签材料。&quot;,
           &quot;package.href&quot;:&quot;完整 .actr 文件的下载地址；下载域名不能替代 Publisher 身份。&quot;,
           &quot;package.sha256&quot;:&quot;完整包字节的 SHA-256；下载后检查完整性。&quot;,
           &quot;package.type&quot;:&quot;与 manifest 身份匹配的 type；discovery 据此查找 Service。&quot;,
@@ -2702,7 +2860,7 @@ html&gt;body{padding:0}&lt;/style&gt;
           }
           return [JSON.stringify(value)];
         }
-        return &quot;// JSONC：公开 JSON + 字段用途注释；复制 JSON 可获取不含注释的原始数据。\n&quot; + render(publicDocuments[docId],&quot;&quot;,0).join(&quot;\n&quot;);
+        return (docId === &quot;profile_pr428&quot; ? &quot;// JSONC：PR #428 完整签名规范示例（演示域名 / 示意摘要），不是线上 Echo。\n&quot; : &quot;// JSONC：公开 JSON + 字段用途注释；复制 JSON 可获取不含注释的原始数据。\n&quot;) + render(publicDocuments[docId],&quot;&quot;,0).join(&quot;\n&quot;);
       }
       function highlightedJson(source) {
         const code = element(&quot;code&quot;,&quot;language-jsonc&quot;);
@@ -2835,7 +2993,63 @@ html&gt;body{padding:0}&lt;/style&gt;
         details.append(element(&quot;summary&quot;,&quot;&quot;,&quot;完整 JSONC（含字段注释）&quot;),controls,pre);
         return details;
       }
+
+      let profile428Source = &quot;spec&quot;;
+      const profile428Link = &quot;https://github.com/Actrium/actrium/blob/65b01a360b0b60e074769e7a8cffebafbc06f2f6/actr/protocols/realm-profile.zh.md&quot;;
+      function renderProfile428() {
+        current.textContent = &quot;Actr Realm Profile · PR #428&quot;;
+        note.textContent = &quot;primary_package 选择主 Service，front_package 选择 Front；两个引用和完整 packages 由 Realm 持钥方一起签署。成员授权、Actor 部署和启动另行决定。&quot;;
+        docBox.replaceChildren();
+        const controls = element(&quot;div&quot;,&quot;viz-controls profile-source-controls&quot;);
+        const variants = [[&quot;spec&quot;,&quot;PR #428 签名示例&quot;],[&quot;legacy&quot;,&quot;原 Echo · 旧版快照&quot;]];
+        if (publicDocuments.profile428_live) variants.splice(1,0,[&quot;live&quot;,&quot;线上新格式验收 Profile&quot;]);
+        variants.forEach(function(entry){
+          const button=element(&quot;button&quot;,&quot;btn&quot;,entry[1]);button.type=&quot;button&quot;;
+          button.setAttribute(&quot;aria-pressed&quot;,String(profile428Source===entry[0]));
+          button.addEventListener(&quot;click&quot;,function(){profile428Source=entry[0];renderProfile428();});
+          controls.append(button);
+        });
+        docBox.append(controls);
+        const legacy=profile428Source===&quot;legacy&quot;;
+        const id=legacy?&quot;profile&quot;:profile428Source===&quot;live&quot;?&quot;profile428_live&quot;:&quot;profile_pr428&quot;;
+        const value=publicDocuments[id];
+        const doc={id:id,title:legacy?&quot;原 Echo · 旧版单包 Profile&quot;:profile428Source===&quot;live&quot;?&quot;线上新格式验收 Profile&quot;:&quot;PR #428 · 完整签名规范示例&quot;};
+        const card=element(&quot;section&quot;,&quot;card doc-profile&quot;);
+        const body=element(&quot;div&quot;,&quot;flow-doc-inner&quot;);
+        body.append(element(&quot;h2&quot;,&quot;&quot;,doc.title),element(&quot;span&quot;,&quot;viz-badge&quot;,value.realm.name+&quot; · sequence &quot;+value.sequence));
+        if(legacy){
+          body.append(element(&quot;p&quot;,&quot;&quot;,&quot;这是 2026-11-10 公开端点的原始旧快照，仍使用 package。正文和签名保留原样，不是 PR #428 的完整包选择。旧 Realm 必须明确选定 Front 才能迁移，不能把旧 package 自动复制为 Front。&quot;));
+        }else{
+          body.append(element(&quot;p&quot;,&quot;&quot;,profile428Source===&quot;live&quot;?&quot;这是独立验收 Realm 的实际签名 Profile。Front 是归档校验测试包；验收验证控制面的完整包表和签名，不代表已启动 Service / Front。&quot;:&quot;本示例原样引用 PR #428 的完整签名 JSON，使用 realm.example 等演示域名；包摘要为示意，不是 develenv 线上部署数据。&quot;));
+          if(profile428Source===&quot;spec&quot;)body.append(element(&quot;code&quot;,&quot;flow-code&quot;,&quot;规范示例 Realm 验签测试公钥：MwhxEhQQQtS1V6jX0bfHvy+wPND44QXNlEFg9frdHlc=&quot;));
+          body.append(fields([
+            group(&quot;primary&quot;,&quot;主 Service 引用&quot;,[&quot;primary_package&quot;,&quot;packages[primary_package]&quot;],&quot;从包表精确选择实例的默认主 Service。主包的 Publisher 与程序名固定，可更新版本。&quot;,value.primary_package),
+            group(&quot;front&quot;,&quot;Front 引用&quot;,[&quot;front_package&quot;,&quot;packages[front_package]&quot;],&quot;从包表选用独立 Front；与主包引用、精确 Actor 类型均不同，可独立更换兼容 Front。&quot;,value.front_package),
+            group(&quot;archives&quot;,&quot;完整包引用表&quot;,[&quot;packages&quot;,&quot;packages[ref].href&quot;,&quot;packages[ref].sha256&quot;,&quot;packages[ref].type&quot;],&quot;2–32 项；引用名为 1–63 位小写字母、数字或连字符，首尾为字母或数字。每项绑定 HTTPS 整包位置、全部字节 SHA-256 和精确 publisher/program@version；拒绝 latest、版本范围和同一精确类型的不同摘要；完整签名 Profile 不超过 64 KiB，拒绝重复 JSON 字段。retired Profile 可整体省略包选择。&quot;,Object.keys(value.packages).join(&quot; · &quot;)),
+            group(&quot;signed&quot;,&quot;Realm 签名&quot;,[&quot;signature&quot;,&quot;sequence&quot;,&quot;未知 member&quot;],&quot;两个引用、每个包表条目和未知 member 都进入完整 JCS 签名。修改任一下载地址也必须递增 sequence 并重签。不能修改 JSON 后继续使用旧签名。&quot;),
+            group(&quot;host&quot;,&quot;Host 加载前验证&quot;,[&quot;manifest.toml&quot;,&quot;manifest.sig&quot;,&quot;Front dependencies / RPC contract&quot;],&quot;逐包核对整包摘要、Publisher 受信公钥和原始 Manifest 签名，再检查 workload、Host 要求、平台策略及依赖锁。Front 必需的 Service 依赖和 RPC 契约必须匹配选定 Service。Realm 的签名不能替代 Publisher 的包签名。&quot;),
+            group(&quot;update&quot;,&quot;更新与边界&quot;,[&quot;完整替换包选择&quot;,&quot;保留元数据更新中的包选择&quot;,&quot;provider.id&quot;],&quot;变更包表须同时提交两个引用与完整 packages。仅改 display_name、policy 或轮换 key 时保留原包表。选择包不授予 Owner、membership 或任意 Actor 启动权限；同一 Realm 的 AFP 固定不变。&quot;)
+          ],false));
+          if(value.package)body.append(element(&quot;p&quot;,&quot;text-small&quot;,&quot;兼容说明：本线上验收 Profile 额外包含 package，签名前由 packages[primary_package] 生成并同签，仅供旧 AFP / CLI 读取；新配置以两个引用及完整包表为准。&quot;));
+        }
+        const link=element(&quot;a&quot;,&quot;flow-url text-small&quot;,legacy?&quot;旧 Echo 的公开 Profile 地址&quot;:&quot;PR #428 · Realm Profile 规范&quot;);
+        link.href=legacy?&quot;https://realm.develenv.com/realm/echo&quot;:profile428Link;link.target=&quot;_blank&quot;;link.rel=&quot;noopener noreferrer&quot;;body.append(link);
+        if(profile428Source===&quot;live&quot;){
+          const live=element(&quot;a&quot;,&quot;flow-url text-small&quot;,&quot;查看线上验收 Profile&quot;);
+          live.href=&quot;https://realm.develenv.com/realm/&quot;+value.realm.name.split(&quot;@&quot;)[0];live.target=&quot;_blank&quot;;live.rel=&quot;noopener noreferrer&quot;;body.append(live);
+        }
+        body.append(jsonDisclosure(doc));card.append(body);docBox.append(card);
+        const keys=element(&quot;section&quot;,&quot;card&quot;);const keyBody=element(&quot;div&quot;,&quot;flow-doc-inner&quot;);
+        keyBody.append(element(&quot;h2&quot;,&quot;&quot;,&quot;Key roles&quot;),fields([
+          group(&quot;root&quot;,&quot;Realm 域名持钥方&quot;,[&quot;Realm well-known: realm_signing_keys&quot;,&quot;Profile: signature&quot;],&quot;签署完整实例包选择和 AFP 委派。AFP 托管正文不成为 Realm 信任根。&quot;),
+          group(&quot;publisher&quot;,&quot;各归档的 Publisher&quot;,[&quot;packages[ref].type&quot;,&quot;Publisher Profile&quot;,&quot;包内 manifest.sig&quot;],&quot;每个归档独立确认来源并验签。归档可以来自不同 Publisher；下载域名不能代替 Publisher 身份。&quot;),
+          group(&quot;issuer&quot;,&quot;本 Realm 的 Issuer&quot;,[&quot;issuer.keys&quot;],&quot;签 Actor credential。它不签 Realm Profile，不替代包签名。&quot;),
+          group(&quot;client&quot;,&quot;每个 Realm 的客户端&quot;,[&quot;Realm client key&quot;],&quot;签 join、成员与邀请管理请求及 Actor 注册持有证明。选定 Service / Front 不等于获得这些权限。&quot;)
+        ],false));keys.append(keyBody);docBox.append(keys);
+      }
+
       function renderDocuments() {
+        if (flow === &quot;profile&quot;) { renderProfile428(); return; }
         if (Object.prototype.hasOwnProperty.call(sequenceViews,flow)) {
           renderSequenceView();
           return;
