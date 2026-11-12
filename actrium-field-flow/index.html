@@ -2746,7 +2746,9 @@ html&gt;body{padding:0}&lt;/style&gt;
             issuer:&quot;本 Realm 的 Issuer。&quot;,&quot;issuer.url&quot;:&quot;本 Realm 的 Issuer 基础地址。&quot;,&quot;issuer.keys&quot;:&quot;本 Realm Actor credential 的验签公钥。&quot;,
             provider:&quot;由 Realm 持钥方授权的 AFP 端点。&quot;,&quot;provider.id&quot;:&quot;Realm 生命周期内固定不变的 AFP 身份。&quot;,
             policy:&quot;Realm 加入策略；不包含成员列表或秘密。&quot;,issued_at:&quot;签署时间，仅供参考；Realm Profile 不过期。&quot;,
-            signature:&quot;Realm key 对除 signature 外整个 Profile 的 detached Ed25519 签名；包含两个引用、所有条目与未知字段。&quot;
+            signature:&quot;Realm key 对除 signature 外整个 Profile 的 detached Ed25519 签名；包含两个引用、所有条目与未知字段。&quot;,
+            &quot;signature.key_id&quot;:&quot;按 key_id 从目标 Realm 域名已接受的公钥集合选择验签 key。&quot;,
+            &quot;policy.membership&quot;:&quot;加入策略；invite-only 仍要求有效邀请与独立客户端持有证明。&quot;
           };
           if(descriptions[path])return descriptions[path];
           if(/^packages\.[^.]+$/.test(path))return &quot;独立包归档，不是另一个 Realm，也不是启动指令。&quot;;
@@ -2785,7 +2787,7 @@ html&gt;body{padding:0}&lt;/style&gt;
           signature:&quot;Realm signing key holder 的签名，覆盖除 signature 外的整个 Realm Profile；信任 package、Issuer 与 AFP 前先验签。&quot;,
           &quot;signature.key_id&quot;:&quot;归属 realm.develenv.com；从其 well-known 的 realm_signing_keys 选择公钥，不使用 issuer.keys 或 AFP 自有域根。&quot;
         };
-        if (docId === &quot;profile&quot; &amp;&amp; profileComments[path]) return profileComments[path];
+        if ([&quot;profile&quot;,&quot;profile_pr428&quot;,&quot;profile428_live&quot;].includes(docId) &amp;&amp; profileComments[path]) return profileComments[path];
         if (path === &quot;version&quot;) return &quot;发现文档格式版本；客户端读取时核对。&quot;;
         if (path === &quot;authority&quot;) return &quot;本文档所属的域名身份；必须匹配请求域名。&quot;;
         if (path === &quot;services&quot;) return docId === &quot;publisher&quot; ? &quot;当前为 []：纯 Publisher 身份文档；包下载位置由 Realm Profile 的 package.href 声明。&quot; : &quot;公开服务目录；rel 选择能力，href 定位端点，protocol 声明协议。&quot;;
@@ -2995,7 +2997,7 @@ html&gt;body{padding:0}&lt;/style&gt;
       }
 
       let profile428Source = &quot;spec&quot;;
-      const profile428Link = &quot;https://github.com/Actrium/actrium/blob/65b01a360b0b60e074769e7a8cffebafbc06f2f6/actr/protocols/realm-profile.zh.md&quot;;
+      const profile428Link = &quot;https://github.com/Actrium/actrium/blob/bb0aa747dcd31aa2e43ffbbbd0498306c26b9b58/actr/protocols/realm-profile.zh.md&quot;;
       function renderProfile428() {
         current.textContent = &quot;Actr Realm Profile · PR #428&quot;;
         note.textContent = &quot;primary_package 选择主 Service，front_package 选择 Front；两个引用和完整 packages 由 Realm 持钥方一起签署。成员授权、Actor 部署和启动另行决定。&quot;;

@@ -33,3 +33,5 @@ GitHub Pages 从 `main` 分支根目录发布。
 - 选包不授予 membership、Owner 或宿主启动权限。Host 加载前仍须验证 Publisher 签名、Front Service 依赖与 RPC 契约。
 
 页面维护源位于原可视化 `domain-field-flow.html`，本次可重复导出脚本和验签记录位于工作目录 `realm-pr428-update-20261112/`。保留原有六个主导航及 Owner 初始化 / 新 member / 添加 client 的流程。
+
+最终复核：PR #428 已于 2026-11-12 合并，最终头 `bb0aa747dcd31aa2e43ffbbbd0498306c26b9b58` 的 Realm Profile 文档和签名示例与实现所依据的 `65b01a3` 一致；最后一次同步仅带入主干 Keel 原生沙箱改动。本页规范链接固定到最终 PR 头。
