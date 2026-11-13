@@ -1849,7 +1849,7 @@ html&gt;body{padding:0}&lt;/style&gt;
       --atlas-ink:light-dark(#13365e,#dfecff);
       --atlas-muted:light-dark(#516a85,#b1c5de);
       --atlas-blue:light-dark(#1266c3,#8dc0ff);
-      --atlas-line:light-dark(#bad9fc,#35577d);
+      --atlas-line:light-dark(#dce5f0,#35506b);
       --atlas-surface:light-dark(#ffffff,#11263d);
       --atlas-soft:light-dark(#f2f8ff,#0c1d30);
       --atlas-purple:light-dark(#7050b9,#c6b0ff);
@@ -1875,8 +1875,8 @@ html&gt;body{padding:0}&lt;/style&gt;
       --green:var(--atlas-green);
       --purple:var(--atlas-purple);
       --orange:var(--atlas-amber);
-      display:grid; gap:calc(var(--font-size-base) * 1.15); color:var(--atlas-ink);
-      background:linear-gradient(155deg,var(--atlas-surface),var(--atlas-soft));
+      display:grid; gap:calc(var(--font-size-base) * 1.6); color:var(--atlas-ink);
+      width:100%; max-width:1280px; min-width:0; margin-inline:auto;
     }
     #domain-field-flow .atlas-kicker { color:var(--atlas-blue); letter-spacing:.08em; font-weight:500; }
     #domain-field-flow .flow-heading { padding-top:calc(var(--font-size-base) * .5); }
@@ -1884,21 +1884,18 @@ html&gt;body{padding:0}&lt;/style&gt;
     #domain-field-flow .atlas-subtitle { color:var(--atlas-muted); }
     #domain-field-flow .view-tabs { padding-bottom:calc(var(--font-size-base) * .75); border-bottom:1px solid var(--atlas-line); }
     #domain-field-flow .btn { border:1px solid var(--atlas-line); border-radius:12px; background:var(--atlas-surface); color:var(--atlas-ink); }
-    #domain-field-flow .view-tabs .btn { border-radius:999px; }
+    #domain-field-flow .view-tabs .btn { border-radius:8px; }
     #domain-field-flow .btn[aria-pressed=&quot;true&quot;] { color:var(--primary-foreground); background:var(--atlas-blue); border-color:var(--atlas-blue); }
     #domain-field-flow .card {
-      --doc-accent:var(--atlas-blue);
       padding:calc(var(--font-size-base) * 1.15);
-      border:1px solid color-mix(in srgb,var(--doc-accent) 35%,var(--atlas-line));
-      border-radius:16px;
-      background:linear-gradient(180deg,color-mix(in srgb,var(--doc-accent) 4%,var(--atlas-surface)),var(--atlas-surface) 90px);
-      box-shadow:0 2px 10px color-mix(in srgb,var(--atlas-blue) 5%,transparent);
+      border:1px solid var(--atlas-line);
+      border-radius:12px;
+      background:var(--atlas-surface);
+      box-shadow:none;
     }
-    #domain-field-flow .doc-realm, #domain-field-flow .doc-profile { --doc-accent:var(--atlas-green); }
-    #domain-field-flow .doc-publisher { --doc-accent:var(--atlas-purple); }
-    #domain-field-flow .flow-doc-head { padding-bottom:calc(var(--font-size-base) * .4); border-bottom:1px solid var(--atlas-line); }
+    #domain-field-flow .flow-doc-head { padding-bottom:calc(var(--font-size-base) * .9); border-bottom:1px solid var(--atlas-line); }
     #domain-field-flow .flow-doc-head &gt; :first-child { font-weight:500; }
-    #domain-field-flow .flow-current { padding:calc(var(--font-size-base) * .8); background:var(--atlas-soft); border-left:3px solid var(--atlas-blue); }
+    #domain-field-flow .flow-current { padding-bottom:calc(var(--font-size-base) * .35); }
     #domain-field-flow .flow-url { color:var(--atlas-blue); }
     #domain-field-flow pre { min-width:0; margin:0; padding:calc(var(--font-size-base) * .85); white-space:pre-wrap; overflow-wrap:anywhere; border-radius:10px; background:var(--atlas-code-surface); color:var(--atlas-code-text); }
     #domain-field-flow code:not(pre code), #domain-field-flow span.flow-code { max-width:100%; justify-self:start; padding:2px 6px; border-radius:5px; background:var(--atlas-code-surface); color:var(--atlas-code-text); font-family:var(--font-mono); overflow-wrap:anywhere; }
@@ -1908,14 +1905,40 @@ html&gt;body{padding:0}&lt;/style&gt;
     #domain-field-flow .command-heading { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; }
     #domain-field-flow .atlas-footer { color:var(--atlas-muted); border-top:1px solid var(--atlas-line); padding-top:calc(var(--font-size-base) * .7); }
     #domain-field-flow .flow-heading { display:grid; gap:calc(var(--font-size-base) * .35); }
-    #domain-field-flow .flow-layout { display:grid; grid-template-columns:minmax(165px,.7fr) minmax(0,2fr); gap:calc(var(--font-size-base) * 1); align-items:start; }
-    #domain-field-flow .flow-stages { display:grid; gap:calc(var(--font-size-base) * .3); }
-    #domain-field-flow .flow-arrow { text-align:center; color:var(--muted-foreground); }
-    #domain-field-flow .flow-docs { display:grid; gap:calc(var(--font-size-base) * .8); }
-    #domain-field-flow .flow-doc-inner { display:grid; gap:calc(var(--font-size-base) * .55); min-width:0; }
-    #domain-field-flow .flow-doc-head { display:flex; gap:calc(var(--font-size-base) * .5); flex-wrap:wrap; align-items:center; justify-content:space-between; }
-    #domain-field-flow .flow-fields { display:grid; gap:calc(var(--font-size-base) * .5); }
-    #domain-field-flow .flow-field { display:grid; gap:calc(var(--font-size-base) * .2); }
+    #domain-field-flow .flow-layout { display:grid; grid-template-columns:236px minmax(0,1fr); gap:calc(var(--font-size-base) * 2.3); align-items:start; }
+    #domain-field-flow .flow-sidebar, #domain-field-flow .flow-main { min-width:0; display:grid; gap:calc(var(--font-size-base) * 1); }
+    #domain-field-flow .flow-nav-title { color:var(--atlas-muted); padding:0 12px; }
+    #domain-field-flow .flow-stages { display:grid; gap:6px; margin:0; padding:0; list-style:none; }
+    #domain-field-flow .flow-step { display:grid; grid-template-columns:26px minmax(0,1fr); align-items:start; gap:10px; width:100%; min-height:54px; padding:12px; border:1px solid transparent; border-radius:8px; background:transparent; color:var(--atlas-muted); text-align:left; font:inherit; }
+    #domain-field-flow .flow-step:hover { background:var(--atlas-soft); color:var(--atlas-ink); }
+    #domain-field-flow .flow-step[aria-pressed=&quot;true&quot;] { color:var(--atlas-ink); background:var(--atlas-soft); border-color:var(--atlas-line); }
+    #domain-field-flow .flow-step-number { display:grid; place-items:center; min-height:25px; border:1px solid var(--atlas-line); border-radius:50%; font-family:var(--font-mono); }
+    #domain-field-flow .flow-step[aria-pressed=&quot;true&quot;] .flow-step-number { background:var(--atlas-blue); color:var(--primary-foreground); border-color:var(--atlas-blue); }
+    #domain-field-flow .flow-step-copy { display:grid; gap:3px; }
+    #domain-field-flow .flow-step-api { color:var(--atlas-muted); font-family:var(--font-mono); overflow-wrap:anywhere; }
+    #domain-field-flow .flow-docs { min-width:0; display:grid; gap:calc(var(--font-size-base) * 1.2); }
+    #domain-field-flow .flow-doc-inner { display:grid; gap:calc(var(--font-size-base) * 1); min-width:0; }
+    #domain-field-flow .flow-doc-head { display:grid; gap:calc(var(--font-size-base) * .4); }
+    #domain-field-flow .flow-doc-role { color:var(--atlas-muted); }
+    #domain-field-flow .flow-endpoint { display:flex; align-items:baseline; gap:10px; min-width:0; padding:10px 12px; border-radius:7px; background:var(--atlas-soft); color:var(--atlas-blue); text-decoration:none; }
+    #domain-field-flow .flow-endpoint:hover { text-decoration:underline; }
+    #domain-field-flow .endpoint-method { flex:none; color:var(--atlas-muted); font-family:var(--font-mono); }
+    #domain-field-flow .endpoint-url { font-family:var(--font-mono); overflow-wrap:anywhere; min-width:0; }
+    #domain-field-flow .flow-fields { display:grid; margin:0; min-width:0; }
+    #domain-field-flow .flow-field { display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,2fr); gap:calc(var(--font-size-base) * 1.4); padding:calc(var(--font-size-base) * 1.15) 0; min-width:0; }
+    #domain-field-flow .flow-field:first-child { padding-top:0; }
+    #domain-field-flow .flow-field:last-child { padding-bottom:0; }
+    #domain-field-flow .flow-field + .flow-field { border-top:1px solid var(--atlas-line); }
+    #domain-field-flow .field-identity, #domain-field-flow .field-description { min-width:0; display:grid; align-content:start; gap:calc(var(--font-size-base) * .5); margin:0; }
+    #domain-field-flow .field-title { font-weight:500; }
+    #domain-field-flow .field-paths { color:var(--atlas-muted); }
+    #domain-field-flow .field-paths code { display:inline; padding:0; background:none; color:inherit; border-radius:0; }
+    #domain-field-flow .field-value { display:grid; gap:4px; padding:8px 10px; background:var(--atlas-soft); border-radius:6px; }
+    #domain-field-flow .field-value &gt; span, #domain-field-flow .field-usage { color:var(--atlas-muted); }
+    #domain-field-flow .field-value code { display:block; padding:0; background:none; color:var(--atlas-ink); border-radius:0; }
+    #domain-field-flow .flow-json-details { padding-top:calc(var(--font-size-base) * 1); border-top:1px solid var(--atlas-line); }
+    #domain-field-flow .flow-json-details &gt; summary { color:var(--atlas-blue); }
+    #domain-field-flow .json-toolbar { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-top:calc(var(--font-size-base) * 1); margin-bottom:calc(var(--font-size-base) * .6); }
     #domain-field-flow .flow-code, #domain-field-flow .flow-url { overflow-wrap:anywhere; white-space:normal; }
     #domain-field-flow .flow-json, #domain-field-flow .flow-json code { white-space:pre-wrap; overflow-wrap:anywhere; }
     #domain-field-flow .flow-json { margin:0; }
@@ -1925,9 +1948,10 @@ html&gt;body{padding:0}&lt;/style&gt;
     #domain-field-flow .json-number { color:var(--atlas-code-number); }
     #domain-field-flow .json-literal { color:var(--atlas-code-literal); }
     #domain-field-flow .json-comment { color:var(--atlas-code-comment); }
-    #domain-field-flow .flow-current { display:grid; gap:calc(var(--font-size-base) * .3); }
+    #domain-field-flow .flow-current { display:grid; gap:calc(var(--font-size-base) * .6); }
+    #domain-field-flow .flow-stage-note { color:var(--atlas-muted); }
     #domain-field-flow.is-overview .flow-layout { grid-template-columns:minmax(0,1fr); }
-    #domain-field-flow.is-overview .flow-stages, #domain-field-flow.is-overview .flow-current { display:none; }
+    #domain-field-flow.is-overview .flow-sidebar, #domain-field-flow.is-overview .flow-current { display:none; }
     #domain-field-flow details { display:grid; gap:calc(var(--font-size-base) * .4); }
     #domain-field-flow summary { color:var(--foreground); }
     #domain-field-flow .flow-inventory { display:grid; gap:calc(var(--font-size-base) * .6); padding-top:calc(var(--font-size-base) * .5); }
@@ -1973,10 +1997,17 @@ html&gt;body{padding:0}&lt;/style&gt;
       #domain-field-flow .invite-detail { display:none; }
       #domain-field-flow .invite-inline-detail { display:grid; gap:10px; padding:12px; margin-top:5px; background:var(--atlas-soft); border-left:2px solid var(--atlas-blue); }
     }
-    @media (max-width:600px) {
+    @media (max-width:850px) {
       #domain-field-flow .flow-layout { grid-template-columns:minmax(0,1fr); }
+      #domain-field-flow .flow-stages { grid-template-columns:repeat(3,minmax(0,1fr)); }
+      #domain-field-flow .flow-sidebar { gap:8px; }
+      #domain-field-flow .flow-nav-title { padding:0; }
+      #domain-field-flow .flow-step { padding:10px; }
+    }
+    @media (max-width:600px) {
       #domain-field-flow .flow-stages { grid-template-columns:repeat(2,minmax(0,1fr)); }
-      #domain-field-flow .flow-arrow { display:none; }
+      #domain-field-flow .flow-field { grid-template-columns:minmax(0,1fr); gap:10px; }
+      #domain-field-flow .field-identity { gap:4px; }
     }
   &lt;/style&gt;
   &lt;div class=&quot;flow-heading&quot;&gt;
@@ -1993,13 +2024,19 @@ html&gt;body{padding:0}&lt;/style&gt;
     &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-flow=&quot;invite&quot; aria-pressed=&quot;false&quot;&gt;Realm Invite&lt;/button&gt;
     &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-flow=&quot;join&quot; aria-pressed=&quot;false&quot;&gt;Realm Join&lt;/button&gt;
   &lt;/div&gt;
-  &lt;div class=&quot;flow-current&quot; aria-live=&quot;polite&quot;&gt;
-    &lt;span id=&quot;dff-current&quot;&gt;&lt;/span&gt;
-    &lt;span id=&quot;dff-note&quot; class=&quot;text-small&quot;&gt;&lt;/span&gt;
-  &lt;/div&gt;
   &lt;div class=&quot;flow-layout&quot;&gt;
-    &lt;div id=&quot;dff-stages&quot; class=&quot;flow-stages&quot; aria-label=&quot;操作流程&quot;&gt;&lt;/div&gt;
-    &lt;div id=&quot;dff-docs&quot; class=&quot;flow-docs&quot; aria-label=&quot;文档与字段卡片&quot;&gt;&lt;/div&gt;
+    &lt;nav class=&quot;flow-sidebar&quot; aria-label=&quot;流程步骤&quot;&gt;
+      &lt;span class=&quot;flow-nav-title text-small&quot;&gt;流程步骤&lt;/span&gt;
+      &lt;ol id=&quot;dff-stages&quot; class=&quot;flow-stages&quot;&gt;&lt;/ol&gt;
+    &lt;/nav&gt;
+    &lt;div class=&quot;flow-main&quot;&gt;
+      &lt;div class=&quot;flow-current&quot; aria-live=&quot;polite&quot;&gt;
+        &lt;h2 id=&quot;dff-current&quot;&gt;&lt;/h2&gt;
+        &lt;p id=&quot;dff-action&quot;&gt;&lt;/p&gt;
+        &lt;p id=&quot;dff-note&quot; class=&quot;flow-stage-note text-small&quot;&gt;&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div id=&quot;dff-docs&quot; class=&quot;flow-docs&quot; aria-label=&quot;文档与字段说明&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
   &lt;/div&gt;
   &lt;span class=&quot;text-small atlas-footer&quot;&gt;新入口使用 rel: realm；原版 CLI 从标准 /.well-known/actr 读取 realms 兼容视图。图中无邀请码、成员私钥或访问令牌。&lt;/span&gt;
   &lt;script type=&quot;application/json&quot; id=&quot;dff-public-json&quot;&gt;
@@ -2321,6 +2358,7 @@ html&gt;body{padding:0}&lt;/style&gt;
       const stageBox = root.querySelector(&quot;#dff-stages&quot;);
       const docBox = root.querySelector(&quot;#dff-docs&quot;);
       const current = root.querySelector(&quot;#dff-current&quot;);
+      const action = root.querySelector(&quot;#dff-action&quot;);
       const note = root.querySelector(&quot;#dff-note&quot;);
       const publicDocuments = JSON.parse(root.querySelector(&quot;#dff-public-json&quot;).textContent);
       const group = (id, title, paths, meaning, value, usage) =&gt; ({id,title,paths,meaning,value,usage});
@@ -2332,9 +2370,9 @@ html&gt;body{padding:0}&lt;/style&gt;
           url:&quot;https://realm.develenv.com/.well-known/realm&quot;,
           roots:&quot;version · authority · services · realm_signing_keys&quot;,
           groups:[
-            group(&quot;base&quot;,&quot;version · authority&quot;,[&quot;version&quot;,&quot;authority&quot;],&quot;核对文档格式及请求域名，防止把其他域的文档当成本域。&quot;,&quot;1 · actr://realm.develenv.com&quot;),
-            group(&quot;pointer&quot;,&quot;services&quot;,[&quot;services[].rel&quot;,&quot;services[].href&quot;,&quot;services[].protocol&quot;],&quot;选择 realm 服务，href 后追加 RealmId，取得该实例的 Realm Profile。&quot;,&quot;realm · https://realm.develenv.com/realm · actr-realm-profile/1&quot;),
-            group(&quot;keys&quot;,&quot;Realm signing keys · realm.develenv.com&quot;,[&quot;realm_signing_keys.sequence&quot;,&quot;realm_signing_keys.keys[].&quot;+keyShape,&quot;realm_signing_keys.signature.&quot;+sigShape],&quot;归属：realm.develenv.com 的域名持钥方。对应私钥签署本域 Realm Profile；这些公钥供客户端验签。sequence 标识公钥版本，id 定位 key，algorithm 选算法，public_key 用于验签，status 表示状态；signature 保护此公钥集合。首次域名绑定依赖 HTTPS 或预置 pin。&quot;,&quot;Realm signing key：realm-domain-2026-1 · sequence 1 · Ed25519 / active&quot;)
+            group(&quot;base&quot;,&quot;文档身份&quot;,[&quot;version&quot;,&quot;authority&quot;],&quot;核对文档格式及请求域名，防止把其他域的文档当成本域。&quot;,&quot;1 · actr://realm.develenv.com&quot;),
+            group(&quot;pointer&quot;,&quot;Realm Profile 入口&quot;,[&quot;services[].rel&quot;,&quot;services[].href&quot;,&quot;services[].protocol&quot;],&quot;选择 realm 服务，href 后追加 RealmId，取得该实例的 Realm Profile。&quot;,&quot;realm · https://realm.develenv.com/realm · actr-realm-profile/1&quot;),
+            group(&quot;keys&quot;,&quot;Realm 域签名公钥&quot;,[&quot;realm_signing_keys.sequence&quot;,&quot;realm_signing_keys.keys[].&quot;+keyShape,&quot;realm_signing_keys.signature.&quot;+sigShape],&quot;归属：realm.develenv.com 的域名持钥方。对应私钥签署本域 Realm Profile；这些公钥供客户端验签。sequence 标识公钥版本，id 定位 key，algorithm 选算法，public_key 用于验签，status 表示状态；signature 保护此公钥集合。首次域名绑定依赖 HTTPS 或预置 pin。&quot;,&quot;Realm signing key：realm-domain-2026-1 · sequence 1 · Ed25519 / active&quot;)
           ]
         },
         {
@@ -2342,16 +2380,16 @@ html&gt;body{padding:0}&lt;/style&gt;
           url:&quot;https://realm.develenv.com/realm/echo&quot;,
           roots:&quot;schema · sequence · realm · package · issuer · provider · policy · issued_at · signature&quot;,
           groups:[
-            group(&quot;base&quot;,&quot;schema · sequence · issued_at&quot;,[&quot;schema&quot;,&quot;sequence&quot;,&quot;issued_at&quot;],&quot;schema 标识格式；sequence 是这份 Realm Profile 的版本，用于和已保存的历史比较；issued_at 是签署时间，不是过期时间，也不能单独证明最新撤销状态。&quot;,&quot;schema = actr.realm/v1 · sequence = 2 · issued_at = 2026-11-10T07:42:48Z&quot;,&quot;读取 Realm Profile、校验格式与版本；更新 package 或 AFP 委派时递增 sequence。&quot;),
-            group(&quot;realm&quot;,&quot;realm&quot;,[&quot;realm.name&quot;,&quot;realm.display_name&quot;,&quot;realm.status&quot;],&quot;name 精确匹配目标 Realm；display_name 用于界面显示；status 表示实例状态，retired 实例不能继续使用。&quot;,&quot;name = echo@realm.develenv.com · display_name = develenv Echo · status = active&quot;,&quot;打开实例、Realm join、Actor register，以及后续核对 credential 中的 Realm 身份。&quot;),
-            group(&quot;signature&quot;,&quot;signature · Realm signing key&quot;,[&quot;signature.&quot;+sigShape],&quot;归属：realm.develenv.com 的域名持钥方。key_id 选择该域 realm_signing_keys 中的公钥，algorithm 选择算法，value 是 Base64 签名；验签覆盖除 signature 外的整个 Realm Profile。AFP 托管正文不改变 key 的归属。&quot;,&quot;key_id = realm-domain-2026-1 · algorithm = Ed25519 · value = Base64 signature&quot;,&quot;Realm signing key holder 签署并提交 publish_profile；CLI / Host 在信任 package、Issuer 与 AFP 端点前先验签。&quot;),
-            group(&quot;package&quot;,&quot;package · 旧版单包&quot;,[&quot;package.href&quot;,&quot;package.sha256&quot;,&quot;package.type&quot;],&quot;href 定位完整 .actr 文件；sha256 校验完整包字节；type 与 manifest 身份对应，并用于查找 Service。Publisher 身份不能由下载域名推断，还要验证 Publisher Profile 与 manifest 签名。&quot;,&quot;href = https://publisher.develenv.com/releases/echo-1.0.0.actr · sha256 = 2271a7915c31def902e33b731c5ea9b5cc285877874b016ae269c71aeecc1197 · type = publisher.develenv.com/echo@1.0.0&quot;,&quot;创建 Realm 时绑定 package；Host 下载、验包和选择 Service；discovery 按 type 查找在线 Service。&quot;),
-            group(&quot;issuer&quot;,&quot;issuer.url&quot;,[&quot;issuer.url&quot;],&quot;issuer.url 给出此 Realm 的服务基础地址。Host 将 create_invite 和 join 发给 POST &lt;issuer.url&gt;/membership，并用 Realm client key 签请求。Actor register 和 renew 使用各自的 Issuer API。&quot;,&quot;https://afp.develenv.com/issuer&quot;,&quot;owner 签发新成员邀请、member 添加自己的 client、接收者兑换邀请，以及 Actor register / renew。&quot;),
-            group(&quot;issuer-keys&quot;,&quot;issuer.keys · Realm issuer keys&quot;,[&quot;issuer.keys[].&quot;+keyShape],&quot;归属：基础设施提供者 AFP 为 Echo Realm 运行的 Issuer。对应私钥签 Actor credential；这里的 public_key 供客户端验凭据，id 选择 key，algorithm 指定算法，status 表示状态。它不签 Realm Profile、Publisher Profile 或 package。&quot;,&quot;id = 2 · algorithm = Ed25519 · status = active · public_key = tFZm2X9YlAbbBGKv9+s8ZUgIOeFyJlW5JEoRydeCdV4=&quot;,&quot;取得或续期 Actor credential 后验签；建立连接与处理 RPC 时验证对端身份。&quot;),
-            group(&quot;provider&quot;,&quot;provider.id · Actr Facility Provider&quot;,[&quot;provider.id&quot;],&quot;指定本 Realm 获准使用的基础设施提供者 AFP。接受该 Realm 的 Provider 身份后，不应静默切换成另一家。&quot;,&quot;afp.develenv.com&quot;,&quot;确认 Realm 委派，核对 credential 与连接所处的 Provider 身份。&quot;),
-            group(&quot;signaling&quot;,&quot;provider.signaling&quot;,[&quot;provider.signaling[].url&quot;,&quot;provider.signaling[].priority&quot;,&quot;provider.signaling[].control_plane_id&quot;,&quot;provider.signaling[].ticket_audience&quot;],&quot;url 是获准的 signaling 端点；priority 表示端点优先级；control_plane_id 标识控制面；ticket_audience 声明 signaling credential 的预期用途。&quot;,&quot;url = wss://afp.develenv.com/signaling/ws · priority = 0 · control_plane_id = afp.develenv.com/v1 · ticket_audience = actr.signaling&quot;,&quot;Host / Actor 接入 signaling、discovery 查找 Service，以及协商 WebRTC 连接。&quot;),
-            group(&quot;ice&quot;,&quot;provider.ice · Actr ICE Configuration&quot;,[&quot;provider.ice[].urls&quot;,&quot;provider.ice[].credential_audience&quot;],&quot;urls 提供获准的 STUN/TURN 地址；STUN 辅助建立连通性，TURN 中继数据。TURN 的 credential_audience 声明短期 credential 的用途；公开 Profile 不包含 TURN 密码。&quot;,&quot;STUN urls = stun:afp.develenv.com:3478 · TURN urls = turn:afp.develenv.com:3478 · credential_audience = actr.turn&quot;,&quot;建立 WebRTC 连接，执行 ICE candidate gathering / connectivity checks，必要时经 TURN 中继。&quot;),
-            group(&quot;policy&quot;,&quot;policy.membership&quot;,[&quot;policy.membership&quot;],&quot;invite-only 要求有效 Realm Invite。普通 role=editor/viewer 邀请创建新 member；member_id 邀请添加已有 member 的 client；Owner Invite 用于初始化或恢复 owner。邀请、成员记录与 client 私钥不在公开 Profile 中。&quot;,&quot;invite-only&quot;,&quot;首次加入或给已有 member 添加 client 时兑换邀请；日常打开复用已登记且未撤销的 client key。&quot;)
+            group(&quot;base&quot;,&quot;格式与版本&quot;,[&quot;schema&quot;,&quot;sequence&quot;,&quot;issued_at&quot;],&quot;schema 标识格式；sequence 是这份 Realm Profile 的版本，用于和已保存的历史比较；issued_at 是签署时间，不是过期时间，也不能单独证明最新撤销状态。&quot;,&quot;schema = actr.realm/v1 · sequence = 2 · issued_at = 2026-11-10T07:42:48Z&quot;,&quot;读取 Realm Profile、校验格式与版本；更新 package 或 AFP 委派时递增 sequence。&quot;),
+            group(&quot;realm&quot;,&quot;Realm 身份&quot;,[&quot;realm.name&quot;,&quot;realm.display_name&quot;,&quot;realm.status&quot;],&quot;name 精确匹配目标 Realm；display_name 用于界面显示；status 表示实例状态，retired 实例不能继续使用。&quot;,&quot;name = echo@realm.develenv.com · display_name = develenv Echo · status = active&quot;,&quot;打开实例、Realm join、Actor register，以及后续核对 credential 中的 Realm 身份。&quot;),
+            group(&quot;signature&quot;,&quot;Realm Profile 签名&quot;,[&quot;signature.&quot;+sigShape],&quot;归属：realm.develenv.com 的域名持钥方。key_id 选择该域 realm_signing_keys 中的公钥，algorithm 选择算法，value 是 Base64 签名；验签覆盖除 signature 外的整个 Realm Profile。AFP 托管正文不改变 key 的归属。&quot;,&quot;key_id = realm-domain-2026-1 · algorithm = Ed25519 · value = Base64 signature&quot;,&quot;Realm signing key holder 签署并提交 publish_profile；CLI / Host 在信任 package、Issuer 与 AFP 端点前先验签。&quot;),
+            group(&quot;package&quot;,&quot;旧版程序包&quot;,[&quot;package.href&quot;,&quot;package.sha256&quot;,&quot;package.type&quot;],&quot;href 定位完整 .actr 文件；sha256 校验完整包字节；type 与 manifest 身份对应，并用于查找 Service。Publisher 身份不能由下载域名推断，还要验证 Publisher Profile 与 manifest 签名。&quot;,&quot;href = https://publisher.develenv.com/releases/echo-1.0.0.actr · sha256 = 2271a7915c31def902e33b731c5ea9b5cc285877874b016ae269c71aeecc1197 · type = publisher.develenv.com/echo@1.0.0&quot;,&quot;创建 Realm 时绑定 package；Host 下载、验包和选择 Service；discovery 按 type 查找在线 Service。&quot;),
+            group(&quot;issuer&quot;,&quot;Membership 与 Issuer&quot;,[&quot;issuer.url&quot;],&quot;issuer.url 给出此 Realm 的服务基础地址。Host 将 create_invite 和 join 发给 POST &lt;issuer.url&gt;/membership，并用 Realm client key 签请求。Actor register 和 renew 使用各自的 Issuer API。&quot;,&quot;https://afp.develenv.com/issuer&quot;,&quot;owner 签发新成员邀请、member 添加自己的 client、接收者兑换邀请，以及 Actor register / renew。&quot;),
+            group(&quot;issuer-keys&quot;,&quot;Actor credential 验签公钥&quot;,[&quot;issuer.keys[].&quot;+keyShape],&quot;归属：基础设施提供者 AFP 为 Echo Realm 运行的 Issuer。对应私钥签 Actor credential；这里的 public_key 供客户端验凭据，id 选择 key，algorithm 指定算法，status 表示状态。它不签 Realm Profile、Publisher Profile 或 package。&quot;,&quot;id = 2 · algorithm = Ed25519 · status = active · public_key = tFZm2X9YlAbbBGKv9+s8ZUgIOeFyJlW5JEoRydeCdV4=&quot;,&quot;取得或续期 Actor credential 后验签；建立连接与处理 RPC 时验证对端身份。&quot;),
+            group(&quot;provider&quot;,&quot;基础设施提供者&quot;,[&quot;provider.id&quot;],&quot;指定本 Realm 获准使用的基础设施提供者 AFP。接受该 Realm 的 Provider 身份后，不应静默切换成另一家。&quot;,&quot;afp.develenv.com&quot;,&quot;确认 Realm 委派，核对 credential 与连接所处的 Provider 身份。&quot;),
+            group(&quot;signaling&quot;,&quot;Signaling 端点&quot;,[&quot;provider.signaling[].url&quot;,&quot;provider.signaling[].priority&quot;,&quot;provider.signaling[].control_plane_id&quot;,&quot;provider.signaling[].ticket_audience&quot;],&quot;url 是获准的 signaling 端点；priority 表示端点优先级；control_plane_id 标识控制面；ticket_audience 声明 signaling credential 的预期用途。&quot;,&quot;url = wss://afp.develenv.com/signaling/ws · priority = 0 · control_plane_id = afp.develenv.com/v1 · ticket_audience = actr.signaling&quot;,&quot;Host / Actor 接入 signaling、discovery 查找 Service，以及协商 WebRTC 连接。&quot;),
+            group(&quot;ice&quot;,&quot;STUN / TURN 端点&quot;,[&quot;provider.ice[].urls&quot;,&quot;provider.ice[].credential_audience&quot;],&quot;urls 提供获准的 STUN/TURN 地址；STUN 辅助建立连通性，TURN 中继数据。TURN 的 credential_audience 声明短期 credential 的用途；公开 Profile 不包含 TURN 密码。&quot;,&quot;STUN urls = stun:afp.develenv.com:3478 · TURN urls = turn:afp.develenv.com:3478 · credential_audience = actr.turn&quot;,&quot;建立 WebRTC 连接，执行 ICE candidate gathering / connectivity checks，必要时经 TURN 中继。&quot;),
+            group(&quot;policy&quot;,&quot;成员加入策略&quot;,[&quot;policy.membership&quot;],&quot;invite-only 要求有效 Realm Invite。普通 role=editor/viewer 邀请创建新 member；member_id 邀请添加已有 member 的 client；Owner Invite 用于初始化或恢复 owner。邀请、成员记录与 client 私钥不在公开 Profile 中。&quot;,&quot;invite-only&quot;,&quot;首次加入或给已有 member 添加 client 时兑换邀请；日常打开复用已登记且未撤销的 client key。&quot;)
           ]
         },
         {
@@ -2359,14 +2397,14 @@ html&gt;body{padding:0}&lt;/style&gt;
           url:&quot;https://publisher.develenv.com/.well-known/actr&quot;,
           roots:&quot;version · authority · services · publisher&quot;,
           groups:[
-            group(&quot;base&quot;,&quot;version · authority&quot;,[&quot;version&quot;,&quot;authority&quot;],&quot;验证 Publisher 发现文档属于请求域。&quot;,&quot;1 · actr://publisher.develenv.com&quot;),
-            group(&quot;services&quot;,&quot;services&quot;,[&quot;services&quot;],&quot;当前为空数组，只公布 Publisher 身份与验签材料。程序包下载地址来自 Realm Profile 的 package.href。&quot;,&quot;[]&quot;),
-            group(&quot;identity&quot;,&quot;publisher.schema · publisher.domain&quot;,[&quot;publisher.schema&quot;,&quot;publisher.domain&quot;],&quot;Publisher Profile 格式与 Publisher 域名，domain 必须匹配 authority。&quot;,&quot;actr.publisher/v1 · publisher.develenv.com&quot;),
-            group(&quot;validity&quot;,&quot;publisher.sequence · publisher.profile_issued_at · publisher.profile_expires_at&quot;,[&quot;publisher.sequence&quot;,&quot;publisher.profile_issued_at&quot;,&quot;publisher.profile_expires_at&quot;],&quot;检查元数据连续性、签发时间和到期时间。&quot;,&quot;sequence 1 · 2026-12-10T03:46:45Z 到期&quot;),
-            group(&quot;profile-keys&quot;,&quot;publisher.profile_signing_keys · Publisher Profile signing keys&quot;,[&quot;publisher.profile_signing_keys[].&quot;+keyShape],&quot;归属：publisher.develenv.com 的 Publisher。对应的 Publisher Profile 签名私钥签 Publisher Profile，也签 register_publisher 管理请求；此处公开公钥供验签，不是 Realm signing key。&quot;,&quot;Publisher Profile signing key：publisher-profile-2026-1 · Ed25519 / active&quot;),
-            group(&quot;package-keys&quot;,&quot;publisher.keys · Package signing keys&quot;,[&quot;publisher.keys[].&quot;+keyShape],&quot;归属：publisher.develenv.com 的 Publisher。对应的 Publisher Package 签名私钥签包 manifest；这里按 signing key id 选择公钥，验证 manifest 签名和资源 hash 链。与 Publisher Profile signing key 分开。&quot;,&quot;Package signing key：actr-pub-8c62d54ebb436de9 · Ed25519 / active&quot;),
-            group(&quot;signature&quot;,&quot;publisher.signature&quot;,[&quot;publisher.signature.&quot;+sigShape],&quot;由 Publisher Profile signing private key 签署；用 publisher.profile_signing_keys 中的公钥验证。保护 publisher 对象中的域名、两类公钥、sequence 和有效期，不覆盖顶层 services。&quot;,&quot;Publisher Profile signing key：publisher-profile-2026-1 · Ed25519&quot;),
-            group(&quot;contact&quot;,&quot;publisher.security_contact&quot;,[&quot;publisher.security_contact&quot;],&quot;用于运维联系，参与 Profile 签名；不授予运行权限。&quot;,&quot;mailto:security@develenv.com&quot;)
+            group(&quot;base&quot;,&quot;文档身份&quot;,[&quot;version&quot;,&quot;authority&quot;],&quot;验证 Publisher 发现文档属于请求域。&quot;,&quot;1 · actr://publisher.develenv.com&quot;),
+            group(&quot;services&quot;,&quot;服务目录&quot;,[&quot;services&quot;],&quot;当前为空数组，只公布 Publisher 身份与验签材料。程序包下载地址来自 Realm Profile 的 package.href。&quot;,&quot;[]&quot;),
+            group(&quot;identity&quot;,&quot;Publisher 身份&quot;,[&quot;publisher.schema&quot;,&quot;publisher.domain&quot;],&quot;Publisher Profile 格式与 Publisher 域名，domain 必须匹配 authority。&quot;,&quot;actr.publisher/v1 · publisher.develenv.com&quot;),
+            group(&quot;validity&quot;,&quot;Profile 版本与有效期&quot;,[&quot;publisher.sequence&quot;,&quot;publisher.profile_issued_at&quot;,&quot;publisher.profile_expires_at&quot;],&quot;检查元数据连续性、签发时间和到期时间。&quot;,&quot;sequence 1 · 2026-12-10T03:46:45Z 到期&quot;),
+            group(&quot;profile-keys&quot;,&quot;Profile 验签公钥&quot;,[&quot;publisher.profile_signing_keys[].&quot;+keyShape],&quot;归属：publisher.develenv.com 的 Publisher。对应的 Publisher Profile 签名私钥签 Publisher Profile，也签 register_publisher 管理请求；此处公开公钥供验签，不是 Realm signing key。&quot;,&quot;Publisher Profile signing key：publisher-profile-2026-1 · Ed25519 / active&quot;),
+            group(&quot;package-keys&quot;,&quot;Package 验签公钥&quot;,[&quot;publisher.keys[].&quot;+keyShape],&quot;归属：publisher.develenv.com 的 Publisher。对应的 Publisher Package 签名私钥签包 manifest；这里按 signing key id 选择公钥，验证 manifest 签名和资源 hash 链。与 Publisher Profile signing key 分开。&quot;,&quot;Package signing key：actr-pub-8c62d54ebb436de9 · Ed25519 / active&quot;),
+            group(&quot;signature&quot;,&quot;Profile 签名&quot;,[&quot;publisher.signature.&quot;+sigShape],&quot;由 Publisher Profile signing private key 签署；用 publisher.profile_signing_keys 中的公钥验证。保护 publisher 对象中的域名、两类公钥、sequence 和有效期，不覆盖顶层 services。&quot;,&quot;Publisher Profile signing key：publisher-profile-2026-1 · Ed25519&quot;),
+            group(&quot;contact&quot;,&quot;安全联络&quot;,[&quot;publisher.security_contact&quot;],&quot;用于运维联系，参与 Profile 签名；不授予运行权限。&quot;,&quot;mailto:security@develenv.com&quot;)
           ]
         },
         {
@@ -2374,14 +2412,14 @@ html&gt;body{padding:0}&lt;/style&gt;
           url:&quot;https://afp.develenv.com/.well-known/actr_facility_provider&quot;,
           roots:&quot;version · authority · services · realm_signing_keys&quot;,
           groups:[
-            group(&quot;base&quot;,&quot;version · authority&quot;,[&quot;version&quot;,&quot;authority&quot;],&quot;校验请求域与设施目录的身份绑定。&quot;,&quot;1 · actr://afp.develenv.com&quot;),
-            group(&quot;management&quot;,&quot;services · realm-management&quot;,[&quot;services[rel=realm-management].{rel, href, protocol}&quot;],&quot;登记 Publisher、申请 Realm 草稿、提交签名 Profile 并激活。&quot;,&quot;https://afp.develenv.com/actr/realm-management · actr-realm-management/1&quot;),
-            group(&quot;identity&quot;,&quot;services · identity&quot;,[&quot;services[rel=identity].{rel, href}&quot;],&quot;基础设施提供者 AFP 的 Issuer 入口；访问具体 Realm 时必须以已验证 Profile 的 issuer.url 为准。&quot;,&quot;https://afp.develenv.com/issuer&quot;),
-            group(&quot;signaling&quot;,&quot;services · signaling&quot;,[&quot;services[rel=signaling].{rel, href, protocol}&quot;],&quot;说明可提供信令；当前 Realm 的实际接入授权来自 Profile。&quot;,&quot;wss://afp.develenv.com/signaling/ws · actr-signaling/1&quot;),
-            group(&quot;discovery&quot;,&quot;services · discovery&quot;,[&quot;services[rel=discovery].{rel, href, protocol}&quot;],&quot;通过已获准的控制面查找在线 Actor，例如 Echo Service；不是 Profile 或程序包目录。&quot;,&quot;wss://afp.develenv.com/signaling/ws · actr-discovery/1&quot;),
-            group(&quot;ice&quot;,&quot;services · ice-config&quot;,[&quot;services[rel=ice-config].{rel, href, protocol}&quot;],&quot;查询公开 STUN/TURN 地址；匿名查询不返回 TURN 密码，Realm 选用 Profile 授权的设施。&quot;,&quot;https://afp.develenv.com/actr/ice-config · actr-ice-config/1&quot;),
-            group(&quot;own-realm&quot;,&quot;Realm Profiles · afp.develenv.com&quot;,[&quot;services[rel=realm].{rel, href, protocol}&quot;],&quot;只定位 *@afp.develenv.com 的 Realm Profile；当前 echo@realm.develenv.com 不使用。&quot;,&quot;https://afp.develenv.com/actr/realm/afp.develenv.com&quot;),
-            group(&quot;own-keys&quot;,&quot;Realm signing keys · afp.develenv.com&quot;,[&quot;realm_signing_keys.sequence&quot;,&quot;realm_signing_keys.keys[].&quot;+keyShape,&quot;realm_signing_keys.signature.&quot;+sigShape],&quot;归属：afp.develenv.com 的域名持钥方，仅验证该域名下的 Realm Profile。它与 realm.develenv.com 的 Realm signing key、AFP 为 Echo 提供的 Realm issuer key 都不同。&quot;,&quot;AFP 自有域 Realm signing key：realm-signing:afp.develenv.com · sequence 1&quot;)
+            group(&quot;base&quot;,&quot;文档身份&quot;,[&quot;version&quot;,&quot;authority&quot;],&quot;校验请求域与设施目录的身份绑定。&quot;,&quot;1 · actr://afp.develenv.com&quot;),
+            group(&quot;management&quot;,&quot;Realm 管理接口&quot;,[&quot;services[rel=realm-management].{rel, href, protocol}&quot;],&quot;登记 Publisher、申请 Realm 草稿、提交签名 Profile 并激活。&quot;,&quot;https://afp.develenv.com/actr/realm-management · actr-realm-management/1&quot;),
+            group(&quot;identity&quot;,&quot;Issuer 能力&quot;,[&quot;services[rel=identity].{rel, href}&quot;],&quot;基础设施提供者 AFP 的 Issuer 入口；访问具体 Realm 时必须以已验证 Profile 的 issuer.url 为准。&quot;,&quot;https://afp.develenv.com/issuer&quot;),
+            group(&quot;signaling&quot;,&quot;Signaling&quot;,[&quot;services[rel=signaling].{rel, href, protocol}&quot;],&quot;说明可提供信令；当前 Realm 的实际接入授权来自 Profile。&quot;,&quot;wss://afp.develenv.com/signaling/ws · actr-signaling/1&quot;),
+            group(&quot;discovery&quot;,&quot;Actor Discovery&quot;,[&quot;services[rel=discovery].{rel, href, protocol}&quot;],&quot;通过已获准的控制面查找在线 Actor，例如 Echo Service；不是 Profile 或程序包目录。&quot;,&quot;wss://afp.develenv.com/signaling/ws · actr-discovery/1&quot;),
+            group(&quot;ice&quot;,&quot;STUN / TURN 配置&quot;,[&quot;services[rel=ice-config].{rel, href, protocol}&quot;],&quot;查询公开 STUN/TURN 地址；匿名查询不返回 TURN 密码，Realm 选用 Profile 授权的设施。&quot;,&quot;https://afp.develenv.com/actr/ice-config · actr-ice-config/1&quot;),
+            group(&quot;own-realm&quot;,&quot;AFP 自有 Realm 目录&quot;,[&quot;services[rel=realm].{rel, href, protocol}&quot;],&quot;只定位 *@afp.develenv.com 的 Realm Profile；当前 echo@realm.develenv.com 不使用。&quot;,&quot;https://afp.develenv.com/actr/realm/afp.develenv.com&quot;),
+            group(&quot;own-keys&quot;,&quot;AFP 域签名公钥&quot;,[&quot;realm_signing_keys.sequence&quot;,&quot;realm_signing_keys.keys[].&quot;+keyShape,&quot;realm_signing_keys.signature.&quot;+sigShape],&quot;归属：afp.develenv.com 的域名持钥方，仅验证该域名下的 Realm Profile。它与 realm.develenv.com 的 Realm signing key、AFP 为 Echo 提供的 Realm issuer key 都不同。&quot;,&quot;AFP 自有域 Realm signing key：realm-signing:afp.develenv.com · sequence 1&quot;)
           ]
         }
       ];
@@ -2719,18 +2757,24 @@ html&gt;body{padding:0}&lt;/style&gt;
         if (text !== undefined) node.textContent = text;
         return node;
       }
-      function fields(groups, used) {
-        const container = element(&quot;div&quot;,&quot;flow-fields&quot;);
+      function fields(groups) {
+        const container = element(&quot;dl&quot;,&quot;flow-fields&quot;);
         groups.forEach(function (g) {
           const row = element(&quot;div&quot;,&quot;flow-field&quot;);
-          const title = element(&quot;div&quot;);
-          title.append(element(&quot;span&quot;,&quot;&quot;,g.title));
-          if (used) title.append(&quot; &quot;,element(&quot;span&quot;,&quot;viz-badge&quot;,&quot;本步使用&quot;));
-          row.append(title);
-          g.paths.forEach(function (path) { row.append(element(&quot;code&quot;,&quot;flow-code&quot;,path)); });
-          row.append(element(&quot;span&quot;,&quot;&quot;,g.meaning));
-          if (g.value) row.append(element(&quot;span&quot;,&quot;flow-code text-small&quot;,&quot;当前值：&quot; + g.value));
-          if (g.usage) row.append(element(&quot;span&quot;,&quot;&quot;,&quot;使用环节：&quot; + g.usage));
+          const identity = element(&quot;dt&quot;,&quot;field-identity&quot;);
+          identity.append(element(&quot;span&quot;,&quot;field-title&quot;,g.title));
+          const paths = element(&quot;div&quot;,&quot;field-paths text-small&quot;);
+          paths.append(element(&quot;code&quot;,&quot;&quot;,g.paths.join(&quot; · &quot;)));
+          identity.append(paths);
+          const description = element(&quot;dd&quot;,&quot;field-description&quot;);
+          description.append(element(&quot;p&quot;,&quot;&quot;,g.meaning));
+          if (g.value) {
+            const value = element(&quot;div&quot;,&quot;field-value&quot;);
+            value.append(element(&quot;span&quot;,&quot;text-small&quot;,&quot;当前值&quot;),element(&quot;code&quot;,&quot;text-small&quot;,g.value));
+            description.append(value);
+          }
+          if (g.usage) description.append(element(&quot;p&quot;,&quot;field-usage text-small&quot;,&quot;使用环节 · &quot; + g.usage));
+          row.append(identity,description);
           container.append(row);
         });
         return container;
@@ -2992,7 +3036,9 @@ html&gt;body{padding:0}&lt;/style&gt;
         ]);
         const pre = element(&quot;pre&quot;,&quot;flow-json&quot;);
         pre.append(highlightedJson(jsonc));
-        details.append(element(&quot;summary&quot;,&quot;&quot;,&quot;完整 JSONC（含字段注释）&quot;),controls,pre);
+        const toolbar = element(&quot;div&quot;,&quot;json-toolbar&quot;);
+        toolbar.append(element(&quot;span&quot;,&quot;text-small&quot;,&quot;JSONC · 字段注释&quot;),controls);
+        details.append(element(&quot;summary&quot;,&quot;cursor-interaction&quot;,&quot;完整 JSON 与字段注释&quot;),toolbar,pre);
         return details;
       }
 
@@ -3031,7 +3077,7 @@ html&gt;body{padding:0}&lt;/style&gt;
             group(&quot;signed&quot;,&quot;Realm 签名&quot;,[&quot;signature&quot;,&quot;sequence&quot;,&quot;未知 member&quot;],&quot;两个引用、每个包表条目和未知 member 都进入完整 JCS 签名。修改任一下载地址也必须递增 sequence 并重签。不能修改 JSON 后继续使用旧签名。&quot;),
             group(&quot;host&quot;,&quot;Host 加载前验证&quot;,[&quot;manifest.toml&quot;,&quot;manifest.sig&quot;,&quot;Front dependencies / RPC contract&quot;],&quot;逐包核对整包摘要、Publisher 受信公钥和原始 Manifest 签名，再检查 workload、Host 要求、平台策略及依赖锁。Front 必需的 Service 依赖和 RPC 契约必须匹配选定 Service。Realm 的签名不能替代 Publisher 的包签名。&quot;),
             group(&quot;update&quot;,&quot;更新与边界&quot;,[&quot;完整替换包选择&quot;,&quot;保留元数据更新中的包选择&quot;,&quot;provider.id&quot;],&quot;变更包表须同时提交两个引用与完整 packages。仅改 display_name、policy 或轮换 key 时保留原包表。选择包不授予 Owner、membership 或任意 Actor 启动权限；同一 Realm 的 AFP 固定不变。&quot;)
-          ],false));
+          ]));
           if(value.package)body.append(element(&quot;p&quot;,&quot;text-small&quot;,&quot;兼容说明：本线上验收 Profile 额外包含 package，签名前由 packages[primary_package] 生成并同签，仅供旧 AFP / CLI 读取；新配置以两个引用及完整包表为准。&quot;));
         }
         const link=element(&quot;a&quot;,&quot;flow-url text-small&quot;,legacy?&quot;旧 Echo 的公开 Profile 地址&quot;:&quot;PR #428 · Realm Profile 规范&quot;);
@@ -3047,7 +3093,7 @@ html&gt;body{padding:0}&lt;/style&gt;
           group(&quot;publisher&quot;,&quot;各归档的 Publisher&quot;,[&quot;packages[ref].type&quot;,&quot;Publisher Profile&quot;,&quot;包内 manifest.sig&quot;],&quot;每个归档独立确认来源并验签。归档可以来自不同 Publisher；下载域名不能代替 Publisher 身份。&quot;),
           group(&quot;issuer&quot;,&quot;本 Realm 的 Issuer&quot;,[&quot;issuer.keys&quot;],&quot;签 Actor credential。它不签 Realm Profile，不替代包签名。&quot;),
           group(&quot;client&quot;,&quot;每个 Realm 的客户端&quot;,[&quot;Realm client key&quot;],&quot;签 join、成员与邀请管理请求及 Actor 注册持有证明。选定 Service / Front 不等于获得这些权限。&quot;)
-        ],false));keys.append(keyBody);docBox.append(keys);
+        ]));keys.append(keyBody);docBox.append(keys);
       }
 
       function renderDocuments() {
@@ -3059,7 +3105,8 @@ html&gt;body{padding:0}&lt;/style&gt;
         const isProfile = flow === &quot;profile&quot;;
         const isOverview = isOverviewFlow(flow);
         const stage = isOverview ? null : stages[flow][selected];
-        current.textContent = isOverview ? (isProfile ? &quot;Actr Realm Profile&quot; : &quot;Actr Authority Discovery&quot;) : (selected + 1) + &quot;．&quot; + stage.name + &quot; — &quot; + stage.action;
+        current.textContent = isOverview ? &quot;Actr Authority Discovery&quot; : stage.name;
+        action.textContent = isOverview ? &quot;&quot; : stage.action;
         note.textContent = isOverview ? &quot;&quot; : stage.note;
         docBox.replaceChildren();
         const visibleDocs = isProfile ? docs.filter(function (doc) { return doc.id === &quot;profile&quot;; }) : isOverview ? discoveryOverview.map(function (item) { return docs.find(function (doc) { return doc.id === item.id; }); }) : docs;
@@ -3070,29 +3117,30 @@ html&gt;body{padding:0}&lt;/style&gt;
           const card = element(&quot;section&quot;,&quot;card doc-&quot; + doc.id);
           const inner = element(&quot;div&quot;,&quot;flow-doc-inner&quot;);
           const head = element(&quot;div&quot;,&quot;flow-doc-head&quot;);
-          head.append(element(&quot;span&quot;,&quot;&quot;,isProfile ? &quot;Realm Profile · echo@realm.develenv.com&quot; : overview ? overview.title : doc.title));
-          head.append(element(&quot;span&quot;,&quot;viz-badge&quot;,isProfile ? &quot;actr.realm/v1 · sequence 2&quot; : isOverview ? &quot;公开发现入口&quot; : &quot;本步使用&quot;));
-          inner.append(head,element(&quot;span&quot;,&quot;&quot;,doc.role));
-          const link = element(&quot;a&quot;,&quot;flow-url text-small&quot;,doc.url);
+          head.append(element(&quot;h2&quot;,&quot;&quot;,isProfile ? &quot;Realm Profile · echo@realm.develenv.com&quot; : overview ? overview.title : doc.title));
+          head.append(element(&quot;p&quot;,&quot;flow-doc-role&quot;,doc.role));
+          inner.append(head);
+          const link = element(&quot;a&quot;,&quot;flow-endpoint text-small&quot;);
+          link.append(element(&quot;span&quot;,&quot;endpoint-method&quot;,&quot;GET&quot;),element(&quot;span&quot;,&quot;endpoint-url&quot;,doc.url));
           link.href = doc.url;
           link.target = &quot;_blank&quot;;
           link.rel = &quot;noopener noreferrer&quot;;
-          inner.append(link,element(&quot;code&quot;,&quot;flow-code text-small&quot;,doc.roots));
+          inner.append(link);
           if (isProfile) {
             inner.append(element(&quot;span&quot;,&quot;text-small&quot;,&quot;CLI：正常 realm join 验证 Profile、生成或复用本 Realm client key、兑换邀请并保存 key 文件。新 member 邀请由 owner 创建；普通 member 可邀请自己的新 client。Actor register 与启动另行执行。&quot;));
           } else if (overview) {
-            const when = element(&quot;div&quot;,&quot;flow-field&quot;);
-            when.append(element(&quot;span&quot;,&quot;&quot;,&quot;何时使用&quot;),element(&quot;span&quot;,&quot;&quot;,overview.when));
-            inner.append(when);
-            const mainFields = element(&quot;div&quot;,&quot;flow-fields&quot;);
+            inner.append(element(&quot;p&quot;,&quot;&quot;,overview.when));
+            const mainFields = element(&quot;dl&quot;,&quot;flow-fields&quot;);
             overview.fields.forEach(function (item) {
               const row = element(&quot;div&quot;,&quot;flow-field&quot;);
-              row.append(element(&quot;code&quot;,&quot;flow-code&quot;,item[0]),element(&quot;span&quot;,&quot;&quot;,item[1]));
+              const identity = element(&quot;dt&quot;,&quot;field-identity field-paths&quot;);
+              identity.append(element(&quot;code&quot;,&quot;&quot;,item[0]));
+              row.append(identity,element(&quot;dd&quot;,&quot;field-description&quot;,item[1]));
               mainFields.append(row);
             });
             inner.append(mainFields);
           } else {
-            inner.append(fields(doc.groups.filter(function (g) { return used.includes(g.id); }),true));
+            inner.append(fields(doc.groups.filter(function (g) { return used.includes(g.id); })));
           }
           inner.append(jsonDisclosure(doc));
           card.append(inner);
@@ -3103,13 +3151,15 @@ html&gt;body{padding:0}&lt;/style&gt;
           const keyInner = element(&quot;div&quot;,&quot;flow-doc-inner&quot;);
           const keyDetails = element(&quot;details&quot;);
           keyInner.append(element(&quot;span&quot;,&quot;&quot;,&quot;Key roles&quot;));
-          keyDetails.append(element(&quot;summary&quot;,&quot;&quot;,&quot;Key roles：Owner、签名对象与 public key 来源&quot;),fields(profileKeyOwnership,false));
+          keyDetails.append(element(&quot;summary&quot;,&quot;&quot;,&quot;Key roles · Owner、签名对象与 public key 来源&quot;),fields(profileKeyOwnership));
           keyInner.append(keyDetails);
           keyCard.append(keyInner);
           docBox.append(keyCard);
         }
         root.querySelectorAll(&quot;button[data-stage]&quot;).forEach(function (button) {
-          button.setAttribute(&quot;aria-pressed&quot;,String(Number(button.dataset.stage) === selected));
+          const active = Number(button.dataset.stage) === selected;
+          button.setAttribute(&quot;aria-pressed&quot;,String(active));
+          button.setAttribute(&quot;aria-current&quot;,active ? &quot;step&quot; : &quot;false&quot;);
         });
       }
       function saveState() {
@@ -3131,18 +3181,25 @@ html&gt;body{padding:0}&lt;/style&gt;
         root.querySelector(&quot;.atlas-footer&quot;).hidden = Object.prototype.hasOwnProperty.call(sequenceViews,flow);
         stageBox.replaceChildren();
         (isOverview ? [] : stages[flow]).forEach(function (stage,index) {
-          const button = element(&quot;button&quot;,&quot;btn btn-block&quot;);
-          button.append(element(&quot;span&quot;,&quot;flow-stage-label&quot;,(index + 1) + &quot;  &quot; + stage.name));
+          const item = element(&quot;li&quot;);
+          const button = element(&quot;button&quot;,&quot;flow-step cursor-interaction&quot;);
+          const copy = element(&quot;span&quot;,&quot;flow-step-copy&quot;);
+          const parts = stage.name.split(&quot; · &quot;);
+          copy.append(element(&quot;span&quot;,&quot;flow-stage-label&quot;,parts[0]));
+          if (parts[1]) copy.append(element(&quot;span&quot;,&quot;flow-step-api text-small&quot;,parts[1]));
+          button.append(element(&quot;span&quot;,&quot;flow-step-number text-small&quot;,String(index + 1)),copy);
           button.type = &quot;button&quot;;
           button.dataset.stage = String(index);
+          button.setAttribute(&quot;aria-controls&quot;,&quot;dff-docs&quot;);
           button.setAttribute(&quot;aria-pressed&quot;,String(index === selected));
+          button.setAttribute(&quot;aria-current&quot;,index === selected ? &quot;step&quot; : &quot;false&quot;);
           button.addEventListener(&quot;click&quot;,function () {
             selected = index;
             renderDocuments();
             saveState();
           });
-          stageBox.append(button);
-          if (index &lt; stages[flow].length - 1) stageBox.append(element(&quot;div&quot;,&quot;flow-arrow&quot;,&quot;↓&quot;));
+          item.append(button);
+          stageBox.append(item);
         });
         root.querySelectorAll(&quot;button[data-flow]&quot;).forEach(function (button) {
           button.setAttribute(&quot;aria-pressed&quot;,String(button.dataset.flow === flow));
